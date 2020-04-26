@@ -1,4 +1,6 @@
+import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/tagWidget.dart';
+import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/strings.dart';
 import 'addPlanInputText.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +13,7 @@ class AddPlanDialog extends StatefulWidget {
 }
 
 class _AddPlanDialogState extends State<AddPlanDialog> {
-
+  final defaultBreakPause = 60;
   TextEditingController controller;
   final int selectedTagLimit = 3;
   bool isTitleMissing = false;
@@ -27,7 +29,6 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
   }
 
   Widget build(BuildContext context) {
-
     final TagSelectionModel tagSelectionModel =
       Provider.of<TagSelectionModel>(context);
 
@@ -80,7 +81,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
         ),
       ),
       actions: <Widget>[
-        //CancelButton
+        ///CancelButton
         FlatButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -94,7 +95,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
             style: TextStyle(color: Colors.white),
           ),
         ),
-        //AddButton
+        ///AddButton
         FlatButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Theme.of(context).accentColor,
@@ -106,6 +107,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
                 isTitleMissing = true;
               });
             } else {
+              addPlanToDB(tagSelectionModel);
               clearTagSelectionQuantity(tagSelectionModel);
               Navigator.pop(context);
             }
@@ -118,6 +120,20 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
       ],
     );
   }
+  ///Adds the plan to the cloud Firestore.
+  addPlanToDB(TagSelectionModel tags){
+    final planService = Provider.of<PlanService>(context, listen: false);
+     Plan plan = constructPlan(tags, planService);
+     planService.addPlan(plan, plan.title);
+  }
+  Plan constructPlan(TagSelectionModel tags, PlanService planService){
+    return Plan(
+      title: controller.text,
+      breakPause: defaultBreakPause,
+      tags: tags.tagNamesList,
+    );
+  }
+
   bool checkSelectionQuantity(TagSelectionModel tagSelectionModel) {
     return tagSelectionModel.currentSelectionQuantity > selectedTagLimit;
   }
@@ -126,12 +142,12 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
     return controller.text.isEmpty;
   }
 
-  //resets the current currentTagSelectionQuantity in TagSelectionQuantityModel to 0. The Counter has to reset when the user is leaving the AddPlanDialog.
-  //The counter will be 0 every time the user is trying to add a freshly new Plan
+  ///resets the current currentTagSelectionQuantity in TagSelectionQuantityModel to 0. The Counter has to reset when the user is leaving the AddPlanDialog.
+  ///The counter will be 0 every time the user is trying to add a freshly new Plan
   clearTagSelectionQuantity(TagSelectionModel tagSelectionModel) {
     tagSelectionModel.clear();
   }
-  //Display ErrorText if selected tags exceeds tag limit
+  ///Display ErrorText if selected tags exceeds tag limit
   Text validateSelectedTagQuantity(TagSelectionModel tagSelectionModel) {
     if (checkSelectionQuantity(tagSelectionModel)) {
       return Text(Names.ADDPLAN_TAGERRORMESSAGE,
