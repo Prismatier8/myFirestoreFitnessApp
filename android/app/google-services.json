@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "828706896120",
+    "firebase_url": "https://myfitnessdatabase-b3a5c.firebaseio.com",
+    "project_id": "myfitnessdatabase-b3a5c",
+    "storage_bucket": "myfitnessdatabase-b3a5c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:828706896120:android:705d44a067cbd707fda30d",
+        "android_client_info": {
+          "package_name": "com.maxelon.myfitnessmotivation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "828706896120-88onpqn2gdhfoaabp8pvv5vhatk1f6e6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_gRdKZMqmwzi12rkaDQ5Y40PKFQDDnr4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "828706896120-88onpqn2gdhfoaabp8pvv5vhatk1f6e6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
