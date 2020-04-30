@@ -2,7 +2,7 @@ import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/dynamicTagWidget.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
-import 'addPlanInputText.dart';
+import '../../../globalWidgets/listenableTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
@@ -46,7 +46,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            AddPlanInputText(controller: controller, isTitleMissing: isTitleMissing,),
+            ListenableTextField(controller: controller, isTitleMissing: isTitleMissing,),
             Padding(
               padding: EdgeInsets.only(top: 5),
               child: Text(

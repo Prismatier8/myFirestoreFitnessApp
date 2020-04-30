@@ -21,10 +21,14 @@ class MyDBApi{
   Future<void> removeDocument(String id){
     return ref.document(id).delete();
   }
+  addDocumentWithAutoID(Map data){
+    ref.document().setData(data);
+  }
+
   addDocument(Map data, String id) {
     ref.document(id).setData(data);
   }
-  Future<void> updateDocument(Map data , String id) {
-    return ref.document(id).updateData(data) ;
+  updateDocument(Map<String, dynamic> data , String id) {
+     ref.document(id).updateData(data) ;
   }
 }

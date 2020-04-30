@@ -6,16 +6,20 @@ import 'package:myfitnessmotivation/stringResources/collectionStrings.dart';
 import 'myDBAPI.dart';
 
 class ExerciseService extends ChangeNotifier{
-  MyDBApi _api = MyDBApi(collectionPath: Collection.PLANS);
+  MyDBApi _api = MyDBApi(collectionPath: Collection.EXERCISES);
 
-  Future addExercise(ExerciseModel plan, String id) async {
-    await _api.addDocument(plan.toJson(), id);
+  Future addExercise(ExerciseModel exercise, String id) async {
+    await _api.addDocument(exercise.toJson(), id);
   }
   ///Not tested
-  Future deleteExercise(String planName) async {
-    await _api.removeDocument(planName);
+  Future deleteExercise(String exerciseName) async {
+    await _api.removeDocument(exerciseName);
   }
   Stream<QuerySnapshot> getDocumentsByStream()  {
     return _api.streamDataCollection();
   }
+  Future updateExercise(String exerciseName, Map<String, dynamic> data) async{
+    await _api.updateDocument(data, exerciseName);
+  }
+
 }

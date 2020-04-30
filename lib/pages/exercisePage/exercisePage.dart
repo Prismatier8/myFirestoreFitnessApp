@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/exercisePage/widgets/addExerciseDialog.dart';
+import 'package:myfitnessmotivation/pages/exercisePage/widgets/exercise.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
@@ -38,9 +39,7 @@ class ExercisePage extends StatelessWidget{
           },
         ),
       ),
-      body: Center(
-        child: Text("ExercisePage"),
-      ),
+      body: Exercise(),
     );
   }
   _showAddExerciseDialog(BuildContext context){

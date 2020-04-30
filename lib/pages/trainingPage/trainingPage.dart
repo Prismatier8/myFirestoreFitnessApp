@@ -53,7 +53,7 @@ class TrainingPage extends StatelessWidget {
               },
             );
           } else if(snapshot.hasError){
-            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS");
+            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS"); //TODO: Needs watched at the end
             return Container();
 
           }

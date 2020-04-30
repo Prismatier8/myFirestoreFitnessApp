@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
-class AddPlanInputText extends StatefulWidget{
+class ListenableTextField extends StatefulWidget{
   final TextEditingController controller;
   final bool isTitleMissing;
-  AddPlanInputText({@required this.controller, @required this.isTitleMissing});
+  ListenableTextField({@required this.controller, @required this.isTitleMissing});
   _AddPlanInputText createState() => _AddPlanInputText();
 }
-class _AddPlanInputText extends State<AddPlanInputText>{
+class _AddPlanInputText extends State<ListenableTextField>{
   Widget build(BuildContext context){
 
     return TextField(

@@ -18,4 +18,7 @@ class PlanService extends ChangeNotifier{
   Stream<QuerySnapshot> getDocumentsByStream()  {
       return _api.streamDataCollection();
   }
+  updatePlan(PlanModel plan, String id) async{
+    await _api.updateDocument(plan.toJson(), id);
+  }
 }

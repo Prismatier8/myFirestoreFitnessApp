@@ -5,7 +5,7 @@ class ExerciseModel extends ChangeNotifier{
   int setQuantity;
   List<dynamic> setReferences;
 
-  ExerciseModel({@required this.title, @required this.setQuantity});
+  ExerciseModel({@required this.title, @required this.setQuantity, @required this.setReferences});
 
   ExerciseModel.fromJson(Map snapshot) :
         title = snapshot['title'] ?? '',

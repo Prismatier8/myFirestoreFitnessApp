@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
+import 'package:provider/provider.dart';
 
-class AddSetQuantityWidget extends StatefulWidget {
+class SetQuantityWidget extends StatefulWidget {
   @override
-  _AddSetQuantityWidgetState createState() => _AddSetQuantityWidgetState();
+  _SetQuantityWidgetState createState() => _SetQuantityWidgetState();
 }
 
-class _AddSetQuantityWidgetState extends State<AddSetQuantityWidget> {
-  int _currentSetQuantity = 1;
+class _SetQuantityWidgetState extends State<SetQuantityWidget> {
   final _defaultTextSize = 30.0;
   final _defaultButtonRoundness = 30.0;
-  final _maximumSetQuantity = 6;
-  final _minimumSetQuantity = 1;
+
 
   @override
   Widget build(BuildContext context) {
+    final setQuantityModel = Provider.of<SetQuantityModel>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -27,7 +29,7 @@ class _AddSetQuantityWidgetState extends State<AddSetQuantityWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              _currentSetQuantity.toString(),
+              setQuantityModel.setQuantity.toString(),
               style: TextStyle(
                 fontSize: _defaultTextSize,
               ),
@@ -37,7 +39,7 @@ class _AddSetQuantityWidgetState extends State<AddSetQuantityWidget> {
             RaisedButton(
               onPressed: () {
                 setState(() {
-                  _incrementSetQuantity();
+                  setQuantityModel.increaseSetQuantity();
                 });
               },
               color: Theme.of(context).accentColor,
@@ -52,7 +54,7 @@ class _AddSetQuantityWidgetState extends State<AddSetQuantityWidget> {
             RaisedButton(
               onPressed: () {
                 setState(() {
-                  _decrementSetQuantity();
+                  setQuantityModel.decreaseSetQuantity();
                 });
               },
               color: Theme.of(context).accentColor,
@@ -65,17 +67,5 @@ class _AddSetQuantityWidgetState extends State<AddSetQuantityWidget> {
         ),
       ],
     );
-  }
-  _incrementSetQuantity(){
-    if(_currentSetQuantity >= _minimumSetQuantity
-        && _currentSetQuantity < _maximumSetQuantity){
-      _currentSetQuantity++;
-    }
-  }
-  _decrementSetQuantity(){
-    if(_currentSetQuantity >= (_minimumSetQuantity + 1)
-        && _currentSetQuantity <= _maximumSetQuantity){
-      _currentSetQuantity--;
-    }
   }
 }
