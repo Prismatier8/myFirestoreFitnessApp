@@ -1,5 +1,8 @@
+
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/pages/exercisePage/widgets/addExerciseDialog.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
@@ -30,7 +33,8 @@ class ExercisePage extends StatelessWidget{
             size: 30,
           ),
           onPressed: () {
-            Navigator.pushNamed(context, NamedRoutes.ROUTE_ADDEXERCISEPAGE);
+            _showAddExerciseDialog(context);
+            //Navigator.pushNamed(context, NamedRoutes.ROUTE_ADDEXERCISEPAGE);
           },
         ),
       ),
@@ -39,5 +43,12 @@ class ExercisePage extends StatelessWidget{
       ),
     );
   }
-
+  _showAddExerciseDialog(BuildContext context){
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return AddExerciseDialog();
+        });
+  }
 }

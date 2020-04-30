@@ -11,6 +11,7 @@ class Names {
   static const String BASIC_TAGS = "Tags";
   static const String BASIC_MUSCLEGROUPS = "Muskelgruppen";
   static const String BASIC_SETS = "Sets";
+  static const String BASIC_ACCEPT = "OK";
   //BASIC
 
   //TAGS
@@ -22,7 +23,9 @@ class Names {
   static const String TAGS_SATURDAY = "Samstag";
   static const String TAGS_SUNDAY = "Sonntag";
   //TAGS
-
+  //ADDEXERCISE
+  static const String ADDEXERCISE_TITLE = "Übung erstellen";
+  //ADDEXERCISE
   //ADDPLAN
   static const String ADDPLAN_TITLE = "Trainingsplan erstellen";
   static const String ADDPLAN_ADDBUTTON = "Erstellen";

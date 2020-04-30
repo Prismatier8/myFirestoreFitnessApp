@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/pages/addExercisePage/widgets/setQuantityDialog.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
 class AddExercisePane extends StatefulWidget {
@@ -8,11 +9,12 @@ class AddExercisePane extends StatefulWidget {
 
 class _AddExercisePaneState extends State<AddExercisePane> {
   TextEditingController _controller;
-
+   int _selectedSetQuantity;
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _selectedSetQuantity = 0;
   }
 
   @override
@@ -54,16 +56,30 @@ class _AddExercisePaneState extends State<AddExercisePane> {
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
           child: InkWell(
-            onTap: (){
-              //TODO: Define SetQuantity tap when user is trying to add SetQuantity
+            onTap: () {
+              _showSetQuantityDialog(context);
             },
             child: Text(
               Names.BASIC_SETS,
               style: TextStyle(fontSize: 20),
             ),
           ),
-        )
+        ),
       ],
     );
+  }
+
+  _showSetQuantityDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return SetQuantityDialog();
+        }).then((value){
+          setState(() {
+            _selectedSetQuantity = value;
+          });
+
+    });
   }
 }

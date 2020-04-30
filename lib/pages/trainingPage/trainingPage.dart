@@ -36,7 +36,7 @@ class TrainingPage extends StatelessWidget {
               size: 30,
             ),
             onPressed: () {
-              showAddPlanDialog(context);
+              _showAddPlanDialog(context);
             },
           ),
         ),
@@ -67,7 +67,7 @@ class TrainingPage extends StatelessWidget {
     );
   }
 
-  void showAddPlanDialog(BuildContext context) {
+  void _showAddPlanDialog(BuildContext context) {
     showDialog(
         barrierDismissible: false,
         context: context,
