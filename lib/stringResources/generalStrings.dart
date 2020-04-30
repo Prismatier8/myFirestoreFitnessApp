@@ -1,13 +1,16 @@
 class Names {
 
-  //NAVIGATION
+  //NAVIGATIONTITLES
   static const String NAVIGATION_TRAINING = "Training";
   static const String NAVIGATION_STATS = "Stats";
   static const String NAVIGATION_EXERCISES = "Übungen";
-  //NAVIGATION
+  static const String NAVIGATION_ADDEXERCISES = "Übung erstellen";
+  //NAVIGATIONTITLES
   //BASIC
   static const String BASIC_TITLE ="Titel";
   static const String BASIC_TAGS = "Tags";
+  static const String BASIC_MUSCLEGROUPS = "Muskelgruppen";
+  static const String BASIC_SETS = "Sets";
   //BASIC
 
   //TAGS

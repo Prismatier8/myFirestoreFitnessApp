@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 
-class Plan{
+class PlanModel{
   String id;
   int breakPause = 60;
   String title;
-  List<String> tags;
+  List<dynamic> tags;
 
-  Plan({@required this.title, @required this.breakPause, @required this.tags});
+  PlanModel({@required this.title, @required this.breakPause, @required this.tags});
 
 
-  Plan.fromMap(Map snapshot, String id) :
-      id = id ?? '',
-      breakPause = snapshot['price'] ?? '',
+  PlanModel.fromMap(Map snapshot) :
+      breakPause = snapshot['breakPause'] ?? '',
       title = snapshot['title'] ?? '',
       tags = snapshot['tags'] ?? [];
 
-  toJson(){
+  Map<String, dynamic> toJson(){
     return {
-      "breakPause" : breakPause,
-      "title" : title,
-      "tags" : tags,
+      'breakPause' : breakPause,
+      'title' : title,
+      'tags' : tags,
     };
   }
 }

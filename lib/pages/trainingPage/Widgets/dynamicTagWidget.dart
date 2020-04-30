@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
 import 'package:provider/provider.dart';
 
-class TagWidget extends StatefulWidget{
+class DynamicTagWidget extends StatefulWidget{
   final Color color;
   final String name;
-  TagWidget({@required this.color, @required this.name});
-  _TagWidgetState createState() => _TagWidgetState();
+  DynamicTagWidget({@required this.color, @required this.name});
+  _DynamicTagWidgetState createState() => _DynamicTagWidgetState();
 }
-class _TagWidgetState extends State<TagWidget>{
+class _DynamicTagWidgetState extends State<DynamicTagWidget>{
   Color defaultColor = Colors.black45;
   Color selectedColor;
   bool isSelected = false;

@@ -2,9 +2,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:myfitnessmotivation/pages/trainingPage/Widgets/planTagDisplayer.dart';
+import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
 
-class Plan extends StatelessWidget{
+class Plan extends StatefulWidget {
+
+  final PlanModel plan;
+
+  Plan({@required this.plan});
+
+  _PlanState createState() => _PlanState();
+}
+
+class _PlanState extends State<Plan> {
+
   Widget build(BuildContext context){
     return Align(
       alignment: Alignment.topCenter,
@@ -22,11 +33,11 @@ class Plan extends StatelessWidget{
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      PlanTagDisplayer(tagQuantity: 3),
+                      displayPlanTags(),
                       Padding(
-                          padding: EdgeInsets.only(left: 20,bottom: 23),
-                          child: Text("Planname in Future",
-                            style: TextStyle(fontSize: 20),)
+                          padding: EdgeInsets.only(left: 20,bottom: 20),
+                          child: Text(widget.plan.title,
+                            style: TextStyle(fontSize: 18),)
                       ),
                     ],
                   ),
@@ -66,6 +77,21 @@ class Plan extends StatelessWidget{
           ),
         ),
       ),
+    );
+  }
+  Widget displayPlanTags(){
+    return Expanded(
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          //shrinkWrap: true,
+          itemCount: widget.plan.tags.length,
+          itemBuilder: (BuildContext context, int index){
+            return Padding(
+              padding: EdgeInsets.only(top: 5, left: 5),
+              child: StaticTagWidget(
+                  widget.plan.tags[index]),
+            );
+          }),
     );
   }
 }

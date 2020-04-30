@@ -2,7 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
-import 'package:myfitnessmotivation/stringResources/strings.dart';
+import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 
 class MyBottomNavigationBar extends StatefulWidget{

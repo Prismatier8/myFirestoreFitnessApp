@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/stringResources/strings.dart';
+import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
 class AddPlanInputText extends StatefulWidget{
   final TextEditingController controller;

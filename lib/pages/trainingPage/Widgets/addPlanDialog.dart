@@ -1,7 +1,7 @@
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
-import 'package:myfitnessmotivation/pages/trainingPage/Widgets/tagWidget.dart';
+import 'package:myfitnessmotivation/pages/trainingPage/Widgets/dynamicTagWidget.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
-import 'package:myfitnessmotivation/stringResources/strings.dart';
+import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'addPlanInputText.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,24 +56,24 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
             ),
             Row(
               children: <Widget>[
-                TagWidget(
+                DynamicTagWidget(
                   name: Names.TAGS_MONDAY,
                   color: Colors.lightBlueAccent,
                 ),
-                TagWidget(name: Names.TAGS_TUESDAY, color: Colors.green),
-                TagWidget(name: Names.TAGS_WEDNESDAY, color: Colors.orangeAccent),
+                DynamicTagWidget(name: Names.TAGS_TUESDAY, color: Colors.green),
+                DynamicTagWidget(name: Names.TAGS_WEDNESDAY, color: Colors.orangeAccent),
               ],
             ),
             Row(
               children: <Widget>[
-                TagWidget(name: Names.TAGS_THURSDAY, color: Colors.deepPurpleAccent),
-                TagWidget(name: Names.TAGS_FRIDAY, color: Colors.redAccent),
-                TagWidget(name: Names.TAGS_SATURDAY, color: Colors.pinkAccent),
+                DynamicTagWidget(name: Names.TAGS_THURSDAY, color: Colors.deepPurpleAccent),
+                DynamicTagWidget(name: Names.TAGS_FRIDAY, color: Colors.redAccent),
+                DynamicTagWidget(name: Names.TAGS_SATURDAY, color: Colors.pinkAccent),
               ],
             ),
             Row(
               children: <Widget>[
-                TagWidget(name: Names.TAGS_SUNDAY, color: Colors.indigoAccent),
+                DynamicTagWidget(name: Names.TAGS_SUNDAY, color: Colors.indigoAccent),
                 validateSelectedTagQuantity(tagSelectionModel) //returns error text
               ],
             ),
@@ -120,14 +120,14 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
       ],
     );
   }
-  ///Adds the plan to the cloud Firestore.
+  ///Adds the plan to cloud Firestore.
   addPlanToDB(TagSelectionModel tags){
     final planService = Provider.of<PlanService>(context, listen: false);
-     Plan plan = constructPlan(tags, planService);
+     PlanModel plan = constructPlan(tags, planService);
      planService.addPlan(plan, plan.title);
   }
-  Plan constructPlan(TagSelectionModel tags, PlanService planService){
-    return Plan(
+  PlanModel constructPlan(TagSelectionModel tags, PlanService planService){
+    return PlanModel(
       title: controller.text,
       breakPause: defaultBreakPause,
       tags: tags.tagNamesList,
