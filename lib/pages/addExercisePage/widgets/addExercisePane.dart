@@ -8,35 +8,13 @@ class AddExercisePane extends StatefulWidget {
 }
 
 class _AddExercisePaneState extends State<AddExercisePane> {
-  TextEditingController _controller;
    int _selectedSetQuantity;
-  @override
-  void initState() {
-    super.initState();
-    _controller = TextEditingController();
-    _selectedSetQuantity = 0;
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: 20, right: 100),
-          child: TextField(
-            controller: _controller,
-            decoration: InputDecoration(
-              labelText: Names.BASIC_TITLE,
-            ),
-          ),
-        ),
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
           child: InkWell(

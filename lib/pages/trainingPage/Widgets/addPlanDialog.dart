@@ -131,6 +131,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
       title: controller.text,
       breakPause: defaultBreakPause,
       tags: tags.tagNamesList,
+      exerciseRef: [],
     );
   }
 

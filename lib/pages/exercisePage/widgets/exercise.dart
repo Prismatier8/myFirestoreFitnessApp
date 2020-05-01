@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
 class Exercise extends StatelessWidget {
+  final ExerciseModel exerciseModel;
+  Exercise(this.exerciseModel);
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -14,7 +19,7 @@ class Exercise extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Text("MyFutureExerciseName",
+                child: Text(exerciseModel.title,
                   style: TextStyle(
                     fontSize: 20
                   ),
@@ -25,7 +30,7 @@ class Exercise extends StatelessWidget {
                 padding: EdgeInsets.only(right: 10),
                 child: GestureDetector(
                   onTap: (){
-                    //TODO: GO to Übung bearbeiten
+                    Navigator.pushNamed(context, NamedRoutes.ROUTE_ADDEXERCISEPAGE, arguments: exerciseModel);
                   },
                   child: Icon(Icons.settings,
                     color: Theme.of(context).accentColor,

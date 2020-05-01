@@ -92,8 +92,8 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
 
     );
   }
-  ///Adds an exercise to firestore in collection: "exercises" as a document at this time, the exercise document wont have
-  ///any references to sets
+  ///Adds an exercise to firestore in collection: "exercises" as a document. At this time the exercise document wont have
+  ///any references to sets that are added shortly after, which will be processed as soon as the exercise is added to firestore.
   _addExerciseToDB(SetQuantityModel setQuantityModel){
     final exerciseService = Provider.of<ExerciseService>(context, listen: false);
     final setService = Provider.of<SetService>(context, listen: false);
@@ -103,6 +103,9 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
     _addSetsToDB(setQuantityModel, setService);
     _addSetReferencesToExercise(setService, exerciseService);
   }
+  ///This method adds all recently added sets as references to the recently added exercise. The query getReferencedDocument from setService returns
+  ///a snapshot of all sets that references the specific exercise. There document ID's will then be added as references to the exercise
+  /// by the updateExercise() service.
   _addSetReferencesToExercise(SetService setService, ExerciseService exerciseService) async{
     QuerySnapshot snapshot = await setService.getReferencedDocuments(_controller.text);
     List<String> documentIDList = [];
@@ -111,16 +114,17 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
     }
     exerciseService.updateExercise(_controller.text, {'setReferences' : documentIDList});
   }
+  ///Adds all sets as documents based on the setQuantity into the collection "sets"
   _addSetsToDB(SetQuantityModel setQuantityModel, SetService setService){
     final setList = _constructSets(setQuantityModel);
     setList.forEach((setModel){
       setService.addSet(setModel);
     });
   }
-  ///Construct all Sets based on SetQuantity
+  ///Construct all Sets based on SetQuantity and return a list of sets
   List<SetModel> _constructSets(SetQuantityModel setQuantityModel){
-    double defaultWeight = 10;
-    int defaultRepetition = 10;
+    final double defaultWeight = 10;
+    final int defaultRepetition = 10;
     List<SetModel> setList = [];
     for(int i = 0; i<setQuantityModel.setQuantity; i++){
       setList.add(SetModel(
@@ -143,6 +147,8 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
   bool _checkMissingTitle() {
     return _controller.text.isEmpty;
   }
+  ///the setQuantity in the SetQuantityModel must be cleared after the add exercise process is finished or canceled to reset the counter to its
+  ///default value. Otherwise the setQuantity will have the number saved that the user have set as last value which is not intended
   _clearSetQuantity(SetQuantityModel model){
     model.clear();
   }
