@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/pages/addExercisePage/widgets/addExercisePane.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/updateExercisePane.dart';
 
-class AddExercisePage extends StatelessWidget{
+
+class UpdateExercisePage extends StatelessWidget{
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class AddExercisePage extends StatelessWidget{
         ),
         backgroundColor: Theme.of(context).accentColor,
       ),
-      body: AddExercisePane(),
+      body: UpdateExercisePane(exerciseModel: exerciseModel,),
     );
   }
 

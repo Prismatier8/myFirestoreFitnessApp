@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/globalWidgets/myBottomNavigationBar.dart';
 import 'package:myfitnessmotivation/globalWidgets/navigationIndexStack.dart';
-import 'package:myfitnessmotivation/pages/addExercisePage/addExercisePage.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/updateExercisePage.dart';
 import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
 import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        NamedRoutes.ROUTE_ADDEXERCISEPAGE : (context) => AddExercisePage(),
+        NamedRoutes.ROUTE_ADDEXERCISEPAGE : (context) => UpdateExercisePage(),
       },
       theme: ThemeData(accentColor: Colors.amber),
       home: Scaffold(

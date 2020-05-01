@@ -1,5 +1,4 @@
 class SetModel{
-  String id;
   int sequence;
   double weight;
   int repetition;
@@ -7,8 +6,7 @@ class SetModel{
 
   SetModel({this.weight, this.repetition, this.exerciseRef, this.sequence});
 
-  SetModel.fromMap(Map snapshot, String id) :
-    id = id ?? '',
+  SetModel.fromMap(Map<String, dynamic> snapshot) :
     weight = snapshot['weight'] ?? 0.0,
     repetition = snapshot['repetition'] ?? 0,
     exerciseRef = snapshot['exerciseRef'] ?? '',

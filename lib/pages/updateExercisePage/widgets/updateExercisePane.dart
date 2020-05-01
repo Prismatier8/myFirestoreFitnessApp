@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/pages/addExercisePage/widgets/setQuantityDialog.dart';
+import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/setQuantityDialog.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/sets.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
-class AddExercisePane extends StatefulWidget {
+class UpdateExercisePane extends StatefulWidget {
+
+  final ExerciseModel exerciseModel;
+  UpdateExercisePane({@required this.exerciseModel});
   @override
-  _AddExercisePaneState createState() => _AddExercisePaneState();
+  _UpdateExercisePaneState createState() => _UpdateExercisePaneState();
 }
 
-class _AddExercisePaneState extends State<AddExercisePane> {
-   int _selectedSetQuantity;
+class _UpdateExercisePaneState extends State<UpdateExercisePane> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +40,7 @@ class _AddExercisePaneState extends State<AddExercisePane> {
           padding: EdgeInsets.only(left: 20, top: 10),
           child: InkWell(
             onTap: () {
-              _showSetQuantityDialog(context);
+              //_showSetQuantityDialog(context);
             },
             child: Text(
               Names.BASIC_SETS,
@@ -43,10 +48,15 @@ class _AddExercisePaneState extends State<AddExercisePane> {
             ),
           ),
         ),
+        Center(
+          child: Sets(
+            exerciseModel: widget.exerciseModel,
+          ),
+        ),
       ],
     );
   }
-
+/*
   _showSetQuantityDialog(BuildContext context) {
     showDialog(
         barrierDismissible: false,
@@ -60,4 +70,6 @@ class _AddExercisePaneState extends State<AddExercisePane> {
 
     });
   }
+
+ */
 }

@@ -2,7 +2,6 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/pages/addExercisePage/widgets/setList.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +24,7 @@ class StatsPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SetList(3),
+      body: Container(),
     );
   }
 }

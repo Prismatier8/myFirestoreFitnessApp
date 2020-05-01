@@ -4,18 +4,21 @@ class ExerciseModel extends ChangeNotifier{
   String title;
   int setQuantity;
   List<dynamic> setReferences;
+  List<dynamic> muscleGroupReferences;
 
-  ExerciseModel({@required this.title, @required this.setQuantity, @required this.setReferences});
+  ExerciseModel({@required this.title, @required this.setQuantity, @required this.setReferences, this.muscleGroupReferences});
 
   ExerciseModel.fromJson(Map snapshot) :
         title = snapshot['title'] ?? '',
         setQuantity = snapshot['tags'] ?? 0,
-        setReferences = snapshot['setReferences'] ?? [];
+        setReferences = snapshot['setReferences'] ?? [],
+        muscleGroupReferences = snapshot['muscleGroupReferences'] ?? [];
   Map<String, dynamic> toJson(){
     return {
       "title" : title,
       "setQuantity" : setQuantity,
       "setReferences" : setReferences,
+      "muscleGroupReferences" : muscleGroupReferences,
     };
   }
 }
