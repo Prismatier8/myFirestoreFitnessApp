@@ -123,6 +123,9 @@ class _PlanState extends State<Plan> {
       );
     }
   }
+  String _calculateMinimumPlanExecution(){
+    //TODO: Calculate Minimum Plan Execution with queries and FutureBuilder to show result???
+  }
 
   Widget displayPlanTags() {
     return Expanded(

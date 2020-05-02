@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/draggableExercise.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
@@ -41,6 +42,14 @@ class PreparationPage extends StatelessWidget {
           : Container(),
       body: Stack(
         children: <Widget>[
+          Align(
+            alignment: Alignment.topRight,
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: BreakPause(planModel
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.only(top: 80),
             child: ReorderableList(planModel),

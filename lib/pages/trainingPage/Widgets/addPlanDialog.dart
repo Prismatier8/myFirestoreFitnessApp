@@ -132,6 +132,8 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
       breakPause: defaultBreakPause,
       tags: tags.tagNamesList,
       exerciseRef: [],
+      audioSignal: true,
+      vibrationSignal: true,
     );
   }
 
