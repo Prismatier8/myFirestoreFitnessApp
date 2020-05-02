@@ -16,7 +16,7 @@ class StatsPage extends StatelessWidget {
         backgroundColor: Theme.of(context).accentColor,
         title: Center(
           child: Text(
-            Names.NAVIGATION_STATS,
+            Names.TITLE_STATS,
             style: TextStyle(
               fontSize: 30,
               color: Colors.white,

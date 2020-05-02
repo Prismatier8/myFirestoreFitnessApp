@@ -20,7 +20,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar>{
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.insert_chart),
-          title: Text(Names.NAVIGATION_STATS),
+          title: Text(Names.TITLE_STATS),
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.fitness_center),

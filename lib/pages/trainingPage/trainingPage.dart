@@ -18,7 +18,7 @@ class TrainingPage extends StatelessWidget {
         backgroundColor: Theme.of(context).accentColor,
         title: Center(
           child: Text(
-            Names.TRAININGPLANS,
+            Names.TITLE_TRAININGPLANS,
             style: TextStyle(
               fontSize: 28,
               color: Colors.white,
@@ -53,15 +53,13 @@ class TrainingPage extends StatelessWidget {
               },
             );
           } else if(snapshot.hasError){
-            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS"); //TODO: Needs watched at the end
+            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS"); //TODO: Needs watch at the end
             return Container();
 
           }
           else{
             return CircularProgressIndicator();
           }
-
-
         },
       ),
     );

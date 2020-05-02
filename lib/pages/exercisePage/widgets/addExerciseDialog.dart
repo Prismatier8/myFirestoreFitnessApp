@@ -80,7 +80,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
             Center(
 
               child: Text(
-                Names.ADDEXERCISE_TITLE,
+                Names.TITLE_ADDEXERCISE,
                 style: TextStyle(fontSize: 20),
               ),
             ),

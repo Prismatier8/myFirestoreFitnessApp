@@ -21,14 +21,13 @@ class _SetsState extends State<Sets> {
     final setService = Provider.of<SetService>(context);
     return Container(
       width: MediaQuery.of(context).size.width * 0.7,
-      height: 250,
+      height: MediaQuery.of(context).size.height * 0.6,
       child: Card(
         child: FutureBuilder(
           future: setService.getReferencedDocuments(widget.exerciseModel.title),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
             if(snapshot.hasData){
               return ListView.separated(
-
                 itemCount: snapshot.data.documents.length,
                 separatorBuilder: (BuildContext context, int index) => const Divider(),
                 itemBuilder: (BuildContext context, int index){
@@ -91,7 +90,7 @@ class _SetsState extends State<Sets> {
               inputFormatters: [BlacklistingTextInputFormatter(RegExp("[ -,-]"))],
               initialValue: setModel.weight.toString(),
               onChanged: (currentWeightValue){
-                final value = _checkForEmptyText(currentWeightValue);
+                final value = _transformEmptyText(currentWeightValue);
                 _updateSet(setService, snapshot, double.parse(value), _RowType.weight);
               },
               keyboardType: TextInputType.number,
@@ -115,7 +114,7 @@ class _SetsState extends State<Sets> {
               inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               initialValue: setModel.repetition.toString(),
               onChanged: (currentRepetitionValue){
-                final value = _checkForEmptyText(currentRepetitionValue);
+                final value = _transformEmptyText(currentRepetitionValue);
                 _updateSet(setService, snapshot, int.parse(value), _RowType.repetition);
               },
               keyboardType: TextInputType.number,
@@ -139,7 +138,7 @@ class _SetsState extends State<Sets> {
       setService.updateSet(documentID, {"repetition" : value});
     }
   }
-  String _checkForEmptyText(String value){
+  String _transformEmptyText(String value){
     if(value.isEmpty){
       return "0";
     }

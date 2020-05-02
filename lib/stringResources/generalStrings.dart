@@ -2,9 +2,7 @@ class Names {
 
   //NAVIGATIONTITLES
   static const String NAVIGATION_TRAINING = "Training";
-  static const String NAVIGATION_STATS = "Stats";
   static const String NAVIGATION_EXERCISES = "Übungen";
-  static const String NAVIGATION_ADDEXERCISES = "Übung erstellen";
   //NAVIGATIONTITLES
   //BASIC
   static const String BASIC_TITLE ="Titel";
@@ -23,9 +21,13 @@ class Names {
   static const String TAGS_SATURDAY = "Samstag";
   static const String TAGS_SUNDAY = "Sonntag";
   //TAGS
-  //ADDEXERCISE
-  static const String ADDEXERCISE_TITLE = "Übung erstellen";
-  //ADDEXERCISE
+  //APPBARTITLES
+  static const String TITLE_PREPERATION = "Vorbereitung";
+  static const String TITLE_STATS = "Stats";
+  static const String TITLE_ADDEXERCISE = "Übung erstellen";
+  static const String TITLE_CHOOSEEXERCISES = "Übungen auswählen";
+  static const String TITLE_TRAININGPLANS = "Trainingspläne";
+  //APPBARTITLES
   //ADDPLAN
   static const String ADDPLAN_TITLE = "Trainingsplan erstellen";
   static const String ADDPLAN_ADDBUTTON = "Erstellen";
@@ -47,5 +49,5 @@ class Names {
   static const String MUSCLEGROUP_SCHULTER  = "Schulter";
 
 
-  static const String TRAININGPLANS = "Trainingspläne";
+
 }
