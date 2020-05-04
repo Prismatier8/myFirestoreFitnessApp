@@ -48,7 +48,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
             ),
             ListenableTextField(controller: controller, isTitleMissing: isTitleMissing,),
             Padding(
-              padding: EdgeInsets.only(top: 5),
+              padding: EdgeInsets.only(top: 5, bottom: 10),
               child: Text(
                 Names.BASIC_TAGS,
                 style: TextStyle(fontSize: 20),

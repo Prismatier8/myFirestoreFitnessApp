@@ -131,11 +131,10 @@ class _PlanState extends State<Plan> {
     return Expanded(
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          //shrinkWrap: true,
           itemCount: widget.plan.tags.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-              padding: EdgeInsets.only(top: 5, left: 5),
+              padding: EdgeInsets.only(top: 5, left: 0),
               child: StaticTagWidget(widget.plan.tags[index]),
             );
           }),

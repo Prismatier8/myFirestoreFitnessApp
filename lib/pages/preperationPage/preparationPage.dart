@@ -6,7 +6,9 @@ import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dar
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/draggableExercise.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
+import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
+import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 import 'package:provider/provider.dart';
 
 class PreparationPage extends StatelessWidget {
@@ -15,12 +17,28 @@ class PreparationPage extends StatelessWidget {
     final PlanModel planModel = ModalRoute.of(context).settings.arguments;
     final exerciseService =
         Provider.of<ExerciseService>(context, listen: false);
+    final planService = Provider.of<PlanService>(context, listen: false);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 30),
+              child: GestureDetector(
+                onTap: (){
+                  Navigator.pop(context);
+                  _deletePlan(planService, planModel);
+
+                },
+                child: Icon(
+                  Icons.delete,
+                  size: 30,
+                ),
+              )),
+        ],
         backgroundColor: Theme.of(context).accentColor,
         title: Text(
-          Names.TITLE_PREPERATION,
+          planModel.title,
           style: TextStyle(fontSize: 28),
         ),
       ),
@@ -29,8 +47,10 @@ class PreparationPage extends StatelessWidget {
               width: 100,
               height: 100,
               child: FloatingActionButton(
+                heroTag: Names.HEROTAG_FLOATINGBUTTON,
                 onPressed: () {
-                  //Todo: ExecutionPage
+                  Navigator.pushNamed(context, NamedRoutes.ROUTE_EXECUTIONPAGE,
+                      arguments: planModel);
                 },
                 backgroundColor: Colors.green,
                 child: Icon(
@@ -46,8 +66,7 @@ class PreparationPage extends StatelessWidget {
             alignment: Alignment.topRight,
             child: Padding(
               padding: EdgeInsets.all(10),
-              child: BreakPause(planModel
-              ),
+              child: BreakPause(planModel),
             ),
           ),
           Padding(
@@ -57,5 +76,8 @@ class PreparationPage extends StatelessWidget {
         ],
       ),
     );
+  }
+  _deletePlan(PlanService planService, PlanModel plan){
+    planService.deletePlan(plan.title);
   }
 }

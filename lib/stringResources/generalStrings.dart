@@ -22,6 +22,7 @@ class Names {
   static const String TAGS_SUNDAY = "Sonntag";
   //TAGS
   //APPBARTITLES
+  static const String TITLE_EXECUTION = "Ausführung";
   static const String TITLE_PREPERATION = "Vorbereitung";
   static const String TITLE_STATS = "Stats";
   static const String TITLE_ADDEXERCISE = "Übung erstellen";
@@ -48,6 +49,7 @@ class Names {
   static const String MUSCLEGROUP_RUECKEN_UNTEN = "Unterer Rücken";
   static const String MUSCLEGROUP_SCHULTER  = "Schulter";
 
-
+  //HeroTags
+  static const String HEROTAG_FLOATINGBUTTON = "myJumpingButton";
 
 }

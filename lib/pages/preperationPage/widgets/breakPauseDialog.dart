@@ -26,6 +26,11 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
     isSelected.add(widget.planModel.audioSignal);
     isSelected.add(widget.planModel.vibrationSignal);
   }
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,8 +48,8 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
             ),
           ),
           onPressed: (){
-            //TODO: Save new Plan Data
-            Navigator.pop(context);
+            _updatePlan(planService);
+            Navigator.pop(context, "");
           },
         ),
       ],
@@ -86,5 +91,13 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
         ),
       ),
     );
+  }
+  _updatePlan(PlanService planService){
+    Map<String, dynamic> update = {
+      "breakPause" : int.parse(_controller.text),
+      "audioSignal" : isSelected[0],
+      "vibrationSignal" : isSelected[1],
+    };
+    planService.updatePlan(widget.planModel.title, update);
   }
 }

@@ -1,4 +1,5 @@
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
@@ -24,7 +25,7 @@ class _DynamicTagWidgetState extends State<DynamicTagWidget>{
 
     return Container(
         height: 28,
-        width: 90,
+        width: 80,
       child: Card(
         color: isSelected ? selectedColor : defaultColor,
         child: InkWell(
@@ -40,7 +41,7 @@ class _DynamicTagWidgetState extends State<DynamicTagWidget>{
             });
           },
           child: Center(
-              child: Text(widget.name,
+              child: AutoSizeText(widget.name,
               style: TextStyle(color: Colors.white),),
           ),
         ),

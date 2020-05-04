@@ -30,6 +30,7 @@ class TrainingPage extends StatelessWidget {
           height: 70,
           width: 70,
           child: FloatingActionButton(
+            heroTag: Names.HEROTAG_FLOATINGBUTTON,
             child: Icon(
               Icons.add,
               color: Colors.white,
