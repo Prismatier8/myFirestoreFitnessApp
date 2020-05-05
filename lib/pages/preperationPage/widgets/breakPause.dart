@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPauseDialog.dart';
+import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class _BreakPauseState extends State<BreakPause> {
   @override
   Widget build(BuildContext context) {
    final planService = Provider.of<PlanService>(context, listen: false);
+   final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
     return GestureDetector(
       onTap: (){
         _showBreakPauseDialog(context, currentPlan);
@@ -36,17 +38,16 @@ class _BreakPauseState extends State<BreakPause> {
                 if(snapshot.hasData){
                   final planModel = PlanModel.fromMap(snapshot.data.data);
                   currentPlan = planModel;
+                  breakPause.init(currentPlan); ///initiate breakPausemodel here, so that it is ready when the user starts the execution
                   return Text(
-
-                    planModel.breakPause.toString() + " s",
+                    currentPlan.breakPause.toString() + " s",
                     style: TextStyle(
                       fontSize: 30,
                     ),
                   );
                 } else {
                   return Text(
-
-                    widget.planModel.title.toString() + " s",
+                    widget.planModel.breakPause.toString() + " s",
                     style: TextStyle(
                       fontSize: 30,
                     ),

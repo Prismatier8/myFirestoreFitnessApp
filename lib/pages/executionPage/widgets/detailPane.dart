@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseTimer.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/executionTimer.dart';
 
 class DetailPane extends StatefulWidget {
+  final PlanModel planModel;
+  DetailPane(this.planModel);
   @override
   _DetailPaneState createState() => _DetailPaneState();
 }
@@ -10,16 +14,23 @@ class _DetailPaneState extends State<DetailPane> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.greenAccent,
+      color: Color(0xfff0f0f0),
       width: MediaQuery.of(context).size.width,
       height: _getBodySizeHeight(),
       child: Column(
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              ExecutionTimer(),
-            ],
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                ExecutionTimer(),
+                Padding(
+                  padding: EdgeInsets.only(left: 20, right: 30),
+                  child: BreakPauseTimer(),
+                ),
+              ],
+            ),
           ),
         ],
       ),

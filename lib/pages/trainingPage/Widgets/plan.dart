@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
+import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
+import 'package:provider/provider.dart';
 
 class Plan extends StatefulWidget {
   final PlanModel plan;
@@ -25,28 +27,32 @@ class _PlanState extends State<Plan> {
             height: 80,
             child: Stack(
               children: <Widget>[
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pushNamed(context, NamedRoutes.ROUTE_PREPERATIONPAGE, arguments: widget.plan);
-                  },
-                  child: Card(
+                  Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                     elevation: 2,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        displayPlanTags(),
-                        Padding(
-                            padding: EdgeInsets.only(left: 20, bottom: 20),
-                            child: Text(
-                              widget.plan.title,
-                              style: TextStyle(fontSize: 18),
-                            )),
-                      ],
+                    child: InkWell(
+                      onTap: (){
+                        Navigator.pushNamed(context, NamedRoutes.ROUTE_PREPERATIONPAGE, arguments: widget.plan);
+                      },
+                      onLongPress: (){
+
+                        _deletePlan();
+                      },
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          displayPlanTags(),
+                          Padding(
+                              padding: EdgeInsets.only(left: 20, bottom: 20),
+                              child: Text(
+                                widget.plan.title,
+                                style: TextStyle(fontSize: 18),
+                              )),
+                        ],
+                      ),
                     ),
                   ),
-                ),
                 Align(
                   alignment: widget.plan.exerciseRef.isNotEmpty
                       ? Alignment.centerRight
@@ -139,5 +145,9 @@ class _PlanState extends State<Plan> {
             );
           }),
     );
+  }
+  _deletePlan(){
+    final planService = Provider.of<PlanService>(context, listen: false);
+    planService.deletePlan(widget.plan.title);
   }
 }

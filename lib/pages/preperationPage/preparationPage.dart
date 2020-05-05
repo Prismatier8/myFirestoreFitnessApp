@@ -21,21 +21,6 @@ class PreparationPage extends StatelessWidget {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(
-        actions: <Widget>[
-          Padding(
-              padding: EdgeInsets.only(right: 30),
-              child: GestureDetector(
-                onTap: (){
-                  Navigator.pop(context);
-                  _deletePlan(planService, planModel);
-
-                },
-                child: Icon(
-                  Icons.delete,
-                  size: 30,
-                ),
-              )),
-        ],
         backgroundColor: Theme.of(context).accentColor,
         title: Text(
           planModel.title,
@@ -49,7 +34,7 @@ class PreparationPage extends StatelessWidget {
               child: FloatingActionButton(
                 heroTag: Names.HEROTAG_FLOATINGBUTTON,
                 onPressed: () {
-                  Navigator.pushNamed(context, NamedRoutes.ROUTE_EXECUTIONPAGE,
+                  Navigator.pushNamedAndRemoveUntil(context, NamedRoutes.ROUTE_EXECUTIONPAGE,(_) => false,
                       arguments: planModel);
                 },
                 backgroundColor: Colors.green,
@@ -76,8 +61,5 @@ class PreparationPage extends StatelessWidget {
         ],
       ),
     );
-  }
-  _deletePlan(PlanService planService, PlanModel plan){
-    planService.deletePlan(plan.title);
   }
 }

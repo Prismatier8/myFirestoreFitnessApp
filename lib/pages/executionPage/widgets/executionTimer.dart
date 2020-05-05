@@ -14,11 +14,13 @@ class _ExecutionTimerState extends State<ExecutionTimer> {
   void initState() {
     super.initState();
     Timer.periodic(Duration(seconds: 1), (Timer t){
+      if(!mounted){
+        return;
+      }
       setState(() {
         _currentSeconds++;
       });
     });
-
   }
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,6 @@ class _ExecutionTimerState extends State<ExecutionTimer> {
 
   String _getMinute() {
     double minutes = _currentSeconds / 60;
-    return minutes.round().toString() + " Min.";
+    return minutes.round().toString() + " Min";
   }
 }

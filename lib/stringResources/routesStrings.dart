@@ -3,4 +3,5 @@ class NamedRoutes{
  static const String ROUTE_CHOOSEEXERCISEPAGE = '/chooseExercisePage';
  static const String ROUTE_PREPERATIONPAGE = '/preperationPage';
  static const String ROUTE_EXECUTIONPAGE = '/executionPage';
+ static const String ROUTE_NAVIGATIONSTACK = '/navigationStack';
 }
