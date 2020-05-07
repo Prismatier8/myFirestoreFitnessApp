@@ -3,7 +3,8 @@ import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseButton
 import 'package:myfitnessmotivation/pages/executionPage/widgets/cancelExecutionbutton.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/detailPane.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/setPane.dart';
-import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
+import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'package:provider/provider.dart';
 
 
 class ExecutionPage extends StatelessWidget {
@@ -11,6 +12,7 @@ class ExecutionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final planModel = ModalRoute.of(context).settings.arguments;
     return Scaffold(
+      //resizeToAvoidBottomInset: false,
       appBar: AppBar(
 
         automaticallyImplyLeading: false,
@@ -35,12 +37,16 @@ class ExecutionPage extends StatelessWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: BreakPauseButton(planModel),
-      body: Column(
-        children: <Widget>[
-          DetailPane(planModel),
-          SetPane(),
-        ],
+
+      floatingActionButton: BreakPauseButton(planModel
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            DetailPane(planModel),
+            SetPane(planModel),
+          ],
+        ),
       ),
     );
   }

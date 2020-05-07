@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
@@ -12,35 +11,59 @@ class BreakPauseButton extends StatefulWidget {
   _BreakPauseButtonState createState() => _BreakPauseButtonState();
 }
 
-class _BreakPauseButtonState extends State<BreakPauseButton> {
-
+class _BreakPauseButtonState extends State<BreakPauseButton> with SingleTickerProviderStateMixin {
+  AnimationController _controller;
   @override
-  void didUpdateWidget(BreakPauseButton oldWidget) {
-    // TODO: implement didUpdateWidget
-    super.didUpdateWidget(oldWidget);
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 50),
+      lowerBound: 0.0,
+      upperBound: 0.2,
+    )
+      ..addListener(() { setState(() {});});
   }
   @override
-  Widget build(BuildContext context) {
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
-    return Padding(
-      padding: EdgeInsets.only(bottom: 45),
-      child: SizedBox(
-        height: 130,
-        width: 130,
-        child: FloatingActionButton(
-          onPressed: () {
-            _onPress();
-          },
-          child: Icon(
-            Icons.hourglass_empty,
-            size: 40,
-            color: Colors.white,
-          ),
-          backgroundColor: Colors.lightBlueAccent,
-          heroTag: Names.HEROTAG_FLOATINGBUTTON,
-        ),
-      ),
-    );
+
+  @override
+  Widget build(BuildContext context) {
+    final bool showFAB = MediaQuery.of(context).viewInsets.bottom == 0.0;
+    return showFAB
+        ? Padding(
+            padding: EdgeInsets.only(bottom: 45),
+            child: GestureDetector(
+              onTapDown: _animationOnTapDown,
+              onTapCancel: _animationOnTapUp,
+              child: Transform.scale(
+                scale: 1 - _controller.value,
+                child: SizedBox(
+                  height: 130,
+                  width: 130,
+                  child: FloatingActionButton(
+
+                    elevation: 10,
+                    onPressed: () {
+                      _onPress();
+                    },
+                    child: Icon(
+                      Icons.hourglass_empty,
+                      size: 40,
+                      color: Colors.white,
+                    ),
+                    backgroundColor: Colors.lightBlueAccent,
+                    heroTag: Names.HEROTAG_FLOATINGBUTTON,
+                  ),
+                ),
+              ),
+            ),
+          )
+        : Container();
   }
 
   ///When the user presses the button for the first time, the timer will be started inside the executionPage
@@ -48,12 +71,16 @@ class _BreakPauseButtonState extends State<BreakPauseButton> {
   ///firestore document for that specific plan
   _onPress() {
     final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
-    if(breakPause.isTimerActive == false){
+    if (breakPause.isTimerActive == false) {
       breakPause.start();
-    }
-    else{
+    } else {
       breakPause.stop();
     }
-
+  }
+  _animationOnTapDown(TapDownDetails details){
+    _controller.forward();
+  }
+  _animationOnTapUp(){
+    _controller.reverse();
   }
 }

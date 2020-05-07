@@ -5,6 +5,7 @@ import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/draggableExercise.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
+import 'package:myfitnessmotivation/providerModel/executionModel.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -15,9 +16,6 @@ class PreparationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final PlanModel planModel = ModalRoute.of(context).settings.arguments;
-    final exerciseService =
-        Provider.of<ExerciseService>(context, listen: false);
-    final planService = Provider.of<PlanService>(context, listen: false);
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       appBar: AppBar(

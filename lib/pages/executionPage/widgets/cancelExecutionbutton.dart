@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
+import 'package:myfitnessmotivation/providerModel/executionModel.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,8 @@ class CancelExecutionButton extends StatelessWidget {
         child: GestureDetector(
           onTap: (){
             final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
+            final executionModel = Provider.of<ExecutionModel>(context, listen: false);
+            executionModel.clear();
             breakPause.stop();
             Navigator.pushReplacementNamed(context, NamedRoutes.ROUTE_NAVIGATIONSTACK);
           },

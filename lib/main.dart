@@ -8,6 +8,7 @@ import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/preparationPage.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/updateExercisePage.dart';
 import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
+import 'package:myfitnessmotivation/providerModel/executionModel.dart';
 import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
 import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
@@ -35,6 +36,9 @@ void main(){
           ),
           ChangeNotifierProvider(create: (context) => BreakPauseModel(),
           ),
+          ChangeNotifierProvider(create: (context) => ExecutionModel(),
+          ),
+
         ],
         child: MyApp(
         ),

@@ -15,7 +15,8 @@ class SetService extends ChangeNotifier{
         .where("exerciseRef", isEqualTo: exerciseID).getDocuments();
   }
 
-  ///The Sequence of any SetModel starts with Sequence number 1, if you use this query, please make sure,
+  ///The Sequence of any SetModel starts with Sequence number 1, if you use this query to get a specific document by its
+  ///sequence, please make sure,
   ///that the parameter "index" starts with the number 1 and not with 0
   Future<QuerySnapshot> getReferencedDocumentBySequence(String exerciseID, int index) async {
     CollectionReference ref  = Firestore.instance.collection(Collection.SETS);
@@ -24,6 +25,11 @@ class SetService extends ChangeNotifier{
 
     return await query.getDocuments();
   }
+  ///returns all sets as QuerySnapshot to a specific exerciseID in an ascending order ( Sequence 1, Sequence 2, Sequence 3, ...)
+  Future<QuerySnapshot> getReferencedSetsOrderedBySequence(String exerciseID) async {
+   return await  _api.ref.where("exerciseRef", isEqualTo: exerciseID).orderBy("sequence", descending: false).getDocuments();
+  }
+
   Future updateSet(String id, Map<String, dynamic> data) async{
     await _api.updateDocument(data, id);
   }
