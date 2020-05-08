@@ -1,7 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/globalWidgets/myBottomNavigationBar.dart';
-import 'package:myfitnessmotivation/globalWidgets/navigationIndexStack.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
 import 'package:myfitnessmotivation/pages/entryPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
@@ -12,6 +10,7 @@ import 'package:myfitnessmotivation/providerModel/executionModel.dart';
 import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
 import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
+import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
@@ -38,7 +37,8 @@ void main(){
           ),
           ChangeNotifierProvider(create: (context) => ExecutionModel(),
           ),
-
+          ChangeNotifierProvider(create: (context) => ExecutionService()
+          ),
         ],
         child: MyApp(
         ),

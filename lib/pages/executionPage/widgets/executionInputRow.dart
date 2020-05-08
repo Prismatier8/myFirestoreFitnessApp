@@ -95,7 +95,7 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
       ],
     );
   }
-
+  //TODO: NEED TO BE SPLIT INTO METHODS DRY
   _updateValue(_UpdateType updateType) {
     if (widget.type == RowType.repetition) {
       int currentValue;

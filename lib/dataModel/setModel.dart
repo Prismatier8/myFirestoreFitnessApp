@@ -1,4 +1,5 @@
 class SetModel{
+  String id;
   int sequence;
   double weight;
   int repetition;

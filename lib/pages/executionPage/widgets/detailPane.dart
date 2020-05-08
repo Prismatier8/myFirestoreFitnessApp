@@ -27,7 +27,7 @@ class _DetailPaneState extends State<DetailPane> {
                 ExecutionTimer(),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 30),
-                  child: BreakPauseTimer(),
+                  child: BreakPauseTimer(widget.planModel),
                 ),
               ],
             ),

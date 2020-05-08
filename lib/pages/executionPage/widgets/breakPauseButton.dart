@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
+import 'package:myfitnessmotivation/providerModel/executionModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +20,7 @@ class _BreakPauseButtonState extends State<BreakPauseButton> with SingleTickerPr
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 50),
+      duration: Duration(milliseconds: 100),
       lowerBound: 0.0,
       upperBound: 0.2,
     )
@@ -39,7 +41,6 @@ class _BreakPauseButtonState extends State<BreakPauseButton> with SingleTickerPr
             padding: EdgeInsets.only(bottom: 45),
             child: GestureDetector(
               onTapDown: _animationOnTapDown,
-              onTapCancel: _animationOnTapUp,
               child: Transform.scale(
                 scale: 1 - _controller.value,
                 child: SizedBox(
@@ -70,17 +71,26 @@ class _BreakPauseButtonState extends State<BreakPauseButton> with SingleTickerPr
   ///As soon as the user hits the button again, the timer will reset based on the breakPause time set in the
   ///firestore document for that specific plan
   _onPress() {
+
+    final execution = Provider.of<ExecutionModel>(context, listen: false);
+    HapticFeedback.vibrate();
     final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
-    if (breakPause.isTimerActive == false) {
+    if (breakPause.isTimerActive == false && !execution.isFinished) {
+
+      execution.next();
       breakPause.start();
     } else {
+
       breakPause.stop();
     }
   }
   _animationOnTapDown(TapDownDetails details){
     _controller.forward();
-  }
-  _animationOnTapUp(){
-    _controller.reverse();
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _controller.reverse();
+      }
+    });
+
   }
 }

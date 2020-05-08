@@ -87,8 +87,11 @@ class BreakPauseModel extends ChangeNotifier {
     if(_currentBreakPause > 0){
       _currentBreakPause--;
     }
+    /*
     if(_currentBreakPause == 0){
       _currentBreakPause = 0;
     }
+
+     */
   }
 }

@@ -38,8 +38,7 @@ class ExecutionPage extends StatelessWidget {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
-      floatingActionButton: BreakPauseButton(planModel
-      ),
+      floatingActionButton: BreakPauseButton(planModel),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

@@ -14,6 +14,11 @@ class SetService extends ChangeNotifier{
     return await Firestore.instance.collection(Collection.SETS)
         .where("exerciseRef", isEqualTo: exerciseID).getDocuments();
   }
+  Future<SetModel> getSetByID(String setID) async{
+    DocumentSnapshot snapshot = await _api.getDocumentById(setID);
+    SetModel set = SetModel.fromMap(snapshot.data);
+    return set;
+  }
 
   ///The Sequence of any SetModel starts with Sequence number 1, if you use this query to get a specific document by its
   ///sequence, please make sure,
