@@ -1,7 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:myfitnessmotivation/pages/exercisePage/exercisePage.dart';
-import 'package:myfitnessmotivation/pages/statsPage/statsPage.dart';
+import 'package:myfitnessmotivation/pages/statsPages/statsPage.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/trainingPage.dart';
 import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
 import 'package:provider/provider.dart';

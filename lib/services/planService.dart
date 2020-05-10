@@ -26,8 +26,8 @@ class PlanService extends ChangeNotifier{
   Future<DocumentSnapshot> getPlan(String planName) async {
     return await _api.getDocumentById(planName);
   }
-  addExerciseToPlan(String planName, Map<String, dynamic> map) {
-    _api.ref.document(planName).updateData(map);
+  addExerciseToPlan(String planName, Map<String, dynamic> map) async{
+    await _api.ref.document(planName).updateData(map);
   }
   Future updatePlan(String planName, Map<String, dynamic> data) async{
     await _api.updateDocument(data, planName);

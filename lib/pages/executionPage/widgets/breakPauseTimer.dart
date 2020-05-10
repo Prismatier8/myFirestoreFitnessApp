@@ -55,11 +55,14 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
     }
   }
   Future<AudioPlayer> _playLocalAsset(BreakPauseModel breakPause) async {
-    if (_checkBreakPause(breakPause)) {
-      AudioCache cache = new AudioCache();
-      return await cache.play("impact.wav");
-    } else
-      return null;
+    if(widget.planModel.audioSignal == true){
+      if (_checkBreakPause(breakPause)) {
+        AudioCache cache = new AudioCache();
+        return await cache.play("impact.wav");
+      } else
+        return null;
+    }
+    return null;
   }
   bool _checkBreakPause(BreakPauseModel breakPause){
     if(breakPause.currentBreakPause == 1){

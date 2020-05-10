@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +16,6 @@ class ChoosableExercise extends StatefulWidget {
 
 class _ChoosableExerciseState extends State<ChoosableExercise> {
 
-  @override
-  void initState() {
-    super.initState();
-  }
   @override
   Widget build(BuildContext context) {
     final planService = Provider.of<PlanService>(context, listen: false);
@@ -50,7 +47,6 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
                       onTap: () async{
                         await _setupExecution(planService, snapshot);
                         setState(() {
-
                         });
                       },
                       child: Container(
@@ -97,15 +93,18 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
     final planModel = PlanModel.fromMap(snapshot.data.data);
     List<String> exerciseID = [];
     exerciseID.add(widget.exerciseModel.title);
-    chooseExercise(planModel, planService, exerciseID);
+    _chooseExercise(planModel, planService, exerciseID);
   }
   ///The method checks if a plan document has already an existing reference to the exercise we want to add. Depending on the result, it will add a new reference to the array
   ///or remove the existing reference. Please remind, that the FieldValue.arrayRemove/arrayUnion needs a List instead of a single value.
-  chooseExercise(planModel, planService, exerciseID){
+  _chooseExercise(PlanModel planModel, planService, List<String> exerciseID){
+    final exerciseService = Provider.of<ExerciseService>(context, listen: false);
 
     if(planModel.exerciseRef.contains(widget.exerciseModel.title)){
+      exerciseService.deletePlanFromExercise(widget.exerciseModel.title, planModel.title);
       planService.addExerciseToPlan(widget.planModel.title, {"exerciseRef" : FieldValue.arrayRemove(exerciseID)});
     }else {
+      exerciseService.addPlanToExercise(widget.exerciseModel.title, planModel.title);
       planService.addExerciseToPlan(widget.planModel.title, {"exerciseRef" : FieldValue.arrayUnion(exerciseID)});
     }
   }

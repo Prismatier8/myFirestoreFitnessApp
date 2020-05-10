@@ -22,6 +22,54 @@ class ExerciseService extends ChangeNotifier{
   Future updateExercise(String exerciseName, Map<String, dynamic> data) async{
     await _api.updateDocument(data, exerciseName);
   }
+  addPlanToExercise(String exerciseName, String planName) async{
+    List<String> plan = [];
+    plan.add(planName);
+    Map<String, dynamic> map = {"planReferences" : FieldValue.arrayUnion(plan)};
+
+    await updateExercise(exerciseName, map);
+  }
+  Future deletePlanFromExercise(String exerciseName, String planName) async{
+    List<String> plan = [];
+    plan.add(planName);
+    Map<String, dynamic> map = {"planReferences" : FieldValue.arrayRemove(plan)};
+
+    await updateExercise(exerciseName, map);
+  }
+  //TODO: REFACTOR
+  Future<List<ExerciseModel>> getExerciseModelsFromPlan(PlanModel plan) async {
+
+    List<ExerciseModel> exerciseList = [];
+
+    DocumentSnapshot planSnapshot = await Firestore.instance.collection(Collection.PLANS).document(plan.title).get();
+    final planModel = PlanModel.fromMap(planSnapshot.data);
+    QuerySnapshot exerciseSnapshot = await _api.ref.where(
+        "planReferences", arrayContains: plan.title).getDocuments();
+    List<dynamic> exerciseRef = planModel.exerciseRef;
+    for (int i = 0; i < exerciseSnapshot.documents.length; i++) {
+      ExerciseModel exercise = ExerciseModel.fromJson(
+          exerciseSnapshot.documents[i].data);
+      exerciseList.add(exercise);
+    }
+    final sortedList = _sortList(exerciseList, exerciseRef);
+    return sortedList;
+  }
+  //TODO: REFACTOR
+ List<ExerciseModel> _sortList(List<ExerciseModel> exerciseList, List<dynamic> exerciseRef){
+    List<ExerciseModel> sortedList = [];
+    List<String> exerciseListTitleOnly = [];
+   for (int i = 0; i < exerciseList.length; i++) {
+     exerciseListTitleOnly.add(exerciseList[i].title);
+   }
+
+   for (int i = 0; i < exerciseRef.length; i++) {
+     int index = exerciseListTitleOnly.indexOf(exerciseRef[i]);
+     sortedList.add(exerciseList[index]);
+   }
+   return sortedList;
+  }
+  ///TOO SLOW
+  /*
   Future<List<ExerciseModel>> getExercisesFromPlan(String planName) async {
 
     final planCollectionRef = Firestore.instance.collection(Collection.PLANS);
@@ -40,6 +88,8 @@ class ExerciseService extends ChangeNotifier{
     }
     return exerciseModels;
   }
+
+   */
 
   
 

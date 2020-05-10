@@ -21,10 +21,11 @@ class _ReordableListState extends State<ReorderableList> {
     final planService = Provider.of<PlanService>(context);
     final exerciseService = Provider.of<ExerciseService>(context);
     return FutureBuilder(
-      future: exerciseService.getExercisesFromPlan(widget.planModel.title),
+      future: exerciseService.getExerciseModelsFromPlan(widget.planModel),
       builder: (context, AsyncSnapshot<List<ExerciseModel>> snapshots) {
         if (snapshots.hasData) {
-          exerciseList = snapshots.data;
+            exerciseList = snapshots.data;
+
           return Container(
             child: ReorderableListView(
               header: snapshots.data.isEmpty
@@ -39,11 +40,12 @@ class _ReordableListState extends State<ReorderableList> {
                       style: TextStyle(fontSize: 30),
                     ),
               onReorder: (int oldIndex, int newIndex) {
-                setState(
-                  () {
+                setState (
+                  ()  {
                     if (newIndex > oldIndex) {
                       newIndex -= 1;
                     }
+
                     final ExerciseModel item = exerciseList.removeAt(oldIndex);
                     exerciseList.insert(newIndex, item);
                     List<String> exerciseIDList =

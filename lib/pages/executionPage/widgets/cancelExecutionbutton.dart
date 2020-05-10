@@ -7,19 +7,22 @@ import 'package:provider/provider.dart';
 class CancelExecutionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final execution = Provider.of<ExecutionModel>(context, listen: false);
+    final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(
         padding: EdgeInsets.only(left: 10, right: 20),
         child: GestureDetector(
           onTap: (){
-            final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
-            final executionModel = Provider.of<ExecutionModel>(context, listen: false);
-            executionModel.clear();
+            execution.clear();
             breakPause.stop();
             Navigator.pushReplacementNamed(context, NamedRoutes.ROUTE_NAVIGATIONSTACK);
           },
-          child: Icon(Icons.clear, size: 40,
+          child: Icon(
+            Icons.clear,
+            size: 50,
+            color: Colors.red,
           ),
         ),
       ),

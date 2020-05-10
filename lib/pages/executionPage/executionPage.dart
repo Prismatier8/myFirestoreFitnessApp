@@ -12,33 +12,6 @@ class ExecutionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final planModel = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-
-        automaticallyImplyLeading: false,
-        backgroundColor: Theme.of(context).accentColor,
-        centerTitle: true,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            CancelExecutionButton(),
-            /*
-            Text(
-              Names.TITLE_EXECUTION,
-              style: TextStyle(
-                fontSize: 30,
-                color: Colors.white,
-              ),
-            ),
-
-             */
-          ],
-
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-
-      floatingActionButton: BreakPauseButton(planModel),
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[

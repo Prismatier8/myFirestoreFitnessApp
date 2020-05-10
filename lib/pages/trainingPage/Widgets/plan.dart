@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/planTags.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -36,13 +37,12 @@ class _PlanState extends State<Plan> {
                         Navigator.pushNamed(context, NamedRoutes.ROUTE_PREPERATIONPAGE, arguments: widget.plan);
                       },
                       onLongPress: (){
-
                         _deletePlan();
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          displayPlanTags(),
+                          PlanTags(plan: widget.plan,),
                           Padding(
                               padding: EdgeInsets.only(left: 20, bottom: 20),
                               child: Text(
@@ -133,19 +133,7 @@ class _PlanState extends State<Plan> {
     //TODO: Calculate Minimum Plan Execution with queries and FutureBuilder to show result???
   }
 
-  Widget displayPlanTags() {
-    return Expanded(
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.plan.tags.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Padding(
-              padding: EdgeInsets.only(top: 5, left: 0),
-              child: StaticTagWidget(widget.plan.tags[index]),
-            );
-          }),
-    );
-  }
+
   _deletePlan(){
     final planService = Provider.of<PlanService>(context, listen: false);
     planService.deletePlan(widget.plan.title);
