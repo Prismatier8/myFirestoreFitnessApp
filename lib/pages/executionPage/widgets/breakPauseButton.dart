@@ -82,7 +82,7 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
     final execution = Provider.of<ExecutionModel>(context, listen: false);
     final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
     if (breakPause.isTimerActive == false && !execution.isFinished) {
-      execution.next(widget.wdhController.text, widget.kgController.text);
+      execution.nextSet(widget.wdhController.text, widget.kgController.text);
       breakPause.start();
     } else {
       breakPause.stop();

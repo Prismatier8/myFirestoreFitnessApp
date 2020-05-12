@@ -3,28 +3,31 @@ import 'package:flutter/cupertino.dart';
 
 class ExecutionData extends ChangeNotifier{
 
-  double weight;
-  int repetition;
+  Map<String,List<num>> setMap;
   String exerciseRef;
   String planRef;
   Timestamp date;
 
-  ExecutionData({@required this.weight, @required this.repetition, @required this.exerciseRef, @required this.planRef});
+  ExecutionData({
+    @required this.setMap,
+    @required this.exerciseRef,
+    @required this.planRef,
+    @required this.date,
+  });
 
   ExecutionData.fromJson(Map snapshot) :
-        weight = snapshot['weight'] ?? 0.0,
-        repetition = snapshot['repetition'] ?? 0,
+        setMap = snapshot['setMap'] ?? {},
         exerciseRef = snapshot['exerciseRef'] ?? '',
         planRef = snapshot['planRef'] ?? '',
         date = snapshot['date'] ?? '';
 
-  Map<String, dynamic> toJson() {
+
+   Map<String, dynamic> toJson() {
     return {
-      "weight": weight,
-      "repetition": repetition,
+      "setMap" : setMap,
       "exerciseRef": exerciseRef,
       "planRef": planRef,
-      "date": Timestamp.now(),
+      "date" : date,
     };
   }
 }

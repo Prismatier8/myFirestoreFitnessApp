@@ -15,7 +15,6 @@ class CancelExecutionButton extends StatelessWidget {
         padding: EdgeInsets.only(left: 10, right: 20),
         child: GestureDetector(
           onTap: (){
-            execution.clear();
             breakPause.stop();
             Navigator.pushReplacementNamed(context, NamedRoutes.ROUTE_NAVIGATIONSTACK);
           },
