@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/updateExerciseNavigator.dart';
-import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
 class Exercise extends StatelessWidget {
   final ExerciseModel exerciseModel;

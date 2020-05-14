@@ -36,6 +36,7 @@ class _DetailPaneState extends State<DetailPane> {
               ],
             ),
           ),
+          //TODO: Bottom code should use exercisePicture widget in globalWidget folder
           Padding(
             padding: EdgeInsets.all(20),
             child: Container(

@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 
 class ExecutionData extends ChangeNotifier{
 
-  Map<String,List<num>> setMap;
+  Map<String,dynamic> setMap;
   String exerciseRef;
   String planRef;
   Timestamp date;

@@ -74,10 +74,10 @@ class MyApp extends StatelessWidget {
             return CupertinoPageRoute(
                 builder: (_) => PreparationPage(), settings: settings);
           case NamedRoutes.ROUTE_EXECUTIONPAGE:
-            return CupertinoPageRoute(
+            return MaterialPageRoute(
                 builder: (_) => ExecutionPage(), settings: settings);
           case NamedRoutes.ROUTE_NAVIGATIONSTACK:
-            return CupertinoPageRoute(
+            return MaterialPageRoute(
                 builder: (_) => EntryPage(), settings: settings);
           default:
             return null;

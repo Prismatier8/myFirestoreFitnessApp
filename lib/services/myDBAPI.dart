@@ -24,7 +24,6 @@ class MyDBApi{
   addDocumentWithAutoID(Map data){
     ref.document().setData(data);
   }
-
   addDocument(Map data, String id) {
     ref.document(id).setData(data);
   }

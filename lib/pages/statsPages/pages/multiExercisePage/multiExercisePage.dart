@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/widgets/exerciseWithStats.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,10 @@ class MultiExercisePage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index){
-                return Text(snapshot.data[index].title);
+                return ExerciseWithStats(
+                  exercisesSnapshot: snapshot,
+                  builderIndex: index,
+                );
               },
             );
           } else if(snapshot.hasError){
