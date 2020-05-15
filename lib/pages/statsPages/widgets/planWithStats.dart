@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/planTags.dart';
-import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
+import 'package:myfitnessmotivation/pages/statsPages/widgets/planTrend.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
+
 
 class PlanWithStats extends StatelessWidget {
   final PlanModel plan;
@@ -23,7 +24,7 @@ class PlanWithStats extends StatelessWidget {
                 Card(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  elevation: 2,
+                  elevation: 7,
                   child: InkWell(
                     onTap: (){
                       Navigator.pushNamed(context, NamedRoutes.ROUTE_STAT_MULTIEXERCISESPAGE, arguments: plan);
@@ -42,6 +43,14 @@ class PlanWithStats extends StatelessWidget {
                             )
                         ),
                       ],
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: PlanTrend(plan
                     ),
                   ),
                 ),

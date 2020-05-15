@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 
 enum StatType {increase, decrease, same}
@@ -7,6 +8,45 @@ class SingleStatCalculationModel extends ChangeNotifier {
 
 
 
+  dynamic getExerciseTrend(List<StatType> statTypeList, bool asIcon){
+    int factor = 0;
+
+    for(int i = 0; i<statTypeList.length; i++){
+      if(statTypeList[i] == StatType.increase){
+        factor++;
+      } else if (statTypeList[i] == StatType.decrease){
+        factor--;
+      }
+    }
+    if(asIcon){
+      return buildIcon(factor);
+    } else{
+      return factor;
+    }
+
+  }
+  Widget buildIcon(int factor){
+    
+    if(factor > 0){
+      return Padding(
+        padding: EdgeInsets.only(right: 10),
+        child: Icon(Icons.trending_up, color: Colors.green, size: 40,
+        ),
+      );
+    } else if (factor < 0){
+      return Padding(
+        padding: EdgeInsets.only(right: 10),
+        child: Icon(Icons.trending_down, color: Colors.red, size: 40,
+        ),
+      );
+    } else {
+      return Padding(
+        padding: EdgeInsets.only(right: 10),
+        child: Icon(Icons.trending_flat, size: 40,
+        ),
+      );
+    }
+  }
   List<StatType> compareExecution(List<ExecutionData> executionList){
     List<StatType> statTypeList = [];
     if(executionList.length == 2){
@@ -31,9 +71,10 @@ class SingleStatCalculationModel extends ChangeNotifier {
   ///calculation
   List<StatType> _prepareMaps(Map<String, dynamic> newExecution, Map<String, dynamic> olderExecution){
         List<StatType> setTypeList = [];
-        List<String> newKeyList = newExecution.keys;
-        List<String> olderKeyList = olderExecution.keys;
-
+        List<String> newKeyList = newExecution.keys.toList();
+        List<String> olderKeyList = olderExecution.keys.toList();
+        newKeyList.sort();
+        olderKeyList.sort();
         ///Set iteration
     for(int i = 0; i<newExecution.length; i++){
 
@@ -59,22 +100,14 @@ class SingleStatCalculationModel extends ChangeNotifier {
     ///only increasements and decreasements will change the factor
     int factor = 0;
 
-    if(newWeight > olderWeight){
+    if(newWeight > olderWeight || newWeight < olderWeight){
 
       factor = factor + _calculatePercentage(newWeight, olderWeight);
 
-    } else if (newWeight < olderWeight){
-
-      factor = factor - _calculatePercentage(newWeight, olderWeight);
-
     }
-    if(newRepetition > olderRepetition){
+    if(newRepetition > olderRepetition || newRepetition < olderRepetition){
 
       factor = factor + _calculatePercentage(newRepetition, olderRepetition);
-
-    } else if (newRepetition < olderRepetition) {
-
-      factor = factor - _calculatePercentage(newRepetition, olderRepetition);
 
     }
     return _checkStatType(factor);
@@ -93,9 +126,9 @@ class SingleStatCalculationModel extends ChangeNotifier {
   ///the value of the latest set and the secondlatest set
   int _calculatePercentage(num newValue, num olderValue){
     int percentage = 0;
-    double decreasement = 0.0;
-    decreasement = (newValue - olderValue) / olderValue;
-    percentage = (decreasement * 100).round();
+    double temporary = 0.0;
+    temporary = (newValue - olderValue) / olderValue;
+    percentage = (temporary * 100).round();
     return percentage;
   }
 }

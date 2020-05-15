@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/executionDisplay.dart';
+import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/singleExerciseWithStats.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +14,9 @@ class StatBuilder extends StatefulWidget {
   @override
   _StatBuilderState createState() => _StatBuilderState();
 }
-
 class _StatBuilderState extends State<StatBuilder> {
   ExecutionService executionService;
   SingleStatCalculationModel statCalculationModel;
-
   @override
   void initState() {
     executionService =
@@ -32,17 +32,51 @@ class _StatBuilderState extends State<StatBuilder> {
       future: executionService.getExecutions(widget.exercise, widget.buildLength, true),
       builder: (context, AsyncSnapshot<List<ExecutionData>> snapshot){
         if(snapshot.hasData){
-          List<StatType> list  = statCalculationModel.compareExecution(snapshot.data);
-          print(list);
-          return Column(
-            children: <Widget>[
+          List<StatType> statTypeList  = statCalculationModel.compareExecution(snapshot.data);
+          if(snapshot.data.length >= 2){
+            return ExecutionDisplay(
+              executionList: snapshot.data,
+              statTypeList: statTypeList,
+              isComparable: true,
+            );
 
+          } else if(snapshot.data.length == 0){
+            return Column(
+              children: <Widget>[
+                SingleExerciseWithStats(
+                  statTypeList: statTypeList,
+                  exerciseTitle: widget.exercise.title,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Center(
+                    child: Text("Keine Daten vorhanden",
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                ),
               ],
+
+            );
+
+          } else {
+            return ExecutionDisplay(
+                executionList: snapshot.data,
+                statTypeList: statTypeList,
+                isComparable: false,
+            );
+          }
+        } else if (snapshot.hasError){
+          return Text("Etwas lief schief, lade die Seite neu",
+            style: TextStyle(
+              fontSize: 30,
+            ),
           );
-        } else{
+        } else {
           return Container();
         }
-
       }
     );
   }
