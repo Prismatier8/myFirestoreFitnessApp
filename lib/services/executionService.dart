@@ -23,4 +23,10 @@ class ExecutionService extends ChangeNotifier{
     }
     return list;
   }
+  Future deleteExecutions(String exerciseID) async{
+      QuerySnapshot snapshot = await _api.ref.where("exerciseRef", isEqualTo: exerciseID).getDocuments();
+      for(int i = 0; i<snapshot.documents.length; i++){
+        _api.ref.document(snapshot.documents[i].documentID).delete();
+      }
+  }
 }

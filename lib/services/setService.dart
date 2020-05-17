@@ -38,6 +38,12 @@ class SetService extends ChangeNotifier{
   Future updateSet(String id, Map<String, dynamic> data) async{
     await _api.updateDocument(data, id);
   }
+  Future deleteSets(String exerciseID) async{
+    QuerySnapshot snapshot = await _api.ref.where("exerciseRef", isEqualTo: exerciseID).getDocuments();
+    for(int i = 0; i<snapshot.documents.length; i++){
+      _api.ref.document(snapshot.documents[i].documentID).delete();
+    }
+  }
 
 
 

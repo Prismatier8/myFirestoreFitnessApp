@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/planTags.dart';
+import 'package:myfitnessmotivation/pages/trainingPage/Widgets/deletePlanDialog.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -37,7 +38,7 @@ class _PlanState extends State<Plan> {
                         Navigator.pushNamed(context, NamedRoutes.ROUTE_PREPERATIONPAGE, arguments: widget.plan);
                       },
                       onLongPress: (){
-                        _deletePlan();
+                        _showDeletePlanDialog(context);
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,10 +133,12 @@ class _PlanState extends State<Plan> {
   String _calculateMinimumPlanExecution(){
     //TODO: Calculate Minimum Plan Execution with queries and FutureBuilder to show result???
   }
-
-
-  _deletePlan(){
-    final planService = Provider.of<PlanService>(context, listen: false);
-    planService.deletePlan(widget.plan.title);
+  void _showDeletePlanDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return DeletePlanDialog(widget.plan);
+        });
   }
 }

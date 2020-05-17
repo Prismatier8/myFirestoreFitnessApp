@@ -28,7 +28,8 @@ class PlanTrend extends StatelessWidget {
               if (factorSnapshot.hasData) {
                 return statCalculationModel.buildIcon(factorSnapshot.data);
               } else {
-                return Text("A");
+                return CircularProgressIndicator(
+                );
               }
             },
           );

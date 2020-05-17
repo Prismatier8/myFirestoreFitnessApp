@@ -11,6 +11,7 @@ class Names {
   static const String BASIC_MUSCLEGROUPS = "Muskelgruppen";
   static const String BASIC_SETS = "Sets";
   static const String BASIC_ACCEPT = "OK";
+  static const String BASIC_DELETE = "Löschen";
   //BASIC
 
   //TAGS
