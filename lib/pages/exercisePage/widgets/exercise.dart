@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/staticExerciseImage.dart';
 import 'package:myfitnessmotivation/globalWidgets/updateExerciseNavigator.dart';
 import 'package:myfitnessmotivation/pages/exercisePage/widgets/deleteExerciseDialog.dart';
 
@@ -13,8 +14,10 @@ class Exercise extends StatelessWidget {
       alignment: Alignment.topCenter,
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
-        height: 60,
         child: Card(
+          elevation: 3,
+          shape:RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)),
           child: InkWell(
             onLongPress: (){
               _showDeleteExerciseDialog(context);
@@ -22,6 +25,7 @@ class Exercise extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
+                StaticExerciseImage(exerciseModel),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(exerciseModel.title,

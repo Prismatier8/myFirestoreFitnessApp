@@ -32,7 +32,7 @@ class _PlanState extends State<Plan> {
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    elevation: 2,
+                    elevation: 6,
                     child: InkWell(
                       onTap: (){
                         Navigator.pushNamed(context, NamedRoutes.ROUTE_PREPERATIONPAGE, arguments: widget.plan);

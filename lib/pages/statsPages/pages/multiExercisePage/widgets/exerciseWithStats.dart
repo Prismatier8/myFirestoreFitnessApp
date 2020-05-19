@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
+import 'package:myfitnessmotivation/globalWidgets/staticExerciseImage.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -30,12 +31,14 @@ class ExerciseWithStats extends StatelessWidget {
           padding: EdgeInsets.only(top: 5, bottom: 5),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.9,
-            height: 60,
             child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
               elevation: 5,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
+                  StaticExerciseImage(exercisesSnapshot.data[builderIndex]),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
@@ -57,7 +60,7 @@ class ExerciseWithStats extends StatelessWidget {
                         return Container();
                       }
                     },
-                  ), //TODO: Stat icon depending on result
+                  ),
                 ],
               ),
             ),

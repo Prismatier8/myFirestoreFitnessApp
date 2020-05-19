@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/updateExerciseImage.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/setQuantityDialog.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/sets.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
 class UpdateExercisePane extends StatefulWidget {
 
-  final ExerciseModel exerciseModel;
-  UpdateExercisePane({@required this.exerciseModel});
+  final ExerciseModel exercise;
+  UpdateExercisePane({@required this.exercise});
   @override
   _UpdateExercisePaneState createState() => _UpdateExercisePaneState();
 }
@@ -20,6 +21,13 @@ class _UpdateExercisePaneState extends State<UpdateExercisePane> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        Align(
+          alignment: Alignment.topRight,
+          child: Padding(
+            padding: EdgeInsets.only(top: 10, right: 10),
+            child: UpdateExerciseImage(widget.exercise),
+          ),
+        ),
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
           child: InkWell(
@@ -50,7 +58,7 @@ class _UpdateExercisePaneState extends State<UpdateExercisePane> {
         ),
         Center(
           child: Sets(
-            exerciseModel: widget.exerciseModel,
+            exerciseModel: widget.exercise,
           ),
         ),
       ],

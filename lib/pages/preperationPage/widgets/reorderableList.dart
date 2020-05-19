@@ -21,7 +21,7 @@ class _ReordableListState extends State<ReorderableList> {
     final planService = Provider.of<PlanService>(context);
     final exerciseService = Provider.of<ExerciseService>(context);
     return FutureBuilder(
-      future: exerciseService.getExerciseModelsFromPlan(widget.planModel),
+      future: exerciseService.getMultipleExerciseDataFromPlan(widget.planModel),
       builder: (context, AsyncSnapshot<List<ExerciseModel>> snapshots) {
         if (snapshots.hasData) {
             exerciseList = snapshots.data;
@@ -35,10 +35,7 @@ class _ReordableListState extends State<ReorderableList> {
                         fontSize: 30,
                       ),
                     )
-                  : Text(
-                      "Reihenfolgeplanung",
-                      style: TextStyle(fontSize: 30),
-                    ),
+                  : Container(),
               onReorder: (int oldIndex, int newIndex) {
                 setState (
                   ()  {

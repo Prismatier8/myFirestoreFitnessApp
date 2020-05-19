@@ -38,6 +38,7 @@ class _StatBuilderState extends State<StatBuilder> {
               executionList: snapshot.data,
               statTypeList: statTypeList,
               isComparable: true,
+              exercise: widget.exercise,
             );
 
           } else if(snapshot.data.length == 0){
@@ -45,7 +46,7 @@ class _StatBuilderState extends State<StatBuilder> {
               children: <Widget>[
                 SingleExerciseWithStats(
                   statTypeList: statTypeList,
-                  exerciseTitle: widget.exercise.title,
+                  exercise: widget.exercise,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),

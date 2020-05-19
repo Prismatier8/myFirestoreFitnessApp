@@ -20,7 +20,7 @@ class UpdateExercisePage extends StatelessWidget{
         backgroundColor: Theme.of(context).accentColor,
       ),
       body: SingleChildScrollView(
-          child: UpdateExercisePane(exerciseModel: exerciseModel,)
+          child: UpdateExercisePane(exercise: exerciseModel,)
       ),
     );
   }

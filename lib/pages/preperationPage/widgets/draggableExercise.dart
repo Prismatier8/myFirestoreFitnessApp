@@ -17,6 +17,7 @@ class _DraggableExerciseState extends State<DraggableExercise> {
       width: MediaQuery.of(context).size.width * 0.9,
       height: 60,
       child: Card(
+        elevation: 5,
         child: Row(
           children: <Widget>[
             Padding(

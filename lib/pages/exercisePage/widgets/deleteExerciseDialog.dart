@@ -3,6 +3,7 @@ import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/cancelButton.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
+import 'package:myfitnessmotivation/services/imageService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -38,21 +39,33 @@ class DeleteExerciseDialog extends StatelessWidget {
     _deleteSets(context, exercise);
     _deleteExecutions(context, exercise);
     _deleteReferenceOnPlan(context, exercise);
+    _deleteImage(context, exercise);
   }
+  ///Delete all sets referenced to exercise
   _deleteSets(BuildContext context, ExerciseModel exercise){
     final setService = Provider.of<SetService>(context, listen: false);
     setService.deleteSets(exercise.title);
   }
+  ///delete exercise
   _deleteExercise(BuildContext context, ExerciseModel exercise){
     final exerciseService = Provider.of<ExerciseService>(context, listen: false);
     exerciseService.deleteExercise(exercise.title);
   }
+  ///Delete all executions that contain reference to exercise
   _deleteExecutions(BuildContext context, ExerciseModel exercise){
     final executionService = Provider.of<ExecutionService>(context, listen: false);
     executionService.deleteExecutions(exercise.title);
   }
+  ///Delete reference of exercise in all plans
   _deleteReferenceOnPlan(BuildContext context, ExerciseModel exercise){
     final planService = Provider.of<PlanService>(context, listen: false);
     planService.deleteExerciseFromPlans(exercise.title);
+  }
+  ///Delete the image inside Firebase storage
+  _deleteImage(BuildContext context, ExerciseModel exercise){
+    if(exercise.imageRef.isNotEmpty){
+      final imageService = Provider.of<ImageService>(context, listen: false);
+      imageService.deleteImage(exercise.imageRef);
+    }
   }
 }

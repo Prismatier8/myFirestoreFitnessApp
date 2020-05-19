@@ -12,7 +12,7 @@ class NavigationIndexStack extends StatefulWidget{
 class _NavigationIndexStackState extends State<NavigationIndexStack>{
   Widget build (BuildContext context){
     return IndexedStack(
-      index: Provider.of<NavigationModel>(context).getIndex(),
+      index: Provider.of<NavigationModel>(context, listen: false).getIndex(),
       children: <Widget>[
         TrainingPage(),
         StatsPage(),

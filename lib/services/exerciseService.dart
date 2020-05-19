@@ -36,8 +36,13 @@ class ExerciseService extends ChangeNotifier{
 
     await updateExercise(exerciseName, map);
   }
+  Future<ExerciseModel> getExerciseData(String exerciseID) async{
+    DocumentSnapshot snapshot = await _api.getDocumentById(exerciseID);
+    ExerciseModel exercise = ExerciseModel.fromJson(snapshot.data);
+    return exercise;
+  }
   //TODO: REFACTOR
-  Future<List<ExerciseModel>> getExerciseModelsFromPlan(PlanModel plan) async {
+  Future<List<ExerciseModel>> getMultipleExerciseDataFromPlan(PlanModel plan) async {
 
     List<ExerciseModel> exerciseList = [];
 
@@ -68,6 +73,10 @@ class ExerciseService extends ChangeNotifier{
    }
    return sortedList;
   }
+
+
+
+
   ///TOO SLOW
   /*
   Future<List<ExerciseModel>> getExercisesFromPlan(String planName) async {

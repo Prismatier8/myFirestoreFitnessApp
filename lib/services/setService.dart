@@ -14,6 +14,7 @@ class SetService extends ChangeNotifier{
     return await Firestore.instance.collection(Collection.SETS)
         .where("exerciseRef", isEqualTo: exerciseID).getDocuments();
   }
+
   Future<SetModel> getSetByID(String setID) async{
     DocumentSnapshot snapshot = await _api.getDocumentById(setID);
     SetModel set = SetModel.fromMap(snapshot.data);
@@ -34,10 +35,12 @@ class SetService extends ChangeNotifier{
   Future<QuerySnapshot> getReferencedSetsOrderedBySequence(String exerciseID) async {
    return await  _api.ref.where("exerciseRef", isEqualTo: exerciseID).orderBy("sequence", descending: false).getDocuments();
   }
-
+  ///update a specific set. Please note: Each set has an automatic generated ID. The ID is usually saved inside
+  ///SetData Object
   Future updateSet(String id, Map<String, dynamic> data) async{
     await _api.updateDocument(data, id);
   }
+  ///Delete all Sets from an exercise
   Future deleteSets(String exerciseID) async{
     QuerySnapshot snapshot = await _api.ref.where("exerciseRef", isEqualTo: exerciseID).getDocuments();
     for(int i = 0; i<snapshot.documents.length; i++){

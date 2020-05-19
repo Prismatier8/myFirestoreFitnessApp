@@ -6,7 +6,7 @@ class ExerciseModel extends ChangeNotifier{
   List<dynamic> setReferences;
   List<dynamic> muscleGroupReferences;
   List<dynamic> planReferences;
-
+  String imageRef;
   ExerciseModel({@required this.title, @required this.setQuantity, @required this.setReferences, this.muscleGroupReferences});
 
   ExerciseModel.fromJson(Map snapshot) :
@@ -14,7 +14,9 @@ class ExerciseModel extends ChangeNotifier{
         setQuantity = snapshot['tags'] ?? 0,
         setReferences = snapshot['setReferences'] ?? [],
         muscleGroupReferences = snapshot['muscleGroupReferences'] ?? [],
-        planReferences = snapshot['planReferences'] ?? [];
+        planReferences = snapshot['planReferences'] ?? [],
+        imageRef = snapshot['imageRef'] ?? '';
+
   Map<String, dynamic> toJson(){
     return {
       "title" : title,
@@ -22,6 +24,7 @@ class ExerciseModel extends ChangeNotifier{
       "setReferences" : setReferences,
       "muscleGroupReferences" : muscleGroupReferences,
       "planReferences" : planReferences,
+      "imageRef" : imageRef,
     };
   }
 }

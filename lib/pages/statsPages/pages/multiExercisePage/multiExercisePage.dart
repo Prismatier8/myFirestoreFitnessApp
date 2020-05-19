@@ -36,7 +36,7 @@ class MultiExercisePage extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height:MediaQuery.of(context).size.width - MediaQuery.of(context).padding.top,
           child: FutureBuilder(
-            future: exerciseService.getExerciseModelsFromPlan(plan),
+            future: exerciseService.getMultipleExerciseDataFromPlan(plan),
             builder: (BuildContext context, AsyncSnapshot<List<ExerciseModel>> exerciseSnapshot){
               if(exerciseSnapshot.hasData){
                 return ListView.builder(

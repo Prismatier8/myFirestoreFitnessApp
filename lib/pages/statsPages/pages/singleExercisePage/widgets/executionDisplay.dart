@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
+import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/singleExerciseWithStats.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 
@@ -9,10 +10,12 @@ class ExecutionDisplay extends StatelessWidget {
   final List<StatType> statTypeList;
   final List<ExecutionData> executionList;
   final bool isComparable;
+  final ExerciseModel exercise;
   ExecutionDisplay(
       {@required this.statTypeList,
       @required this.executionList,
-      @required this.isComparable});
+      @required this.isComparable,
+      @required this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class ExecutionDisplay extends StatelessWidget {
             children: <Widget>[
               SingleExerciseWithStats(
                 statTypeList: statTypeList,
-                exerciseTitle: executionList[0].exerciseRef,
+                exercise: exercise,
               ),
               _getDate(0),
               DataTable(
@@ -40,7 +43,7 @@ class ExecutionDisplay extends StatelessWidget {
             children: <Widget>[
               SingleExerciseWithStats(
                 statTypeList: statTypeList,
-                exerciseTitle: executionList[0].exerciseRef,
+                exercise: exercise,
               ),
               _getDate(0),
               DataTable(

@@ -18,7 +18,7 @@ class PlanTrend extends StatelessWidget {
         Provider.of<SingleStatCalculationModel>(context, listen: false);
 
     return FutureBuilder(
-      future: exerciseService.getExerciseModelsFromPlan(plan),
+      future: exerciseService.getMultipleExerciseDataFromPlan(plan),
       builder: (BuildContext context,
           AsyncSnapshot<List<ExerciseModel>> exerciseSnapshot) {
         if (exerciseSnapshot.hasData) {
