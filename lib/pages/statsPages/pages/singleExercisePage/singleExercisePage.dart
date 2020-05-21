@@ -10,6 +10,12 @@ class SingleExercisePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        title: Text(exercise.title,
+          style: TextStyle(
+            fontSize: 30,
+            color: Colors.white,
+          )
+        ),
         centerTitle: true,
         backgroundColor: Theme.of(context).accentColor,
 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/testImageWidget.dart';
+import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
 import 'package:myfitnessmotivation/globalWidgets/updateExerciseNavigator.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
@@ -24,6 +26,9 @@ class _DraggableExerciseState extends State<DraggableExercise> {
               padding: EdgeInsets.only(left: 10),
               child: Icon(Icons.drag_handle
               ),
+            ),
+            ExerciseImage(
+              exercise: widget.exerciseModel,
             ),
             Padding(
               padding: EdgeInsets.only(left: 10),

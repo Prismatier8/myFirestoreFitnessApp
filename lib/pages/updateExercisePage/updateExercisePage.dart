@@ -10,6 +10,7 @@ class UpdateExercisePage extends StatelessWidget{
     final ExerciseModel exerciseModel = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           exerciseModel.title,
           style: TextStyle(

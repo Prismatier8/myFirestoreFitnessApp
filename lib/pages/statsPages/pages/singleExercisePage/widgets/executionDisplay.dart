@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/singleExerciseWithStats.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 
@@ -24,8 +25,8 @@ class ExecutionDisplay extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               SingleExerciseWithStats(
-                statTypeList: statTypeList,
                 exercise: exercise,
+                statTypeList: statTypeList,
               ),
               _getDate(0),
               DataTable(
@@ -42,8 +43,8 @@ class ExecutionDisplay extends StatelessWidget {
         : Column(
             children: <Widget>[
               SingleExerciseWithStats(
-                statTypeList: statTypeList,
                 exercise: exercise,
+                statTypeList: statTypeList,
               ),
               _getDate(0),
               DataTable(

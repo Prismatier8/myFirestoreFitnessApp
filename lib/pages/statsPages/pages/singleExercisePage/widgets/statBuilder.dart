@@ -45,8 +45,8 @@ class _StatBuilderState extends State<StatBuilder> {
             return Column(
               children: <Widget>[
                 SingleExerciseWithStats(
-                  statTypeList: statTypeList,
                   exercise: widget.exercise,
+                  statTypeList: statTypeList,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
@@ -67,6 +67,7 @@ class _StatBuilderState extends State<StatBuilder> {
                 executionList: snapshot.data,
                 statTypeList: statTypeList,
                 isComparable: false,
+                exercise: widget.exercise,
             );
           }
         } else if (snapshot.hasError){

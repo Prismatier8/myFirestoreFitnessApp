@@ -22,7 +22,7 @@ class ExecutionService extends ChangeNotifier{
       list.add(ExecutionData.fromJson(snapshot.documents[i].data));
     }
     return list;
-  }
+}
   Future deleteExecutions(String exerciseID) async{
       QuerySnapshot snapshot = await _api.ref.where("exerciseRef", isEqualTo: exerciseID).getDocuments();
       for(int i = 0; i<snapshot.documents.length; i++){

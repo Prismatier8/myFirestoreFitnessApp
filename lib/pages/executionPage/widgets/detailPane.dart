@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseTimer.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/cancelExecutionbutton.dart';
+import 'package:myfitnessmotivation/pages/executionPage/widgets/cyclingImage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/executionTimer.dart';
 
 class DetailPane extends StatefulWidget {
@@ -36,24 +37,8 @@ class _DetailPaneState extends State<DetailPane> {
               ],
             ),
           ),
-          //TODO: Bottom code should use exercisePicture widget in globalWidget folder
-          Padding(
-            padding: EdgeInsets.all(20),
-            child: Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(10),
-                ),
-                color: Colors.black12,
-              ),
-              child: FittedBox(
-                fit: BoxFit.cover,
-                child: Icon(Icons.photo_camera, color: Colors.black38,),
-              ),
-            ),
-          ),
+          CyclingImage(),
+
         ],
       ),
     );

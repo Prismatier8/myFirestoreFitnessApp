@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
-import 'package:myfitnessmotivation/globalWidgets/staticExerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/testImageWidget.dart';
+import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -38,7 +39,7 @@ class ExerciseWithStats extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  StaticExerciseImage(exercisesSnapshot.data[builderIndex]),
+                  ExerciseImage(exercise: exercisesSnapshot.data[builderIndex]),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(

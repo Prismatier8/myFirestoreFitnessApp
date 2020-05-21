@@ -9,7 +9,7 @@ import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/si
 import 'package:myfitnessmotivation/pages/updateExercisePage/updateExercisePage.dart';
 import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
 import 'package:myfitnessmotivation/providerModel/executionModel.dart';
-import 'package:myfitnessmotivation/providerModel/navigationModel.dart';
+import 'package:myfitnessmotivation/providerModel/imageCacheModel.dart';
 import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
@@ -24,7 +24,6 @@ import 'package:provider/provider.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => NavigationModel(),),
       ChangeNotifierProvider(create: (context) => TagSelectionModel(),),
       ChangeNotifierProvider(create: (context) => PlanService(),),
       ChangeNotifierProvider(create: (context) => ExerciseService(),),
@@ -35,6 +34,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => ExecutionService()),
       ChangeNotifierProvider(create: (context) => SingleStatCalculationModel()),
       ChangeNotifierProvider(create: (context) => ImageService()),
+      ChangeNotifierProvider(create: (context) => ImageCacheModel()),
     ],
     child: MyApp(),
   ));

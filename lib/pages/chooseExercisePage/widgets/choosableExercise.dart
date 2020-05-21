@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/testImageWidget.dart';
+import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,9 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            ExerciseImage(
+              exercise: widget.exerciseModel,
+            ),
             Padding(
               padding: EdgeInsets.only(left: 20),
               child: Text(
