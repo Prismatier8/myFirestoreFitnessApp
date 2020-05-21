@@ -8,6 +8,7 @@ class PlanModel{
   List<dynamic> exerciseRef;
   bool vibrationSignal;
   bool audioSignal;
+  int planDuration;
   PlanModel({@required this.title,
     @required this.breakPause,
     @required this.tags,
@@ -17,12 +18,13 @@ class PlanModel{
 
 
   PlanModel.fromMap(Map snapshot) :
-      breakPause = snapshot['breakPause'] ?? '',
+      breakPause = snapshot['breakPause'] ?? 0,
       title = snapshot['title'] ?? '',
       tags = snapshot['tags'] ?? [],
       exerciseRef = snapshot['exerciseRef'] ?? [],
       vibrationSignal = snapshot['vibrationSignal'] ?? false,
-      audioSignal = snapshot['audioSignal'] ?? false;
+      audioSignal = snapshot['audioSignal'] ?? false,
+      planDuration = snapshot['planDuration'] ?? 0;
 
   Map<String, dynamic> toJson(){
     return {
@@ -32,6 +34,7 @@ class PlanModel{
       'exerciseRef' : exerciseRef,
       'vibrationSignal' : vibrationSignal,
       'audioSignal' : audioSignal,
+      'planDuration' : planDuration,
     };
   }
 }

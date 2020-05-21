@@ -62,8 +62,8 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
                             shape: BoxShape.circle,
                           ),
                           child: checkForContainingReference(snapshot)
-                              ? Icon(Icons.remove, color: Colors.red, size: 40)
-                              : Icon(Icons.add, color:Colors.green, size: 40)
+                              ? Icon(Icons.remove_circle, color: Colors.lightBlueAccent, size: 40)
+                              : Icon(Icons.add_circle, color:Colors.lightBlueAccent, size: 40)
                       ),
                     ),
                   );

@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/planTags.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/deletePlanDialog.dart';
+import 'package:myfitnessmotivation/pages/trainingPage/Widgets/planDuration.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/staticTagWidget.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -87,18 +88,17 @@ class _PlanState extends State<Plan> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Icon(
+            widget.plan.planDuration != 0 ? Icon(
               Icons.update,
               color: Colors.white,
               size: 30,
+            )
+            :Icon(
+              Icons.add_circle_outline,
+              color: Colors.white,
+              size: 30,
             ),
-            Text(
-              "120 Min",
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 12,
-              ),
-            ),
+            PlanDuration(widget.plan),
           ],
         ),
       );
@@ -129,9 +129,6 @@ class _PlanState extends State<Plan> {
         ),
       );
     }
-  }
-  String _calculateMinimumPlanExecution(){
-    //TODO: Calculate Minimum Plan Execution with queries and FutureBuilder to show result???
   }
   void _showDeletePlanDialog(BuildContext context) {
     showDialog(

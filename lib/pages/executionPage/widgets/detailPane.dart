@@ -29,7 +29,7 @@ class _DetailPaneState extends State<DetailPane> {
               children: <Widget>[
                 CancelExecutionButton(),
                 Spacer(),
-                ExecutionTimer(),
+                ExecutionTimer(widget.planModel),
                 Padding(
                   padding: EdgeInsets.only(left: 20, right: 30),
                   child: BreakPauseTimer(widget.planModel),
