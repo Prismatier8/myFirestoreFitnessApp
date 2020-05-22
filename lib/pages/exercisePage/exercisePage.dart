@@ -43,7 +43,7 @@ class ExercisePage extends StatelessWidget{
         ),
       ),
       body: StreamBuilder(
-        stream: exerciseService.getDocumentsByStream(),
+        stream: exerciseService.getExercisesByStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           if(snapshot.hasData){
             return ListView.builder(

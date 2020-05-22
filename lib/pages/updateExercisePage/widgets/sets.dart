@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/setDisplay.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
 import 'package:provider/provider.dart';
 enum _RowType {weight, repetition}
@@ -20,46 +21,49 @@ class _SetsState extends State<Sets> {
 
     final setService = Provider.of<SetService>(context);
     return Container(
-      width: MediaQuery.of(context).size.width * 0.7,
-      height: MediaQuery.of(context).size.height * 0.6,
-      child: Card(
-        child: FutureBuilder(
-          future: setService.getReferencedDocuments(widget.exerciseModel.title),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-            if(snapshot.hasData){
-              return ListView.separated(
-                itemCount: snapshot.data.documents.length,
-                separatorBuilder: (BuildContext context, int index) => const Divider(),
-                itemBuilder: (BuildContext context, int index){
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Center(
-                          child: Text("Set: " + (index + 1).toString(),
-                            style: TextStyle(fontSize: _defaultTextSize),
-                          ),
-                        ),
-                        rowFuture(setService, index),
-                      ],
-                    );
-                },
+      width: MediaQuery.of(context).size.width * 0.9,
+      height: MediaQuery.of(context).size.height * 0.5,
+      child: FutureBuilder(
+        future: setService.getReferencedDocuments(widget.exerciseModel.title),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> setLengthSnapshot){
+          if(setLengthSnapshot.hasData){
+            return ListView.separated(
+              itemCount: setLengthSnapshot.data.documents.length,
+              separatorBuilder: (BuildContext context, int index) => const Divider(),
+              itemBuilder: (BuildContext context, int index){
+                  return FutureBuilder(
+                    future: setService.getReferencedSetBySequence(
+                        widget.exerciseModel.title,
+                        index + 1),
+                    builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> setSnapshot){
+                      if(setSnapshot.hasData){
+                        return SetDisplay(
+                            set: SetModel.fromMap(setSnapshot.data.documents[0].data),
+                            setID: setSnapshot.data.documents[0].documentID,);
+                      } else if (setSnapshot.hasError){
+                        return Container();
+                      } else {
+                        return Container();
+                      }
+                    },
+                  );
+              },
 
-              );
-            } else if(snapshot.hasError){
-              return Center(
-                child: Text("Error Occured"),
-              );
-            } else{
-              return Container();
-            }
-          },
-        ),
+            );
+          } else if(setLengthSnapshot.hasError){
+            return Center(
+              child: Text("Error Occured"),
+            );
+          } else{
+            return Container();
+          }
+        },
       ),
     );
   }
   Widget rowFuture (SetService setService, int index){
     return FutureBuilder(
-      future: setService.getReferencedDocumentBySequence(widget.exerciseModel.title, index + 1),
+      future: setService.getReferencedSetBySequence(widget.exerciseModel.title, index + 1),
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if(snapshot.hasData){
           return Column(

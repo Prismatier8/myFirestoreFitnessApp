@@ -46,8 +46,13 @@ class TrainingPage extends StatelessWidget {
             return ListView.builder(
               itemCount: snapshot.data.documents.length,
               itemBuilder: (BuildContext context, int index) {
-                return Plan(
-                  plan: PlanModel.fromMap(snapshot.data.documents[index].data),
+                return Column(
+                 children: <Widget>[
+                   Plan(
+                     plan: PlanModel.fromMap(snapshot.data.documents[index].data),
+                   ),
+                 ],
+
                 );
               },
             );

@@ -5,11 +5,11 @@ class Names {
   static const String NAVIGATION_EXERCISES = "Übungen";
   //NAVIGATIONTITLES
   //BASIC
-  static const String BASIC_ERRORMESSAGE = "Etwas stimmt mit deiner Verbindung nicht :'(";
+  static const String BASIC_ERRORMESSAGE = "Etwas ist schief gelaufen";
   static const String BASIC_TITLE ="Titel";
   static const String BASIC_TAGS = "Tags";
   static const String BASIC_MUSCLEGROUPS = "Muskelgruppen";
-  static const String BASIC_SETS = "Sets";
+  static const String BASIC_SETS = "Sätze";
   static const String BASIC_ACCEPT = "OK";
   static const String BASIC_DELETE = "Löschen";
   //BASIC
@@ -28,11 +28,11 @@ class Names {
   static const String TITLE_PREPERATION = "Vorbereitung";
   static const String TITLE_STATS = "Stats";
   static const String TITLE_ADDEXERCISE = "Übung erstellen";
-  static const String TITLE_CHOOSEEXERCISES = "Übungen auswählen";
+  static const String TITLE_CHOOSEEXERCISES = "Übungen";
   static const String TITLE_TRAININGPLANS = "Trainingspläne";
   //APPBARTITLES
   //ADDPLAN
-  static const String ADDPLAN_TITLE = "Trainingsplan erstellen";
+  static const String ADDPLAN_TITLE = "Trainingsplan";
   static const String ADDPLAN_ADDBUTTON = "Erstellen";
   static const String ADDPLAN_CANCELBUTTON = "Abbrechen";
   static const String ADDPLAN_TAGERRORMESSAGE = "Maximal drei Tags erlaubt";

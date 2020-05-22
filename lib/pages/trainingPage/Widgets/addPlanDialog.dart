@@ -34,50 +34,54 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      content: Container(
-        height: 250,
-        width: 300,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Center(
-              child: Text(
-                Names.ADDPLAN_TITLE,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            ListenableTextField(controller: controller, isTitleMissing: isTitleMissing,),
-            Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 10),
-              child: Text(
-                Names.BASIC_TAGS,
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                DynamicTagWidget(
-                  name: Names.TAGS_MONDAY,
-                  color: Colors.lightBlueAccent,
+      content: SingleChildScrollView(
+        child: Container(
+          height: 250,
+          width: 300,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  Names.ADDPLAN_TITLE,
+                  style: TextStyle(fontSize: 20),
                 ),
-                DynamicTagWidget(name: Names.TAGS_TUESDAY, color: Colors.green),
-                DynamicTagWidget(name: Names.TAGS_WEDNESDAY, color: Colors.orangeAccent),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                DynamicTagWidget(name: Names.TAGS_THURSDAY, color: Colors.deepPurpleAccent),
-                DynamicTagWidget(name: Names.TAGS_FRIDAY, color: Colors.redAccent),
-                DynamicTagWidget(name: Names.TAGS_SATURDAY, color: Colors.pinkAccent),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                DynamicTagWidget(name: Names.TAGS_SUNDAY, color: Colors.indigoAccent),
-                validateSelectedTagQuantity(tagSelectionModel) //returns error text
-              ],
-            ),
-          ],
+              ),
+              ListenableTextField(controller: controller, isTitleMissing: isTitleMissing,),
+              Padding(
+                padding: EdgeInsets.only(top: 5, bottom: 10),
+                child: Center(
+                  child: Text(
+                    Names.BASIC_TAGS,
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+              Row(
+                children: <Widget>[
+                  DynamicTagWidget(
+                    name: Names.TAGS_MONDAY,
+                    color: Colors.lightBlueAccent,
+                  ),
+                  DynamicTagWidget(name: Names.TAGS_TUESDAY, color: Colors.green),
+                  DynamicTagWidget(name: Names.TAGS_WEDNESDAY, color: Colors.orangeAccent),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  DynamicTagWidget(name: Names.TAGS_THURSDAY, color: Colors.deepPurpleAccent),
+                  DynamicTagWidget(name: Names.TAGS_FRIDAY, color: Colors.redAccent),
+                  DynamicTagWidget(name: Names.TAGS_SATURDAY, color: Colors.pinkAccent),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  DynamicTagWidget(name: Names.TAGS_SUNDAY, color: Colors.indigoAccent),
+                  validateSelectedTagQuantity(tagSelectionModel) //returns error text
+                ],
+              ),
+            ],
+          ),
         ),
       ),
       actions: <Widget>[

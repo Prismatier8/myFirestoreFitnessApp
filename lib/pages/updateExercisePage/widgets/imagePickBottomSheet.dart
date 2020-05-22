@@ -11,7 +11,7 @@ class ImagePickBottomSheet extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Container(
-      height: 200,
+      height: 120,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[

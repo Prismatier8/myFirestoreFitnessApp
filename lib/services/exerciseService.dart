@@ -6,76 +6,104 @@ import 'package:myfitnessmotivation/stringResources/collectionStrings.dart';
 
 import 'myDBAPI.dart';
 
-class ExerciseService extends ChangeNotifier{
+class ExerciseService extends ChangeNotifier {
   MyDBApi _api = MyDBApi(collectionPath: Collection.EXERCISES);
 
   Future addExercise(ExerciseModel exercise, String id) async {
     await _api.addDocument(exercise.toJson(), id);
   }
+
   ///Not tested
   Future deleteExercise(String exerciseName) async {
     await _api.removeDocument(exerciseName);
   }
-  Stream<QuerySnapshot> getDocumentsByStream()  {
+
+  Stream<QuerySnapshot> getExercisesByStream() {
     return _api.streamDataCollection();
   }
-  Future updateExercise(String exerciseName, Map<String, dynamic> data) async{
+
+  Future updateExercise(String exerciseName, Map<String, dynamic> data) async {
     await _api.updateDocument(data, exerciseName);
   }
-  addPlanToExercise(String exerciseName, String planName) async{
+
+  addPlanToExercise(String exerciseName, String planName) async {
     List<String> plan = [];
     plan.add(planName);
-    Map<String, dynamic> map = {"planReferences" : FieldValue.arrayUnion(plan)};
+    Map<String, dynamic> map = {"planReferences": FieldValue.arrayUnion(plan)};
 
     await updateExercise(exerciseName, map);
   }
-  Future deletePlanFromExercise(String exerciseName, String planName) async{
+
+  Future deletePlanFromExercise(String exerciseName, String planName) async {
     List<String> plan = [];
     plan.add(planName);
-    Map<String, dynamic> map = {"planReferences" : FieldValue.arrayRemove(plan)};
+    Map<String, dynamic> map = {"planReferences": FieldValue.arrayRemove(plan)};
 
     await updateExercise(exerciseName, map);
   }
-  Future<ExerciseModel> getExerciseData(String exerciseID) async{
+
+  Future<List<ExerciseModel>> getExercisesWithMuscleGroup(
+      String muscleGroup) async {
+    QuerySnapshot snapshot;
+    List<ExerciseModel> exerciseDataList = [];
+    if (muscleGroup == "Alle Übungen") {
+      snapshot = await _api.ref
+          .getDocuments();
+    } else {
+      snapshot = await _api.ref
+          .where("muscleGroupReferences", arrayContains: muscleGroup)
+          .getDocuments();
+    }
+
+    for (int i = 0; i < snapshot.documents.length; i++) {
+      exerciseDataList.add(ExerciseModel.fromJson(snapshot.documents[i].data));
+    }
+    return exerciseDataList;
+  }
+
+  Future<ExerciseModel> getExerciseData(String exerciseID) async {
     DocumentSnapshot snapshot = await _api.getDocumentById(exerciseID);
     ExerciseModel exercise = ExerciseModel.fromJson(snapshot.data);
     return exercise;
   }
-  //TODO: REFACTOR
-  Future<List<ExerciseModel>> getMultipleExerciseDataFromPlan(PlanModel plan) async {
 
+  //TODO: REFACTOR
+  Future<List<ExerciseModel>> getExercisesFromPlan(PlanModel plan) async {
     List<ExerciseModel> exerciseList = [];
 
-    DocumentSnapshot planSnapshot = await Firestore.instance.collection(Collection.PLANS).document(plan.title).get();
+    DocumentSnapshot planSnapshot = await Firestore.instance
+        .collection(Collection.PLANS)
+        .document(plan.title)
+        .get();
     final planModel = PlanModel.fromMap(planSnapshot.data);
-    QuerySnapshot exerciseSnapshot = await _api.ref.where(
-        "planReferences", arrayContains: plan.title).getDocuments();
+    QuerySnapshot exerciseSnapshot = await _api.ref
+        .where("planReferences", arrayContains: plan.title)
+        .getDocuments();
     List<dynamic> exerciseRef = planModel.exerciseRef;
     for (int i = 0; i < exerciseSnapshot.documents.length; i++) {
-      ExerciseModel exercise = ExerciseModel.fromJson(
-          exerciseSnapshot.documents[i].data);
+      ExerciseModel exercise =
+          ExerciseModel.fromJson(exerciseSnapshot.documents[i].data);
       exerciseList.add(exercise);
     }
     final sortedList = _sortList(exerciseList, exerciseRef);
     return sortedList;
   }
+
   //TODO: REFACTOR
- List<ExerciseModel> _sortList(List<ExerciseModel> exerciseList, List<dynamic> exerciseRef){
+  List<ExerciseModel> _sortList(
+      List<ExerciseModel> exerciseList, List<dynamic> exerciseRef) {
     List<ExerciseModel> sortedList = [];
     List<String> exerciseListTitleOnly = [];
-   for (int i = 0; i < exerciseList.length; i++) {
-     exerciseListTitleOnly.add(exerciseList[i].title);
-   }
+    for (int i = 0; i < exerciseList.length; i++) {
+      exerciseListTitleOnly.add(exerciseList[i].title);
+    }
 
-   for (int i = 0; i < exerciseRef.length; i++) {
-     int index = exerciseListTitleOnly.indexOf(exerciseRef[i]);
-     sortedList.add(exerciseList[index]);
-   }
-   return sortedList;
+    for (int i = 0; i < exerciseRef.length; i++) {
+      int index = exerciseListTitleOnly.indexOf(exerciseRef[i]);
+      sortedList.add(exerciseList[index]);
+    }
+    return sortedList;
   }
-
-
-
 
   ///TOO SLOW
   /*
@@ -99,7 +127,5 @@ class ExerciseService extends ChangeNotifier{
   }
 
    */
-
-  
 
 }

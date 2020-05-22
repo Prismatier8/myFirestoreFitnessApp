@@ -16,6 +16,7 @@ import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/imageService.dart';
+import 'package:myfitnessmotivation/services/muscleGroupService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -35,6 +36,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => SingleStatCalculationModel()),
       ChangeNotifierProvider(create: (context) => ImageService()),
       ChangeNotifierProvider(create: (context) => ImageCacheModel()),
+      ChangeNotifierProvider(create: (context) => MuscleGroupService()),
     ],
     child: MyApp(),
   ));

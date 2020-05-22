@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/setPane.dart';
+import 'package:myfitnessmotivation/services/setService.dart';
+import 'package:provider/provider.dart';
 
 enum _UpdateType { increment, decrement }
 
@@ -8,10 +10,14 @@ class ExecutionInputRow extends StatefulWidget {
   final TextEditingController controller;
   final double textSize;
   final RowType type;
+  final isUpdater;
+  final String setID;
   ExecutionInputRow(
       {@required this.controller,
       @required this.textSize,
-      @required this.type});
+      @required this.type,
+      @required this.isUpdater,
+      this.setID});
 
   @override
   _ExecutionInputRowState createState() => _ExecutionInputRowState();
@@ -45,6 +51,16 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
             height: 50,
             width: 55,
             child: TextField(
+              onEditingComplete: (){
+                if(widget.isUpdater){
+                  final setService = Provider.of<SetService>(context, listen: false);
+                  if(widget.type == RowType.repetition){
+                    setService.updateRepetition(widget.setID, widget.controller.text);
+                  } else {
+                    setService.updateWeight(widget.setID, widget.controller.text);
+                  }
+                }
+              },
                 maxLength: 6,
                 keyboardType: TextInputType.number,
                 inputFormatters: widget.type == RowType.repetition
@@ -95,7 +111,7 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
       ],
     );
   }
-  //TODO: NEED TO BE SPLIT INTO METHODS DRY
+  //TODO: NEED TO REFACTORED!!!!!!!!!!!!
   _updateValue(_UpdateType updateType) {
     if (widget.type == RowType.repetition) {
       int currentValue;
@@ -120,6 +136,10 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
           currentValue = 0;
           widget.controller.text = currentValue.toString();
         }
+      }
+      if(widget.isUpdater){
+        final setService = Provider.of<SetService>(context, listen: false);
+        setService.updateWeight(widget.setID, widget.controller.text);
       }
     } else {
       // RowType.weight
@@ -148,6 +168,10 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
           currentValue = 0.0;
           widget.controller.text = currentValue.toString();
         }
+      }
+      if(widget.isUpdater){
+        final setService = Provider.of<SetService>(context, listen: false);
+          setService.updateWeight(widget.setID, widget.controller.text);
       }
     }
   }

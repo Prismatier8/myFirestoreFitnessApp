@@ -21,7 +21,7 @@ class _ReordableListState extends State<ReorderableList> {
     final planService = Provider.of<PlanService>(context);
     final exerciseService = Provider.of<ExerciseService>(context);
     return FutureBuilder(
-      future: exerciseService.getMultipleExerciseDataFromPlan(widget.planModel),
+      future: exerciseService.getExercisesFromPlan(widget.planModel),
       builder: (context, AsyncSnapshot<List<ExerciseModel>> snapshots) {
         if (snapshots.hasData) {
             exerciseList = snapshots.data;

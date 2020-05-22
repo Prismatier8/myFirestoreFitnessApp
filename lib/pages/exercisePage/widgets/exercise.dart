@@ -33,6 +33,11 @@ class _ExerciseState extends State<Exercise>{
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           child: InkWell(
+            onTap: (){
+              Navigator.pushNamed(
+                  context, NamedRoutes.ROUTE_ADDEXERCISEPAGE,
+                  arguments: widget.exerciseModel);
+            },
             onLongPress: () {
               _showDeleteExerciseDialog(context);
             },
@@ -56,12 +61,7 @@ class _ExerciseState extends State<Exercise>{
                     onTap: () {
                       Navigator.pushNamed(
                           context, NamedRoutes.ROUTE_ADDEXERCISEPAGE,
-                          arguments: widget.exerciseModel)
-                      .then((value){
-                        setState(() {
-                          print("isCalled!!! on " + widget.exerciseModel.title);
-                        });
-                      });
+                          arguments: widget.exerciseModel);
                     },
                     child: Icon(
                       Icons.settings,

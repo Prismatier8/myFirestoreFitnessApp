@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,7 @@ class ImageCacheModel extends ChangeNotifier{
     if(_cache.containsKey(exerciseName)){
       return _cache[exerciseName];
     } else {
-      return Icon(Icons.image, color: Colors.black26,);
+      return Icon(Icons.photo_camera, color: Colors.black26,);
     }
   }
   ///Adds Image directly to cache, is used when adding picture from gallery or camera
@@ -31,12 +32,15 @@ class ImageCacheModel extends ChangeNotifier{
       return;
     }
     if(imageRef == ""){ ///empty imageRef means no picture in firebase storage
-      _cache[exerciseName] = Icon(Icons.image, color: Colors.black26,);
+      _cache[exerciseName] = Icon(Icons.photo_camera, color: Colors.black26,);
       return;
     }
     String downloadURL = await FirebaseStorage.instance.ref().child(imageRef).getDownloadURL();
-    _cache[exerciseName] = Image.network(downloadURL);
-
+    _cache[exerciseName] = CachedNetworkImage(
+      imageUrl: downloadURL,
+      placeholder: (context, url) => Icon(Icons.photo_camera, color: Colors.black26),
+      errorWidget: (context, url, error) => Icon(Icons.photo_camera, color: Colors.black26),
+    );
     notifyListeners();
 
   }

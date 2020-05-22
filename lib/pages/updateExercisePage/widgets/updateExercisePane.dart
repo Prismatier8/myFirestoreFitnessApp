@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/muscleGroupDialog.dart';
+import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/muscleGroupDisplay.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/updateExerciseImage.dart';
-import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/setQuantityDialog.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/sets.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
@@ -23,26 +24,35 @@ class _UpdateExercisePaneState extends State<UpdateExercisePane> {
       children: <Widget>[
         Align(
           alignment: Alignment.topRight,
-          child: Padding(
-            padding: EdgeInsets.only(top: 10, right: 10),
-            child: UpdateExerciseImage(widget.exercise),
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 10, right: 10),
+              child: UpdateExerciseImage(widget.exercise),
+            ),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
           child: InkWell(
             onTap: () {
-              //TODO: Define Tap when user is trying to add muscleGroups to exercise
+              _showMuscleGroupDialog(context);
             },
-            child: Text(
-              Names.BASIC_MUSCLEGROUPS,
-              style: TextStyle(fontSize: 20),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.fitness_center, color: Theme.of(context).accentColor),
+                SizedBox(width: 20,),
+                Text(
+                  Names.BASIC_MUSCLEGROUPS,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+
             ),
           ),
         ),
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
-          child: Text("The future musclegroups"),
+          child: MuscleGroupDisplay(widget.exercise),
         ),
         Padding(
           padding: EdgeInsets.only(left: 20, top: 10),
@@ -50,9 +60,19 @@ class _UpdateExercisePaneState extends State<UpdateExercisePane> {
             onTap: () {
               //_showSetQuantityDialog(context);
             },
-            child: Text(
-              Names.BASIC_SETS,
-              style: TextStyle(fontSize: 20),
+
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.build, color: Theme.of(context).accentColor,),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  Names.BASIC_SETS,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+
             ),
           ),
         ),
@@ -63,6 +83,18 @@ class _UpdateExercisePaneState extends State<UpdateExercisePane> {
         ),
       ],
     );
+  }
+  void _showMuscleGroupDialog(BuildContext context) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return MuscleGroupDialog(widget.exercise);
+        }).then((value) {
+          setState(() {
+
+          });
+    });
   }
 /*
   _showSetQuantityDialog(BuildContext context) {

@@ -66,11 +66,13 @@ class _SetPaneState extends State<SetPane> {
                 type: RowType.weight,
                 textSize: textSize,
                 controller: _kgController,
+                isUpdater: false,
               ),
               ExecutionInputRow(
                 type: RowType.repetition,
                 textSize: textSize,
                 controller: _wdhController,
+                isUpdater: false,
               ),
               Padding(
                 padding: EdgeInsets.only(top: 40),
