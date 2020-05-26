@@ -31,9 +31,17 @@ class PreparationPage extends StatelessWidget {
               height: 100,
               child: FloatingActionButton(
                 heroTag: Names.HEROTAG_FLOATINGBUTTON,
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(context, NamedRoutes.ROUTE_EXECUTIONPAGE,(_) => false,
-                      arguments: planModel);
+                onPressed: () async {
+                  final planService = Provider.of<PlanService>(context, listen: false);
+                  await planService.getPlan(planModel.title)
+                      .then((value){
+                    PlanModel refreshedModel = PlanModel.fromMap(value.data);
+                    Navigator.pushNamedAndRemoveUntil(context, NamedRoutes.ROUTE_EXECUTIONPAGE,(_) => false,
+                        arguments: refreshedModel);
+                  }).catchError((onError){
+                    final snackBar = SnackBar(content: Text(Names.BASIC_ERRORMESSAGE),);
+                    Scaffold.of(context).showSnackBar(snackBar);
+                  });
                 },
                 backgroundColor: Colors.green,
                 child: Icon(

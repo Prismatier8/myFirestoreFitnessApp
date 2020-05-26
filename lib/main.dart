@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
 import 'package:myfitnessmotivation/pages/entryPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
+import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/preparationPage.dart';
+import 'package:myfitnessmotivation/pages/rootPage/rootPage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/multiExercisePage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/singleExercisePage.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/updateExercisePage.dart';
@@ -13,6 +15,7 @@ import 'package:myfitnessmotivation/providerModel/imageCacheModel.dart';
 import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
 import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
+import 'package:myfitnessmotivation/services/auth/authentication.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/imageService.dart';
@@ -37,6 +40,8 @@ void main() {
       ChangeNotifierProvider(create: (context) => ImageService()),
       ChangeNotifierProvider(create: (context) => ImageCacheModel()),
       ChangeNotifierProvider(create: (context) => MuscleGroupService()),
+      ChangeNotifierProvider(create: (context) => AccessHandler(),),
+      ChangeNotifierProvider(create: (context) => Authentication(),),
     ],
     child: MyApp(),
   ));
@@ -74,7 +79,7 @@ class MyApp extends StatelessWidget {
         }
       },
       theme: ThemeData(accentColor: Colors.amber),
-      home: EntryPage(),
+      home: RootPage(),
     );
   }
 }

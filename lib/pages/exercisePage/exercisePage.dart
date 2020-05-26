@@ -27,21 +27,6 @@ class ExercisePage extends StatelessWidget{
           ),
         ),
       ),
-      floatingActionButton: SizedBox(
-        width: 70,
-        height: 70,
-        child: FloatingActionButton(
-          heroTag: "addExercise",
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () {
-            _showAddExerciseDialog(context);
-          },
-        ),
-      ),
       body: StreamBuilder(
         stream: exerciseService.getExercisesByStream(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
@@ -63,13 +48,5 @@ class ExercisePage extends StatelessWidget{
         },
       ),
     );
-  }
-  _showAddExerciseDialog(BuildContext context){
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return AddExerciseDialog();
-        });
   }
 }
