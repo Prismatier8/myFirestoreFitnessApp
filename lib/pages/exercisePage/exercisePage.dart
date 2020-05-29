@@ -27,25 +27,31 @@ class ExercisePage extends StatelessWidget{
           ),
         ),
       ),
-      body: StreamBuilder(
-        stream: exerciseService.getExercisesByStream(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (BuildContext context, int index){
-                return Exercise(
-                  ExerciseModel.fromJson(snapshot.data.documents[index].data)
-                );
-              },
-            );
-          }else if (snapshot.hasError){
-            print("snapshoterror caused on exercisePage when loading exercises from firestore"); //TODO: Look into it in the end
-            return Container();
-          }else{
-           return CircularProgressIndicator();
-          }
-        },
+      body: Container(
+        height: (MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top) * 0.79,
+        child: StreamBuilder(
+          stream: exerciseService.getExercisesByStream(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
+            if(snapshot.hasData){
+              return ListView.builder(
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (BuildContext context, int index){
+                  return Exercise(
+                    ExerciseModel.fromJson(snapshot.data.documents[index].data)
+                  );
+                },
+              );
+            }else if (snapshot.hasError){
+              return Container(
+                child: Center(
+                  child: Text(Names.BASIC_ERRORMESSAGE),
+                ),
+              );
+            }else{
+             return CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }

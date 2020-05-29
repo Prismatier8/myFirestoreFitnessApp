@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
-import 'package:myfitnessmotivation/pages/executionPage/widgets/executionInputRow.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/globalWidgets/executionInputRow.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/setPane.dart';
 
 class SetDisplay extends StatefulWidget {

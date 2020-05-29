@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/widgets/exerciseWithStats.dart';
-import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -39,9 +39,20 @@ class MultiExercisePage extends StatelessWidget {
             future: exerciseService.getExercisesFromPlan(plan),
             builder: (BuildContext context, AsyncSnapshot<List<ExerciseModel>> exerciseSnapshot){
               if(exerciseSnapshot.hasData){
+                if(exerciseSnapshot.data.length == 0){
+                  return Center(
+                    child: Container(
+                      child: Text("Keine Übungen vorhanden",
+                        style: TextStyle(
+                          fontSize: 30,
+                        ),),
+                    ),
+                  );
+                }
                 return ListView.builder(
                   itemCount: exerciseSnapshot.data.length,
                   itemBuilder: (BuildContext context, int index){
+
                     return ExerciseWithStats(
                         exercisesSnapshot: exerciseSnapshot,
                         builderIndex: index,

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/planTags.dart';
+import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'package:myfitnessmotivation/pages/statsPages/widgets/planTrend.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
@@ -11,12 +14,13 @@ class PlanWithStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final widthFactor = 0.95;
     return Align(
       alignment: Alignment.topCenter,
       child: Padding(
         padding: EdgeInsets.only(top: 10),
         child: FractionallySizedBox(
-          widthFactor: 0.9,
+          widthFactor: widthFactor,
           child: Container(
             height: 80,
             child: Stack(
@@ -36,11 +40,13 @@ class PlanWithStats extends StatelessWidget {
                             plan: plan
                         ),
                         Padding(
-                            padding: EdgeInsets.only(left: 20, bottom: 20),
-                            child: Text(
-                              plan.title,
-                              style: TextStyle(fontSize: 18),
-                            )
+                            padding: EdgeInsets.only(left: 6, bottom: 20),
+                          child: TitleDisplay(
+                            containerWidth: (MediaQuery.of(context).size.width * widthFactor) - 90,
+                            containerHeight: 20,
+                            title: plan.title,
+                            fontSize: 18,
+                          ),
                         ),
                       ],
                     ),

@@ -17,7 +17,17 @@ class ExerciseService extends ChangeNotifier {
   Future deleteExercise(String exerciseName) async {
     await _api.removeDocument(exerciseName);
   }
+  Future<bool> validateExerciseName(String possibleExerciseName) async{
+    QuerySnapshot snapshot = await _api.ref
+        .where("title", isEqualTo: possibleExerciseName)
+        .getDocuments();
+    if(snapshot.documents.length == 0){
+      return false;
+    } else{
+      return true;
+    }
 
+  }
   Stream<QuerySnapshot> getExercisesByStream() {
     return _api.streamDataCollection();
   }

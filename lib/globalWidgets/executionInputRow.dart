@@ -51,12 +51,15 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
             height: 50,
             width: 55,
             child: TextField(
+              focusNode: FocusNode(),
               onEditingComplete: (){
+                FocusScope.of(context).unfocus();
+
                 if(widget.isUpdater){
                   final setService = Provider.of<SetService>(context, listen: false);
                   if(widget.type == RowType.repetition){
                     setService.updateRepetition(widget.setID, widget.controller.text);
-                  } else {
+                  } else{
                     setService.updateWeight(widget.setID, widget.controller.text);
                   }
                 }
@@ -65,7 +68,10 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
                 keyboardType: TextInputType.number,
                 inputFormatters: widget.type == RowType.repetition
                     ? [WhitelistingTextInputFormatter.digitsOnly]
-                    : [BlacklistingTextInputFormatter(RegExp("[ -,-]"))],
+                    : [DecimalTextInputFormatter(
+                  activatedNegativeValues: false,
+                  decimalRange: 2
+                )],
                 controller: widget.controller,
                 decoration: widget.type == RowType.repetition
                     ? InputDecoration(
@@ -174,5 +180,34 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
           setService.updateWeight(widget.setID, widget.controller.text);
       }
     }
+  }
+}
+class DecimalTextInputFormatter extends TextInputFormatter {
+
+  DecimalTextInputFormatter({int decimalRange, bool activatedNegativeValues})
+      : assert(decimalRange == null || decimalRange >= 0,
+  'DecimalTextInputFormatter declaretion error') {
+    String dp = (decimalRange != null && decimalRange > 0) ? "([.][0-9]{0,$decimalRange}){0,1}" : "";
+    String num = "[0-9]*$dp";
+
+    if(activatedNegativeValues) {
+      _exp = new RegExp("^((((-){0,1})|((-){0,1}[0-9]$num))){0,1}\$");
+    }
+    else {
+      _exp = new RegExp("^($num){0,1}\$");
+    }
+  }
+
+  RegExp _exp;
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    if(_exp.hasMatch(newValue.text)){
+      return newValue;
+    }
+    return oldValue;
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+///The AccessHandler is a class to collect User input data from the loginPage and provides it for the loginButton Widget that is responsible
+///for accessing the home page
 class AccessHandler extends ChangeNotifier{
 
   VoidCallback _logout;

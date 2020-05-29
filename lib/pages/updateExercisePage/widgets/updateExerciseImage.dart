@@ -15,7 +15,6 @@ class UpdateExerciseImage extends StatefulWidget {
 class _UpdateExerciseImageState extends State<UpdateExerciseImage> {
   @override
   Widget build(BuildContext context) {
-    final imageService = Provider.of<ImageService>(context, listen: false);
     return Container(
       width: 120,
       height: 120,
@@ -29,7 +28,7 @@ class _UpdateExerciseImageState extends State<UpdateExerciseImage> {
           child: Consumer<ImageCacheModel>(
             builder: (context, imageCache, _) {
               return FittedBox(
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 child: imageCache.getImage(widget.exercise.title),
               );
             },

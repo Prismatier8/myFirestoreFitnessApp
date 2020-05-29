@@ -4,7 +4,7 @@ import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/imageService.dart';
 import 'package:provider/provider.dart';
 
-///isLoading is also Error
+///Not in use!!!
 class TestImageWidget extends StatefulWidget {
   final ExerciseModel exercise;
    TestImageWidget({@required this.exercise});

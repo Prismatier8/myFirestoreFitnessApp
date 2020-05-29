@@ -23,7 +23,7 @@ class _LoginPasswordFormFieldState extends State<LoginPasswordFormField> {
             return "Bitte ein Passwort angeben";
           }
           if(accessHandler.validationFailed){
-            return "E-mail oder Passwort inkorrekt";
+            return "E-Mail oder Passwort inkorrekt";
           }
           return null;
         },

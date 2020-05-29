@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'package:myfitnessmotivation/pages/exercisePage/widgets/deleteExerciseDialog.dart';
 import 'package:myfitnessmotivation/providerModel/imageCacheModel.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -24,10 +25,11 @@ class _ExerciseState extends State<Exercise>{
 
   @override
   Widget build(BuildContext context) {
+    final cardWidth = MediaQuery.of(context).size.width * 0.9;
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.9,
+        width: cardWidth,
         child: Card(
           elevation: 3,
           shape:
@@ -49,10 +51,10 @@ class _ExerciseState extends State<Exercise>{
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    widget.exerciseModel.title,
-                    style: TextStyle(fontSize: 20),
-                  ),
+                  child: TitleDisplay(
+                    title: widget.exerciseModel.title,
+                  containerHeight: 30,
+                  containerWidth: cardWidth - 120),
                 ),
                 Spacer(),
                 Padding(

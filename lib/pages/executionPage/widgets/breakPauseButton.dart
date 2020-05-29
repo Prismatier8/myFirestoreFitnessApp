@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
-import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 

@@ -1,11 +1,12 @@
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/trainingPage/Widgets/dynamicTagWidget.dart';
+import 'package:myfitnessmotivation/providerModel/formFieldValidationModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import '../../../globalWidgets/listenableTextField.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/trainingPage/provider/tagSelectionModel.dart';
 import 'package:provider/provider.dart';
 
 class AddPlanDialog extends StatefulWidget {
@@ -17,7 +18,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
   TextEditingController controller;
   final int selectedTagLimit = 3;
   bool isTitleMissing = false;
-
+  final _formKey = GlobalKey<FormState>();
   initState() {
     super.initState();
     controller = TextEditingController();
@@ -47,7 +48,13 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
                   style: TextStyle(fontSize: 20),
                 ),
               ),
-              ListenableTextField(controller: controller, isTitleMissing: isTitleMissing,),
+              Form(
+                key: _formKey,
+                child: ListenableTextField(
+                  type: TextFieldType.plan,
+                  controller: controller,
+                  isTitleMissing: isTitleMissing,),
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 child: Center(
@@ -91,7 +98,8 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Theme.of(context).accentColor,
           onPressed: () {
-            clearTagSelectionQuantity(tagSelectionModel);
+            Provider.of<FormFieldValidationModel>(context, listen: false).clear(); ///clear state because adding process is over
+            clearTagSelectionQuantity(tagSelectionModel); ///same reason like above
             Navigator.pop(context);
           },
           child: Text(
@@ -103,17 +111,17 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
         FlatButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Theme.of(context).accentColor,
-          onPressed: () {
-            if (checkSelectionQuantity(tagSelectionModel)) {
-              setState(() {});
-            } else if (checkMissingTitle()) {
-              setState(() {
-                isTitleMissing = true;
-              });
-            } else {
-              addPlanToDB(tagSelectionModel);
-              clearTagSelectionQuantity(tagSelectionModel);
-              Navigator.pop(context);
+          onPressed: () async {
+            final val = Provider.of<FormFieldValidationModel>(context, listen: false);
+            final planService = Provider.of<PlanService>(context, listen: false);
+            val.planExist = await planService.validatePlanName(val.currentPlanName);
+
+            if(_formKey.currentState.validate() && isSelectedTagsBelowLimit(tagSelectionModel)){
+
+                addPlanToDB(tagSelectionModel);
+                val.clear();
+                clearTagSelectionQuantity(tagSelectionModel);
+                Navigator.pop(context);
             }
           },
           child: Text(
@@ -141,8 +149,8 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
     );
   }
 
-  bool checkSelectionQuantity(TagSelectionModel tagSelectionModel) {
-    return tagSelectionModel.currentSelectionQuantity > selectedTagLimit;
+  bool isSelectedTagsBelowLimit(TagSelectionModel tagSelectionModel) {
+    return tagSelectionModel.currentSelectionQuantity <= selectedTagLimit;
   }
 
   bool checkMissingTitle() {
@@ -156,11 +164,11 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
   }
   ///Display ErrorText if selected tags exceeds tag limit
   Text validateSelectedTagQuantity(TagSelectionModel tagSelectionModel) {
-    if (checkSelectionQuantity(tagSelectionModel)) {
-      return Text(Names.ADDPLAN_TAGERRORMESSAGE,
-          style: TextStyle(color: Colors.red)
-      );
+    if (isSelectedTagsBelowLimit(tagSelectionModel)) {
+      return Text("");
     }
-    else return Text("");
+    else return Text(Names.ADDPLAN_TAGERRORMESSAGE,
+        style: TextStyle(color: Colors.red)
+    );
   }
 }

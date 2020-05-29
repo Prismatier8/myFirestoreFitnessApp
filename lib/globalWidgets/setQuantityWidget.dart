@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/exercisePage/provider/setQuantityModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 

@@ -60,7 +60,7 @@ class ImagePickBottomSheet extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    "Foto aus Gallerie",
+                    "Foto aus Galerie",
                     style: TextStyle(fontSize: 30),
                   ),
                 )

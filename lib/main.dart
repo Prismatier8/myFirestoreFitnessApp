@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
-import 'package:myfitnessmotivation/pages/entryPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
 import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/preparationPage.dart';
@@ -9,12 +8,13 @@ import 'package:myfitnessmotivation/pages/rootPage/rootPage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/multiExercisePage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/singleExercisePage.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/updateExercisePage.dart';
-import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'package:myfitnessmotivation/providerModel/formFieldValidationModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/providerModel/imageCacheModel.dart';
-import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
-import 'package:myfitnessmotivation/providerModel/singleStatCalculationModel.dart';
-import 'package:myfitnessmotivation/providerModel/tagSelectionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/exercisePage/provider/setQuantityModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/trainingPage/provider/tagSelectionModel.dart';
 import 'package:myfitnessmotivation/services/auth/authentication.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
@@ -42,6 +42,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => MuscleGroupService()),
       ChangeNotifierProvider(create: (context) => AccessHandler(),),
       ChangeNotifierProvider(create: (context) => Authentication(),),
+      ChangeNotifierProvider(create: (context) => FormFieldValidationModel(),),
     ],
     child: MyApp(),
   ));
@@ -73,7 +74,7 @@ class MyApp extends StatelessWidget {
                 builder: (_) => ExecutionPage(), settings: settings);
           case NamedRoutes.ROUTE_NAVIGATIONSTACK:
             return MaterialPageRoute(
-                builder: (_) => EntryPage(), settings: settings);
+                builder: (_) => RootPage(), settings: settings);
           default:
             return null;
         }

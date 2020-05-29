@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginButton.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginEmailFormField.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginPasswordFormField.dart';
-import 'package:myfitnessmotivation/pages/loginPage/widgets/loginPicture.dart';
 
 
 class LoginPage extends StatefulWidget {

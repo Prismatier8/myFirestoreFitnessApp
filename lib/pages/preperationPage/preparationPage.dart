@@ -5,7 +5,7 @@ import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/draggableExercise.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -33,7 +33,7 @@ class PreparationPage extends StatelessWidget {
                 heroTag: Names.HEROTAG_FLOATINGBUTTON,
                 onPressed: () async {
                   final planService = Provider.of<PlanService>(context, listen: false);
-                  await planService.getPlan(planModel.title)
+                  await planService.getPlan(planModel.title) ///refresh plan so that navigated page has updated plan
                       .then((value){
                     PlanModel refreshedModel = PlanModel.fromMap(value.data);
                     Navigator.pushNamedAndRemoveUntil(context, NamedRoutes.ROUTE_EXECUTIONPAGE,(_) => false,

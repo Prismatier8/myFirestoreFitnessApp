@@ -4,7 +4,8 @@ import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/setQuantityWidget.dart';
 import 'package:myfitnessmotivation/globalWidgets/listenableTextField.dart';
-import 'package:myfitnessmotivation/providerModel/setQuantityModel.dart';
+import 'package:myfitnessmotivation/providerModel/formFieldValidationModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/exercisePage/provider/setQuantityModel.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -18,6 +19,7 @@ class AddExerciseDialog extends StatefulWidget {
 class _AddExerciseDialogState extends State<AddExerciseDialog> {
   TextEditingController _controller;
   bool isTitleMissing = false;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
 
@@ -41,8 +43,8 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Theme.of(context).accentColor,
           onPressed: () {
-
-            _clearSetQuantity(setQuantityModel);
+            Provider.of<FormFieldValidationModel>(context, listen: false).clear(); ///clear state because exercise adding process is over
+            _clearSetQuantity(setQuantityModel); /// same reason as above
             Navigator.pop(context);
           },
           child: Text(
@@ -54,15 +56,18 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
         FlatButton(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           color: Theme.of(context).accentColor,
-          onPressed: () {
+          onPressed: () async{
+            final exerciseService = Provider
+                .of<ExerciseService>(context, listen: false);
+            final val = Provider
+                .of<FormFieldValidationModel>(context, listen: false);
+            val.exerciseExist = await exerciseService
+                .validateExerciseName(val.currentExerciseName);
+            if(_formKey.currentState.validate()){
 
-             if (_checkMissingTitle()) {
-              setState(() {
-                isTitleMissing = true;
-              });
-            } else {
-               _addExerciseToDB(setQuantityModel);
-              _clearSetQuantity(setQuantityModel);
+              _addExerciseToDB(setQuantityModel);
+              val.clear();
+              _clearSetQuantity(setQuantityModel); ///clear state because exercise adding process is over
               Navigator.pop(context);
             }
           },
@@ -84,7 +89,14 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
                 style: TextStyle(fontSize: 20),
               ),
             ),
-            ListenableTextField(controller: _controller, isTitleMissing: isTitleMissing),
+            Form(
+              key: _formKey,
+              child: ListenableTextField(
+                type: TextFieldType.exercise,
+                  controller: _controller,
+                  isTitleMissing: isTitleMissing),
+            ),
+
             SetQuantityWidget(),
           ],
         ),

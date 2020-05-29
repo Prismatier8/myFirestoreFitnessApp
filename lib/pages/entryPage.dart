@@ -135,7 +135,10 @@ class _EntryPageState extends State<EntryPage> {
       ),
       body: PageView(
         onPageChanged: (int) {
-          _currentIndex = int;
+          setState(() {
+            _currentIndex = int;
+          });
+
         },
         controller: _pageController,
         children: <Widget>[
@@ -193,36 +196,4 @@ class _EntryPageState extends State<EntryPage> {
       return null;
     }
   }
-  /*
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.play_circle_filled),
-            title: Text(Names.NAVIGATION_TRAINING),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.insert_chart),
-            title: Text(Names.TITLE_STATS),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            title: Text(Names.NAVIGATION_EXERCISES),
-          ),
-        ],
-        onTap: (index){
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        currentIndex: _currentIndex,
-        selectedItemColor: Theme.of(context).accentColor,
-      ),
-      body: _stack[_currentIndex],
-    );
-  }
-
-   */
 }

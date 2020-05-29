@@ -7,7 +7,7 @@ class SetQuantityDialog extends StatefulWidget {
   @override
   _SetQuantityDialogState createState() => _SetQuantityDialogState();
 }
-
+///not in use
 class _SetQuantityDialogState extends State<SetQuantityDialog> {
 
   int _currentSetQuantity = 1;

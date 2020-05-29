@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/provider/selectionModel.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
@@ -30,8 +31,9 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
   }
   @override
   Widget build(BuildContext context) {
+    final cardWidth = MediaQuery.of(context).size.width * 0.9;
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: cardWidth,
       child: Card(
         elevation: 2,
         child: InkWell(
@@ -49,11 +51,10 @@ class _ChoosableExerciseState extends State<ChoosableExercise> {
               ),
               Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  widget.exerciseData.title,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                child: TitleDisplay(
+                  title: widget.exerciseData.title,
+                  containerWidth: cardWidth - 90,
+                  containerHeight: 20,
                 ),
               ),
               Spacer(),

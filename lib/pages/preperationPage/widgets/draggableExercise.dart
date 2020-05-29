@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/testImageWidget.dart';
-import 'package:myfitnessmotivation/globalWidgets/ExerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
+import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'package:myfitnessmotivation/globalWidgets/updateExerciseNavigator.dart';
-import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 
 class DraggableExercise extends StatefulWidget {
   final ExerciseModel exerciseModel;
@@ -15,8 +14,9 @@ class DraggableExercise extends StatefulWidget {
 class _DraggableExerciseState extends State<DraggableExercise> {
   @override
   Widget build(BuildContext context) {
+    final cardWith = MediaQuery.of(context).size.width * 0.95;
     return Container(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: cardWith,
       height: 60,
       child: Card(
         elevation: 5,
@@ -32,10 +32,11 @@ class _DraggableExerciseState extends State<DraggableExercise> {
             ),
             Padding(
               padding: EdgeInsets.only(left: 10),
-              child: Text(widget.exerciseModel.title,
-                style: TextStyle(
-                    fontSize: 20
-                ),
+              child: TitleDisplay(
+
+                title: widget.exerciseModel.title,
+                containerWidth: cardWith - 160,
+                containerHeight: 20,
               ),
             ),
             Spacer(),

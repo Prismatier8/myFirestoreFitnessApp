@@ -11,12 +11,12 @@ class ExecutionModel extends ChangeNotifier {
   final SetService _setService = SetService();
   final ExecutionService _executionService = ExecutionService();
 
-  Map<String, List<num>> _currentSetMap; //temporary Map to save values from a SetData
+  Map<String, List<num>> _currentSetMap; ///temporary Map to save values from a SetData
 
   PlanModel _plan;
   Timestamp _timestamp;
   List<dynamic> _exerciseRef = [];
-  bool _isFinished = false;
+  bool _isFinished = false; ///is true when plan execution is finished
   List<SetModel> _currentSetList;
   SetModel _currentSet;
   int _currentRefIndex = 0;
@@ -24,7 +24,7 @@ class ExecutionModel extends ChangeNotifier {
   String _currentExerciseName;
   int _maxSetLength = 0;
 
-  //Getter
+  ///Getter
   get currentExerciseName => _currentExerciseName;
   get isFinished => _isFinished;
   get currentSetList => _currentSetList;
@@ -35,7 +35,7 @@ class ExecutionModel extends ChangeNotifier {
   SetModel getCurrentSet(){
     return _currentSet;
   }
-  //Getter
+  ///Getter
 
   ///Stateinitiation, need to be called when starting execution (usually when Building ExecutionPage). It is necessary to call this function
   ///everytime the user wants to start a fresh new execution routine, otherwise this class wont be able to know how many exercises need to
@@ -58,13 +58,13 @@ class ExecutionModel extends ChangeNotifier {
     final QuerySnapshot snapshot = await _setService.getReferencedSetsOrderedBySequence(_exerciseRef[_currentRefIndex]);
     SetModel set;
 
-    //Create SetModel objects for each fetched Set-Document in firestore that references the specific exercise
+    ///Create SetModel objects for each fetched Set-Document in firestore that references the specific exercise
     for(int i = 0; i<snapshot.documents.length; i++){
       set = SetModel.fromMap(snapshot.documents[i].data);
       set.id = snapshot.documents[i].documentID;
       _currentSetList.add(set);
     }
-    _currentSet = _currentSetList[0]; //_currentSetIndex
+    _currentSet = _currentSetList[0]; ///_currentSetIndex
     _currentExerciseName = _currentSet.exerciseRef;
     _maxSetLength = _currentSetList.length;
     notifyListeners();

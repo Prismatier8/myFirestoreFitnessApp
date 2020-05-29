@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseButton.dart';
-import 'package:myfitnessmotivation/pages/executionPage/widgets/executionInputRow.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/globalWidgets/executionInputRow.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:provider/provider.dart';
 
-enum RowType {repetition, weight}
+enum RowType { repetition, weight }
+
 class SetPane extends StatefulWidget {
   final PlanModel planModel;
   SetPane(this.planModel);
@@ -14,17 +16,17 @@ class SetPane extends StatefulWidget {
 }
 
 class _SetPaneState extends State<SetPane> {
-   
   TextEditingController _kgController;
-   TextEditingController _wdhController;
-   @override
+  TextEditingController _wdhController;
+  @override
   void initState() {
-     final execution = Provider.of<ExecutionModel>(context, listen: false);
-     execution.init(widget.planModel);
-     _kgController = TextEditingController();
-     _wdhController = TextEditingController();
+    final execution = Provider.of<ExecutionModel>(context, listen: false);
+    execution.init(widget.planModel);
+    _kgController = TextEditingController();
+    _wdhController = TextEditingController();
     super.initState();
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -42,22 +44,21 @@ class _SetPaneState extends State<SetPane> {
           return Column(
             children: <Widget>[
               Padding(
-                padding: EdgeInsets.only(top: 10, left: 10, right: 30, bottom: 30),
+                padding:
+                    EdgeInsets.only(top: 10, left: 10, right: 30, bottom: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Satz ${execution.getCurrentSetIndex()}/${execution.maxSetLength}",
-                      style: TextStyle(
-                        fontSize: textSize,
-                      ),
+                    TitleDisplay(
+                      title: "Satz ${execution.getCurrentSetIndex()}/${execution.maxSetLength}",
+                      containerWidth: 100,
+                      containerHeight: 30,
                     ),
                     Spacer(),
-                    Text(
-                      "${execution.currentExerciseName}",
-                      style: TextStyle(
-                        fontSize: textSize,
-                      ),
+                    TitleDisplay(
+                      title: "${execution.currentExerciseName}",
+                      containerHeight: 30,
+                      containerWidth: MediaQuery.of(context).size.width - 140,
                     ),
                   ],
                 ),
@@ -88,8 +89,11 @@ class _SetPaneState extends State<SetPane> {
       ),
     );
   }
-  _addSetValues(ExecutionModel execution){
-    if(execution.getCurrentSet() != null){
+
+  ///add current set values to controllers. So that the input text shows the currently saved
+  ///weight and repetition value
+  _addSetValues(ExecutionModel execution) {
+    if (execution.getCurrentSet() != null) {
       _kgController.text = execution.getCurrentSet().weight.toString();
       _wdhController.text = execution.getCurrentSet().repetition.toString();
     }

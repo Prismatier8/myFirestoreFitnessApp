@@ -4,6 +4,7 @@ import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/draggableExercise.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
+import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 
 class ReorderableList extends StatefulWidget {
@@ -64,8 +65,24 @@ class _ReordableListState extends State<ReorderableList> {
               ),
             ),
           );
+        } else if (snapshots.hasError){
+          return Center(
+            child: Text(Names.BASIC_ERRORMESSAGE,
+              style: TextStyle(
+                fontSize: 40
+              ),
+            ),
+          );
+
         } else {
-          return Container();
+          return Center(
+            child: Container(
+              height: 100,
+              width: 100,
+              child: CircularProgressIndicator(
+              ),
+            ),
+          );
         }
       },
     );

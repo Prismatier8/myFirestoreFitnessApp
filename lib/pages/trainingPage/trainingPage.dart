@@ -16,17 +16,16 @@ class TrainingPage extends StatelessWidget {
         actions: <Widget>[
           Center(
             child: GestureDetector(
-              onTap: (){
+              onTap: () {
                 final accessHandler =
-                Provider.of<AccessHandler>(context, listen: false);
+                    Provider.of<AccessHandler>(context, listen: false);
                 accessHandler.logout();
               },
               child: Padding(
                 padding: EdgeInsets.only(right: 10),
-                child: Text("Ausloggen",
-                style: TextStyle(
-                  color: Colors.white
-                ),
+                child: Text(
+                  "Ausloggen",
+                  style: TextStyle(color: Colors.white),
                 ),
               ),
             ),
@@ -42,32 +41,35 @@ class TrainingPage extends StatelessWidget {
           ),
         ),
       ),
-      body: StreamBuilder(
-        stream: planService.getDocumentsByStream(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if(snapshot.hasData){
-            return ListView.builder(
-              itemCount: snapshot.data.documents.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                 children: <Widget>[
-                   Plan(
-                     plan: PlanModel.fromMap(snapshot.data.documents[index].data),
-                   ),
-                 ],
-
-                );
-              },
-            );
-          } else if(snapshot.hasError){
-            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS"); //TODO: Need watch at the end
-            return Container();
-
-          }
-          else{
-            return CircularProgressIndicator();
-          }
-        },
+      body: Container(
+        height: (MediaQuery.of(context).size.height -
+                MediaQuery.of(context).padding.top) *
+            0.79,
+        child: StreamBuilder(
+          stream: planService.getDocumentsByStream(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data.documents.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Plan(
+                    plan:
+                        PlanModel.fromMap(snapshot.data.documents[index].data),
+                  );
+                },
+              );
+            } else if (snapshot.hasError) {
+              return Container(
+                child: Center(
+                  child: Text(Names.BASIC_ERRORMESSAGE),
+                ),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          },
+        ),
       ),
     );
   }

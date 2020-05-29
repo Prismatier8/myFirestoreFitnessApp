@@ -23,7 +23,7 @@ class _DetailPaneState extends State<DetailPane> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.only(top: 40),
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[

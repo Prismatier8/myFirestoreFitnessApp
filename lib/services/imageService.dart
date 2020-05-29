@@ -23,7 +23,7 @@ class ImageService extends ChangeNotifier {
       storageReference.putData(bytes);
 
     } catch (e) {
-      ///?
+      print("Error in ImageService, uploadImage()");
     }
   }
 

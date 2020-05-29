@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';
 
@@ -31,6 +31,8 @@ class _ExecutionTimerState extends State<ExecutionTimer> {
       });
     });
   }
+  ///Add full execution time when user finished plan training
+  ///to the specific plan document
   _addMinutesToDB(BuildContext context){
     final executionModel = Provider.of<ExecutionModel>(context, listen: false);
     final planService = Provider.of<PlanService>(context, listen: false);
@@ -61,7 +63,9 @@ class _ExecutionTimerState extends State<ExecutionTimer> {
       ),
     );
   }
-
+  ///Transforms seconds in Minute count. if training completed before a minute,
+  ///add a minute, so that the minute counter in the trainingPage is atleast showing
+  ///one minute instead of zero. Caused by .round()
   String _getMinute() {
     double minutes = _currentSeconds / 60;
     int temporary = minutes.round();

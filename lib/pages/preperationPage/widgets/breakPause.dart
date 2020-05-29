@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPauseDialog.dart';
-import 'package:myfitnessmotivation/providerModel/breakPauseModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';
 

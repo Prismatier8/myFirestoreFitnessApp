@@ -3,7 +3,7 @@ import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseButton
 import 'package:myfitnessmotivation/pages/executionPage/widgets/cancelExecutionbutton.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/detailPane.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/setPane.dart';
-import 'package:myfitnessmotivation/providerModel/executionModel.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:provider/provider.dart';
 
 

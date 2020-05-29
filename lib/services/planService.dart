@@ -11,7 +11,17 @@ class PlanService extends ChangeNotifier {
   Future addPlan(PlanModel plan, String id) async {
     await _api.addDocument(plan.toJson(), id);
   }
+  Future<bool> validatePlanName(String possiblePlanName) async {
+    QuerySnapshot snapshot = await _api.ref
+        .where("title", isEqualTo: possiblePlanName)
+        .getDocuments();
+    if(snapshot.documents.length == 0){
+      return false;
+    } else {
+      return true;
+    }
 
+  }
   ///Not tested
   Future deletePlan(String planName) async {
     await _api.removeDocument(planName);
