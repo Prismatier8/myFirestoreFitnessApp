@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
+import 'package:myfitnessmotivation/services/muscleGroupService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -33,6 +34,10 @@ class PreparationPage extends StatelessWidget {
                 onPressed: () async {
                   try{
                     await InternetAddress.lookup("example.com");
+                    if(await _isDatabaseConnected(context) == false){
+                      scaffoldState.currentState.showSnackBar(SnackBar(content: Text(Names.BASIC_ERRORMESSAGE)));
+                      return;
+                    }
                     final planService = Provider.of<PlanService>(context, listen: false);
                     await planService.getPlan(planModel.title) ///refresh plan so that navigated page has updated plan
                         .then((value){
@@ -72,5 +77,9 @@ class PreparationPage extends StatelessWidget {
         ],
       ),
     );
+  }
+  Future<bool> _isDatabaseConnected(BuildContext context) async{
+    final muscleService = Provider.of<MuscleGroupService>(context, listen: false);
+    return await muscleService.isConnected();
   }
 }

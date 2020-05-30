@@ -10,5 +10,14 @@ class MuscleGroupService extends ChangeNotifier {
   Stream<QuerySnapshot> getMuscleGroupsByStream() {
     return _api.streamDataCollection();
   }
-}
 
+  Future<bool> isConnected() async {
+    bool isConnected = false;
+    await _api.getDocumentById("Bauch").then((value) {
+      isConnected = true;
+    }).timeout(Duration(seconds: 2), onTimeout: () {
+      isConnected = false;
+    });
+    return isConnected;
+  }
+}

@@ -5,7 +5,7 @@ class Names {
   static const String NAVIGATION_EXERCISES = "Übungen";
   //NAVIGATIONTITLES
   //BASIC
-  static const String BASIC_ERRORMESSAGE = "Etwas ist schief gelaufen";
+  static const String BASIC_ERRORMESSAGE = "Etwas ist schief gelaufen. Prüfe deine Internetverbindung";
   static const String BASIC_TITLE ="Titel";
   static const String BASIC_TAGS = "Tags";
   static const String BASIC_MUSCLEGROUPS = "Muskelgruppen";

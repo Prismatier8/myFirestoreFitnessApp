@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/services/muscleGroupService.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -81,6 +82,11 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
     HapticFeedback.vibrate();
     try{
       await InternetAddress.lookup("example.com");
+      if(await _isDatabaseConnected(context) == false){
+        final snackBar = SnackBar(content: Text(Names.BASIC_ERRORMESSAGE));
+        Scaffold.of(context).showSnackBar(snackBar);
+        return;
+      }
       final execution = Provider.of<ExecutionModel>(context, listen: false);
       final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
       if (breakPause.isTimerActive == false && !execution.isFinished) {
@@ -98,7 +104,10 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
       final snackBar = SnackBar(content: Text("Keine Internetverbindung"));
       Scaffold.of(context).showSnackBar(snackBar);
     }
-
+  }
+  Future<bool> _isDatabaseConnected(BuildContext context) async{
+    final muscleService = Provider.of<MuscleGroupService>(context, listen: false);
+    return await muscleService.isConnected();
   }
   ///simple animation when user tabs button.
   ///-> Very slow response, need to be optimized
