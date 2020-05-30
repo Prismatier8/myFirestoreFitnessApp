@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/services/auth/authentication.dart';
@@ -41,7 +43,15 @@ class LoginButton extends StatelessWidget {
       auth.userSignIn(accessHandler.loginEmail, accessHandler.loginPassword)
           .then((value) {
         _showHomePage(accessHandler);
-      }).catchError((error) {
+      }).catchError((error) async {
+        try{
+          await InternetAddress.lookup("example.com");
+
+        } on SocketException catch(_){
+          final snackBar = SnackBar(content: Text("Keine Internetverbindung"));
+          Scaffold.of(context).showSnackBar(snackBar);
+          return;
+        }
         _showErrorWarning(accessHandler);
       });
     }

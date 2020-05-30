@@ -20,12 +20,13 @@ class _SetsState extends State<Sets> {
     final setService = Provider.of<SetService>(context);
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height,
       child: FutureBuilder(
         future: setService.getReferencedDocuments(widget.exerciseModel.title),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> setLengthSnapshot){
           if(setLengthSnapshot.hasData){
             return ListView.separated(
+              physics: NeverScrollableScrollPhysics(),
               itemCount: setLengthSnapshot.data.documents.length,
               separatorBuilder: (BuildContext context, int index) => const Divider(),
               itemBuilder: (BuildContext context, int index){

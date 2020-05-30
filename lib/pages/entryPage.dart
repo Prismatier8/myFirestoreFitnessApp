@@ -32,7 +32,7 @@ class _EntryPageState extends State<EntryPage> {
       floatingActionButton: _getFloatingActionButton(_currentIndex),
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       bottomNavigationBar: BottomAppBar(
-        notchMargin: 10,
+        notchMargin: 6,
         shape: CircularNotchedRectangle(),
         child: Container(
           child: Row(

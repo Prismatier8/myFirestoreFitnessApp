@@ -17,8 +17,11 @@ class _SetDisplayState extends State<SetDisplay> {
    return Column(
      mainAxisSize: MainAxisSize.min,
      children: <Widget>[
-       Center(
-         child: Text("Satz: " + widget.set.sequence.toString()),
+       Padding(
+         padding: EdgeInsets.only(top: 5),
+         child: Center(
+           child: Text("Satz: " + widget.set.sequence.toString()),
+         ),
        ),
        WeightDisplay(widget.set, widget.setID),
        RepetitionDisplay(widget.set, widget.setID),

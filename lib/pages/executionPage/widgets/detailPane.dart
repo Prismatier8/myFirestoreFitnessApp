@@ -7,7 +7,8 @@ import 'package:myfitnessmotivation/pages/executionPage/widgets/executionTimer.d
 
 class DetailPane extends StatefulWidget {
   final PlanModel planModel;
-  DetailPane(this.planModel);
+  final double upperTopHeight;
+  DetailPane(this.planModel, this.upperTopHeight);
   @override
   _DetailPaneState createState() => _DetailPaneState();
 }
@@ -18,7 +19,7 @@ class _DetailPaneState extends State<DetailPane> {
     return Container(
       color: Color(0xfff0f0f0),
       width: MediaQuery.of(context).size.width,
-      height: _getBodySizeHeight(),
+      height: widget.upperTopHeight,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -42,13 +43,5 @@ class _DetailPaneState extends State<DetailPane> {
         ],
       ),
     );
-  }
-
-  double _getBodySizeHeight() {
-    final heightFactor = 2.5;
-    final maxHeight = MediaQuery.of(context).size.height;
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-
-    return (maxHeight - statusBarHeight) / heightFactor;
   }
 }

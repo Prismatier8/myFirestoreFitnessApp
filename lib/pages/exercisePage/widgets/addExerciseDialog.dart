@@ -48,7 +48,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
             Navigator.pop(context);
           },
           child: Text(
-            Names.ADDPLAN_CANCELBUTTON,
+            Names.BASIC_CANCELBUTTON,
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -66,7 +66,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
             if(_formKey.currentState.validate()){
 
               _addExerciseToDB(setQuantityModel);
-              val.clear();
+              val.clear(); ///clear validation process
               _clearSetQuantity(setQuantityModel); ///clear state because exercise adding process is over
               Navigator.pop(context);
             }

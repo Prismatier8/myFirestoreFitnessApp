@@ -103,7 +103,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
             Navigator.pop(context);
           },
           child: Text(
-            Names.ADDPLAN_CANCELBUTTON,
+            Names.BASIC_CANCELBUTTON,
             style: TextStyle(color: Colors.white),
           ),
         ),

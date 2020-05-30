@@ -15,11 +15,22 @@ class ExecutionPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            DetailPane(planModel),
-            SetPane(planModel),
+            DetailPane(planModel, _getTopHalf(context)),
+            SetPane(planModel, _getTopHalf(context)),
           ],
         ),
       ),
     );
+  }
+  ///DetailPane and SetPane should both have a specific height. This method
+  ///calculates the height of the top half (in this case DetailPane). This value is
+  ///returned to SetPane (bottom half) so that the setPane can calculate further with the
+  ///height of the detailPane
+  double _getTopHalf(BuildContext context) {
+    final heightFactor = 2.5;
+    final maxHeight = MediaQuery.of(context).size.height;
+    final statusBarHeight = MediaQuery.of(context).padding.top;
+
+    return (maxHeight - statusBarHeight) / heightFactor;
   }
 }

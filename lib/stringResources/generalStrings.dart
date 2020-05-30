@@ -12,6 +12,7 @@ class Names {
   static const String BASIC_SETS = "Sätze";
   static const String BASIC_ACCEPT = "OK";
   static const String BASIC_DELETE = "Löschen";
+  static const String BASIC_CANCELBUTTON = "Abbrechen";
   //BASIC
 
   //TAGS
@@ -34,7 +35,7 @@ class Names {
   //ADDPLAN
   static const String ADDPLAN_TITLE = "Trainingsplan";
   static const String ADDPLAN_ADDBUTTON = "Erstellen";
-  static const String ADDPLAN_CANCELBUTTON = "Abbrechen";
+
   static const String ADDPLAN_TAGERRORMESSAGE = "Maximal drei Tags erlaubt";
   static const String ADDPLAN_TITLEERRORMESSAGE = "Bitte einen Titel angeben";
   static const String ADDPLAN_ADDCOMPLETEMESSAGE = "Trainingsplan erstellt";

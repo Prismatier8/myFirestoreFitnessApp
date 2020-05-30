@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
 import 'package:myfitnessmotivation/services/myDBAPI.dart';
 import 'package:myfitnessmotivation/stringResources/collectionStrings.dart';
@@ -20,7 +21,13 @@ class SetService extends ChangeNotifier{
     SetModel set = SetModel.fromMap(snapshot.data);
     return set;
   }
-
+  Future deleteSetsBySequenceAndExercise(String exerciseName, int sequence) async{
+    QuerySnapshot snapshot =  await _api.ref
+        .where("exerciseRef", isEqualTo: exerciseName)
+        .where("sequence", isEqualTo: sequence)
+        .getDocuments();
+    await _api.removeDocument(snapshot.documents[0].documentID);
+  }
   ///The Sequence of any SetModel starts with Sequence number 1, if you use this query to get a specific document by its
   ///sequence, please make sure,
   ///that the parameter "index" starts with the number 1 and not with 0

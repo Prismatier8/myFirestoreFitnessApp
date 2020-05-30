@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
@@ -41,10 +43,10 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
   @override
   Widget build(BuildContext context) {
 
-    final bool showFAB = MediaQuery.of(context).viewInsets.bottom == 0.0;
+    final bool showFAB = MediaQuery.of(context).viewInsets.bottom == 0.0; ///if keyboard is active, hide Button
     return showFAB
         ? Padding(
-            padding: EdgeInsets.only(bottom: 45),
+            padding: EdgeInsets.only(bottom: 60, top: 10),
             child: GestureDetector(
               onTapDown: _animationOnTapDown,
               child: Transform.scale(
@@ -77,19 +79,26 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
   ///Additionally the user will start the next set or exercise when touched
   _onPress() async {
     HapticFeedback.vibrate();
-    final execution = Provider.of<ExecutionModel>(context, listen: false);
-    final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
-    if (breakPause.isTimerActive == false && !execution.isFinished) {
-      await execution.nextSet();
-      if(execution.isFinished){
-        _showFinishScreen(context);
+    try{
+      await InternetAddress.lookup("example.com");
+      final execution = Provider.of<ExecutionModel>(context, listen: false);
+      final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
+      if (breakPause.isTimerActive == false && !execution.isFinished) {
+        await execution.nextSet();
+        if(execution.isFinished){
+          _showFinishScreen(context);
+          breakPause.stop();
+          return;
+        }
+        breakPause.start();
+      } else {
         breakPause.stop();
-        return;
       }
-      breakPause.start();
-    } else {
-      breakPause.stop();
+    }on SocketException catch(_){
+      final snackBar = SnackBar(content: Text("Keine Internetverbindung"));
+      Scaffold.of(context).showSnackBar(snackBar);
     }
+
   }
   ///simple animation when user tabs button.
   ///-> Very slow response, need to be optimized
@@ -108,6 +117,7 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             title: Text("Training abgeschlossen"),
             actions: <Widget>[
               FlatButton(
