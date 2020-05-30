@@ -66,7 +66,16 @@ class TrainingPage extends StatelessWidget {
                 ),
               );
             } else {
-              return CircularProgressIndicator();
+              return Center(
+
+                child: Container(
+                  height: 200,
+                  width: 200,
+                  child: CircularProgressIndicator(
+
+                  ),
+                ),
+              );
             }
           },
         ),

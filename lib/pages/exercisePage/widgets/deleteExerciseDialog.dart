@@ -54,7 +54,7 @@ class DeleteExerciseDialog extends StatelessWidget {
   ///Delete all executions that contain reference to exercise
   _deleteExecutions(BuildContext context, ExerciseModel exercise){
     final executionService = Provider.of<ExecutionService>(context, listen: false);
-    executionService.deleteExecutions(exercise.title);
+    executionService.deleteExecutionByExercise(exercise.title);
   }
   ///Delete reference of exercise in all plans
   _deleteReferenceOnPlan(BuildContext context, ExerciseModel exercise){

@@ -7,7 +7,8 @@ enum StatType {increase, decrease, same}
 class SingleStatCalculationModel extends ChangeNotifier {
 
 
-
+  ///returns the Factor (trend) of an exercise as an icon or as a number when using the StateType list
+  ///from the compareExecution() call
   dynamic getExerciseTrend(List<StatType> statTypeList, bool asIcon){
     int factor = 0;
 
@@ -127,6 +128,15 @@ class SingleStatCalculationModel extends ChangeNotifier {
   int _calculatePercentage(num newValue, num olderValue){
     int percentage = 0;
     double temporary = 0.0;
+
+    if(olderValue == 0 || olderValue == 0.0){ ///infinity check
+      if(olderValue == newValue){
+        return percentage;
+      } else if(olderValue < newValue){
+        percentage = (newValue * 100).round();
+        return percentage;
+      }
+    }
     temporary = (newValue - olderValue) / olderValue;
     percentage = (temporary * 100).round();
     return percentage;

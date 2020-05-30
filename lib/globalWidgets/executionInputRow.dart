@@ -25,6 +25,11 @@ class ExecutionInputRow extends StatefulWidget {
 
 class _ExecutionInputRowState extends State<ExecutionInputRow> {
   @override
+  void dispose() {
+    widget.controller.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Row(
 
@@ -51,9 +56,14 @@ class _ExecutionInputRowState extends State<ExecutionInputRow> {
             height: 50,
             width: 55,
             child: TextField(
-              focusNode: FocusNode(),
+
+              onSubmitted: (va){
+                print("okok");
+              },
               onEditingComplete: (){
-                FocusScope.of(context).unfocus();
+                print("okok");
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                currentFocus.unfocus();
 
                 if(widget.isUpdater){
                   final setService = Provider.of<SetService>(context, listen: false);

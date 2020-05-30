@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/singleExerciseWithStats.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
 

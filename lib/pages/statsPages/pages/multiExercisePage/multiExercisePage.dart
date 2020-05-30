@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/widgets/exerciseWithStats.dart';
-import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
-import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
@@ -14,10 +11,6 @@ class MultiExercisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final exerciseService =
     Provider.of<ExerciseService>(context, listen: false);
-    final statCalculationModel =
-    Provider.of<SingleStatCalculationModel>(context, listen: false);
-    final executionService =
-    Provider.of<ExecutionService>(context, listen: false);
     final plan = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
@@ -54,6 +47,7 @@ class MultiExercisePage extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index){
 
                     return ExerciseWithStats(
+                        plan: plan,
                         exercisesSnapshot: exerciseSnapshot,
                         builderIndex: index,
                       );
@@ -65,7 +59,7 @@ class MultiExercisePage extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 35,
                   ),),
-                ); //TODO: Watch at the end
+                );
               }
               else{
                 return Align(

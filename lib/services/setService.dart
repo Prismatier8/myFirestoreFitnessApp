@@ -41,26 +41,30 @@ class SetService extends ChangeNotifier{
     await _api.updateDocument(data, id);
   }
   updateWeight(String setID, String weight) async{
+    Map<String, dynamic> map = {};
     try{
-      Map<String, dynamic> map = {
+      map = {
         "weight" : double.parse(weight),
       };
-      await _api.updateDocument(map, setID);
     } catch (numberFormatException){
-      print("developer note: weight could not be updated due to numberFormatException");
+      map = {
+        "weight" : 0.0,
+      };
     }
-
+    await _api.updateDocument(map, setID);
   }
   updateRepetition(String setID, String repetition) async{
+    Map<String, dynamic> map = {};
     try{
-      Map<String, dynamic> map = {
+      map = {
         "repetition" : int.parse(repetition),
       };
-      await _api.updateDocument(map, setID);
     } catch(numberFormatException){
-      print("developer note: repetition could not be updated due to numberFormatException");
+      map = {
+        "repetition" : 0,
+      };
     }
-
+    await _api.updateDocument(map, setID);
   }
   ///Delete all Sets from an exercise
   Future deleteSets(String exerciseID) async{

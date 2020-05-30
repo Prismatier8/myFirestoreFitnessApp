@@ -1,11 +1,8 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/widgets/planWithStats.dart';
-import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
@@ -40,11 +37,24 @@ class StatsPage extends StatelessWidget {
               },
             );
           } else if(snapshot.hasError){
-            print("ERROR OCCURED IN: TRAININGPAGE STREAMBUILDER PLANDOCUMENTS"); //TODO: Need watch at the end
-            return Container();
+            return Center(
+              child: Text(Names.BASIC_ERRORMESSAGE,
+              style: TextStyle(
+                fontSize: 40,
+              ),),
+            );
           }
           else{
-            return CircularProgressIndicator();
+            return Center(
+
+              child: Container(
+                width: 200,
+                height: 200,
+                child: CircularProgressIndicator(
+
+                ),
+              ),
+            );
           }
         },
       ),

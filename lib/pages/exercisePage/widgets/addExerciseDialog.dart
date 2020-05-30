@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/setQuantityWidget.dart';
+import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/exercisePage/widgets/setQuantityWidget.dart';
 import 'package:myfitnessmotivation/globalWidgets/listenableTextField.dart';
 import 'package:myfitnessmotivation/providerModel/formFieldValidationModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/exercisePage/provider/setQuantityModel.dart';
@@ -155,9 +155,6 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
         setQuantity: setQuantityModel.setQuantity,
         setReferences: [],
       );
-  }
-  bool _checkMissingTitle() {
-    return _controller.text.isEmpty;
   }
   ///the setQuantity in the SetQuantityModel must be cleared after the add exercise process is finished or canceled to reset the counter to its
   ///default value. Otherwise the setQuantity will have the number saved that the user have set as last value which is not intended

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/executionDisplay.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/singleExerciseWithStats.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
@@ -9,8 +10,11 @@ import 'package:provider/provider.dart';
 
 class StatBuilder extends StatefulWidget {
   final ExerciseModel exercise;
+  final PlanModel plan;
   final int buildLength;
-  StatBuilder({@required this.exercise, @required this.buildLength});
+  StatBuilder({@required this.exercise,
+    @required this.buildLength,
+  @required this.plan});
   @override
   _StatBuilderState createState() => _StatBuilderState();
 }
@@ -29,7 +33,7 @@ class _StatBuilderState extends State<StatBuilder> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: executionService.getExecutions(widget.exercise, widget.buildLength, true),
+      future: executionService.getExecutionsOnPlan(widget.plan, widget.exercise, widget.buildLength, true),
       builder: (context, AsyncSnapshot<List<ExecutionData>> snapshot){
         if(snapshot.hasData){
           List<StatType> statTypeList  = statCalculationModel.compareExecution(snapshot.data);

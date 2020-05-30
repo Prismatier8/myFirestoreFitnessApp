@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/executionData.dart';
-import 'package:myfitnessmotivation/globalWidgets/testImageWidget.dart';
+import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
+import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
 import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/statsPages/provider/singleStatCalculationModel.dart';
@@ -8,11 +9,19 @@ import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 import 'package:provider/provider.dart';
 
+class PlanWithSingleExercise{
+  PlanModel plan;
+  ExerciseModel exercise;
+  PlanWithSingleExercise(this.plan, this.exercise);
+}
 class ExerciseWithStats extends StatelessWidget {
+  final PlanModel plan;
   final exercisesSnapshot;
   final builderIndex;
   ExerciseWithStats(
-      {@required this.exercisesSnapshot, @required this.builderIndex});
+      {@required this.exercisesSnapshot,
+        @required this.builderIndex,
+      @required this.plan});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,7 @@ class ExerciseWithStats extends StatelessWidget {
         onTap: () {
           Navigator.pushNamed(
               context, NamedRoutes.ROUTE_STAT_SINGLEEXERCISEPAGE,
-              arguments: exercisesSnapshot.data[builderIndex]);
+              arguments: PlanWithSingleExercise(plan, exercisesSnapshot.data[builderIndex]));
         },
         child: Padding(
           padding: EdgeInsets.only(top: 5, bottom: 5),
@@ -52,8 +61,8 @@ class ExerciseWithStats extends StatelessWidget {
                   ),
                   Spacer(),
                   FutureBuilder(
-                    future: executionService.getExecutions(
-                        exercisesSnapshot.data[builderIndex], 2, true),
+                    future: executionService.getExecutionsOnPlan(plan
+                        ,exercisesSnapshot.data[builderIndex], 2, true),
                     builder: (BuildContext context,
                         AsyncSnapshot<List<ExecutionData>> executionSnapshot) {
                       if (executionSnapshot.hasData) {

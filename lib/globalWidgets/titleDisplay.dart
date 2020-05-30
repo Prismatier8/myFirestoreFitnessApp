@@ -28,15 +28,4 @@ class TitleDisplay extends StatelessWidget {
       ),
     );
   }
-  /*
-  String _getText(){
-    if(title.length >= maxLength){
-      String textFraction = title.substring(0, maxLength);
-      return textFraction + "...";
-    } else {
-      return title;
-    }
-  }
-
-   */
 }

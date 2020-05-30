@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/dataModel/setModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/repetitionDisplay.dart';
 import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
+import 'package:myfitnessmotivation/globalWidgets/weightDisplay.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseButton.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/globalWidgets/executionInputRow.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
@@ -16,22 +19,20 @@ class SetPane extends StatefulWidget {
 }
 
 class _SetPaneState extends State<SetPane> {
-  TextEditingController _kgController;
-  TextEditingController _wdhController;
-  @override
-  void initState() {
-    final execution = Provider.of<ExecutionModel>(context, listen: false);
-    execution.init(widget.planModel);
-    _kgController = TextEditingController();
-    _wdhController = TextEditingController();
-    super.initState();
-  }
+  bool isInitiated = false;
 
   @override
-  void dispose() {
-    super.dispose();
-    _kgController.dispose();
-    _wdhController.dispose();
+  void initState(){
+    initExecutionModel().then((value){
+      setState(() {
+        isInitiated = true;
+      });
+    });
+    super.initState();
+  }
+  Future initExecutionModel() async {
+    final execution = Provider.of<ExecutionModel>(context, listen: false);
+    await execution.init(widget.planModel);
   }
 
   final textSize = 20.0;
@@ -40,7 +41,6 @@ class _SetPaneState extends State<SetPane> {
     return Container(
       child: Consumer<ExecutionModel>(
         builder: (context, execution, _) {
-          _addSetValues(execution);
           return Column(
             children: <Widget>[
               Padding(
@@ -63,24 +63,12 @@ class _SetPaneState extends State<SetPane> {
                   ],
                 ),
               ),
-              ExecutionInputRow(
-                type: RowType.weight,
-                textSize: textSize,
-                controller: _kgController,
-                isUpdater: false,
-              ),
-              ExecutionInputRow(
-                type: RowType.repetition,
-                textSize: textSize,
-                controller: _wdhController,
-                isUpdater: false,
-              ),
+              isInitiated ? WeightDisplay(execution.getCurrentSet(), execution.getCurrentSet().id) : Container(),
+              isInitiated ? RepetitionDisplay(execution.getCurrentSet(), execution.getCurrentSet().id) : Container(),
               Padding(
                 padding: EdgeInsets.only(top: 40),
                 child: BreakPauseButton(
                   planModel: widget.planModel,
-                  kgController: _kgController,
-                  wdhController: _wdhController,
                 ),
               ),
             ],
@@ -88,14 +76,5 @@ class _SetPaneState extends State<SetPane> {
         },
       ),
     );
-  }
-
-  ///add current set values to controllers. So that the input text shows the currently saved
-  ///weight and repetition value
-  _addSetValues(ExecutionModel execution) {
-    if (execution.getCurrentSet() != null) {
-      _kgController.text = execution.getCurrentSet().weight.toString();
-      _wdhController.text = execution.getCurrentSet().repetition.toString();
-    }
   }
 }

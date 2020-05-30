@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/services/executionService.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/trainingPage/Widgets/cancelButton.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
@@ -21,6 +22,7 @@ class DeletePlanDialog extends StatelessWidget {
         color: Theme.of(context).accentColor,
         onPressed: () {
           _deletePlan(context);
+          _deleteExecutionsOnPlan(context);
           Navigator.pop(context);
         },
         child: Text(
@@ -34,5 +36,9 @@ class DeletePlanDialog extends StatelessWidget {
   _deletePlan(BuildContext context) {
     final planService = Provider.of<PlanService>(context, listen: false);
     planService.deletePlan(plan.title);
+  }
+  _deleteExecutionsOnPlan(BuildContext context){
+    final executionService = Provider.of<ExecutionService>(context, listen: false);
+    executionService.deleteExecutionByPlan(plan.title);
   }
 }

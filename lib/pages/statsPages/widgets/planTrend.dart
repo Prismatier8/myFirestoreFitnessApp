@@ -51,7 +51,7 @@ class PlanTrend extends StatelessWidget {
     ///Exercise iteration
     for (int i = 0; i < exerciseList.length; i++) {
       List<ExecutionData> executionList =
-          await executionService.getExecutions(exerciseList[i], 2, true);
+          await executionService.getExecutionsOnPlan(plan, exerciseList[i], 2, true);
       List<StatType> statTypeList =
           statCalculationModel.compareExecution(executionList);
       factor =

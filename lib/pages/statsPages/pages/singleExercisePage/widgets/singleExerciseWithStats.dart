@@ -36,7 +36,7 @@ class SingleExerciseWithStats extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                statCalculationModel.getExerciseTrend(statTypeList, true)//TODO: Stat icon depending on result
+                statCalculationModel.getExerciseTrend(statTypeList, true)
               ],
             ),
           ),
