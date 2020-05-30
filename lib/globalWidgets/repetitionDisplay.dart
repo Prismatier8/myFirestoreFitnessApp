@@ -14,6 +14,7 @@ class RepetitionDisplay extends StatefulWidget {
 }
 
 class _RepetitionDisplayState extends State<RepetitionDisplay> {
+  bool _isInitiated = false;
   TextEditingController _controller;
   FocusNode _node;
   @override
@@ -21,9 +22,15 @@ class _RepetitionDisplayState extends State<RepetitionDisplay> {
     super.initState();
     _node = FocusNode();
     _controller = TextEditingController();
-
+    _controller.text = widget.set.repetition.toString();
   }
-
+  @override
+  void didUpdateWidget(RepetitionDisplay oldWidget) {
+    if(oldWidget.set != widget.set){
+      _controller.text = widget.set.repetition.toString();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
   @override
   void dispose() {
     super.dispose();
@@ -32,7 +39,8 @@ class _RepetitionDisplayState extends State<RepetitionDisplay> {
   }
   @override
   Widget build(BuildContext context) {
-    _controller.text = widget.set.repetition.toString();
+
+
     final setService = Provider.of<SetService>(context, listen: false);
     return Row(
       children: <Widget>[

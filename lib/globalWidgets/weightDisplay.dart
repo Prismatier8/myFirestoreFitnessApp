@@ -15,6 +15,7 @@ class WeightDisplay extends StatefulWidget {
 }
 
 class _WeightDisplayState extends State<WeightDisplay> {
+
   TextEditingController _controller;
   FocusNode _node;
   @override
@@ -22,9 +23,15 @@ class _WeightDisplayState extends State<WeightDisplay> {
     super.initState();
     _node = FocusNode();
     _controller = TextEditingController();
-
+    _controller.text = widget.set.weight.toString();
   }
-
+  @override
+  void didUpdateWidget(WeightDisplay oldWidget) {
+    if(oldWidget.set != widget.set){
+      _controller.text = widget.set.weight.toString();
+    }
+    super.didUpdateWidget(oldWidget);
+  }
   @override
   void dispose() {
     super.dispose();
@@ -34,7 +41,6 @@ class _WeightDisplayState extends State<WeightDisplay> {
 
   @override
   Widget build(BuildContext context) {
-    _controller.text = widget.set.weight.toString();
     final setService = Provider.of<SetService>(context, listen: false);
     return Row(
       children: <Widget>[
