@@ -1,12 +1,14 @@
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
-import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:provider/provider.dart';
 import 'package:vibration/vibration.dart';
+
+
+
+
 
 class BreakPauseTimer extends StatefulWidget {
   final PlanModel planModel;
@@ -29,8 +31,8 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
           Padding(
             padding: EdgeInsets.only(left: 5),
             child: Consumer<BreakPauseModel>(builder: (context, breakPause, _) {
-              _vibrate(breakPause);
-              _playLocalAsset(breakPause);
+              //_vibrate(breakPause);
+              //_playLocalAsset(breakPause);
               return Text(
                 breakPause.currentBreakPause.toString() + " s",
                 style: TextStyle(
@@ -48,15 +50,17 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
     if(widget.planModel.vibrationSignal == true){
       final int vibrationLength = 2000;
       if (await Vibration.hasVibrator()) {
-        if (_checkBreakPause(breakPause)) {
+        if (_isBreakPauseEndReached(breakPause)) {
           Vibration.vibrate(duration: vibrationLength);
         }
       }
     }
   }
+
   Future<AudioPlayer> _playLocalAsset(BreakPauseModel breakPause) async {
+
     if(widget.planModel.audioSignal == true){
-      if (_checkBreakPause(breakPause)) {
+      if (_isBreakPauseEndReached(breakPause)) {
         AudioCache cache = new AudioCache();
         return await cache.play("impact.wav");
       } else
@@ -64,7 +68,7 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
     }
     return null;
   }
-  bool _checkBreakPause(BreakPauseModel breakPause){
+  bool _isBreakPauseEndReached(BreakPauseModel breakPause){
     if(breakPause.currentBreakPause == 1){
       return true;
     }
@@ -72,4 +76,5 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
       return false;
     }
   }
+
 }

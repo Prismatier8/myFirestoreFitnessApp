@@ -1,14 +1,17 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/services/muscleGroupService.dart';
+import 'package:myfitnessmotivation/services/planService.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 import 'package:provider/provider.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
+
+
 
 class BreakPauseButton extends StatefulWidget {
   final PlanModel planModel;
@@ -97,8 +100,6 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
           return;
         }
         breakPause.start();
-      } else {
-        breakPause.stop();
       }
     }on SocketException catch(_){
       final snackBar = SnackBar(content: Text("Keine Internetverbindung"));
@@ -132,7 +133,14 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
               FlatButton(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                 color: Theme.of(context).accentColor,
-                onPressed: () {
+                onPressed: (){
+
+                  final planService = Provider.of<PlanService>(context, listen: false);
+                  final timer = Provider.of<ExecutionTimerModel>(context, listen: false);
+
+                  timer.saveTimeToDB(planService, widget.planModel);
+                  timer.kill();
+
                   Navigator.pop(context);
                   Navigator.pushReplacementNamed(context, NamedRoutes.ROUTE_NAVIGATIONSTACK);
                 },

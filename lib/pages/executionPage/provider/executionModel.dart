@@ -6,6 +6,7 @@ import 'package:myfitnessmotivation/dataModel/setModel.dart';
 import 'package:myfitnessmotivation/services/executionService.dart';
 import 'package:myfitnessmotivation/services/setService.dart';
 
+
 class ExecutionModel extends ChangeNotifier {
   final SetService _setService = SetService();
   final ExecutionService _executionService = ExecutionService();

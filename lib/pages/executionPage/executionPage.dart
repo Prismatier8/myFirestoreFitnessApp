@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/pages/executionPage/widgets/breakPauseButton.dart';
-import 'package:myfitnessmotivation/pages/executionPage/widgets/cancelExecutionbutton.dart';
+import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/detailPane.dart';
 import 'package:myfitnessmotivation/pages/executionPage/widgets/setPane.dart';
-import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/executionModel.dart';
 import 'package:provider/provider.dart';
 
 
@@ -15,7 +13,8 @@ class ExecutionPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
-            DetailPane(planModel, _getTopHalf(context)),
+            DetailPane(
+                planModel, _getTopHalf(context)),
             SetPane(planModel, _getTopHalf(context)),
           ],
         ),

@@ -40,7 +40,7 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
         isInternet = true;
         _controller.text = widget.planModel.breakPause.toString();
         isSelected.add(widget.planModel.audioSignal);
-        isSelected.add(widget.planModel.vibrationSignal);
+       // isSelected.add(widget.planModel.vibrationSignal);
       });
     } on SocketException catch (_) {
       setState(() {
@@ -101,18 +101,21 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    ToggleButtons(
-                      borderRadius: BorderRadius.circular(10),
-                      children: <Widget>[
-                        Icon(Icons.hearing),
-                        Icon(Icons.vibration),
-                      ],
-                      onPressed: (index) {
-                        setState(() {
-                          isSelected[index] = !isSelected[index];
-                        });
-                      },
-                      isSelected: isSelected,
+                    Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: ToggleButtons(
+                        //borderRadius: BorderRadius.circular(10),
+                        children: <Widget>[
+                          Icon(
+                              Icons.hearing),
+                        ],
+                        onPressed: (index) {
+                          setState(() {
+                            isSelected[index] = !isSelected[index];
+                          });
+                        },
+                        isSelected: isSelected,
+                      ),
                     ),
                   ],
                 ),
@@ -129,7 +132,7 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
     Map<String, dynamic> update = {
       "breakPause": int.parse(_controller.text),
       "audioSignal": isSelected[0],
-      "vibrationSignal": isSelected[1],
+      //"vibrationSignal": isSelected[1],
     };
     planService.updatePlan(widget.planModel.title, update);
   }

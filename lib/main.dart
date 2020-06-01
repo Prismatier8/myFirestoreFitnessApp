@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
+import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/preparationPage.dart';
 import 'package:myfitnessmotivation/pages/rootPage/rootPage.dart';
@@ -43,6 +44,7 @@ void main() {
       ChangeNotifierProvider(create: (context) => AccessHandler(),),
       ChangeNotifierProvider(create: (context) => Authentication(),),
       ChangeNotifierProvider(create: (context) => FormFieldValidationModel(),),
+      ChangeNotifierProvider(create: (context) => ExecutionTimerModel(),),
     ],
     child: MyApp(),
   ));
@@ -80,7 +82,8 @@ class MyApp extends StatelessWidget {
         }
       },
       theme: ThemeData(accentColor: Colors.amber),
-      home: RootPage(),
+      home: RootPage(
+      ),
     );
   }
 }
