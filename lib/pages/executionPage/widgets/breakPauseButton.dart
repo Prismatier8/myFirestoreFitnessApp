@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/loadingOverlay.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/services/muscleGroupService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
@@ -77,10 +78,9 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
           )
         : Container();
   }
-  ///When the user presses the button for the first time, the timer will be started inside the executionPage
-  ///As soon as the user hits the button again, the timer will reset based on the breakPause time set in the
-  ///firestore document for that specific plan.
-  ///Additionally the user will start the next set or exercise when touched
+  ///When the user presses the button, the timer will be started inside the executionPage
+  ///Additionally the user will start the next set or exercise when touched. the user can
+  ///only start the next set if timer is not active
   _onPress() async {
     HapticFeedback.vibrate();
     try{
@@ -111,7 +111,7 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
     return await muscleService.isConnected();
   }
   ///simple animation when user tabs button.
-  ///-> Very slow response, need to be optimized
+  //-> Very slow response, need to be optimized
   _animationOnTapDown(TapDownDetails details) {
     _controller.forward();
     _controller.addStatusListener((status) {
@@ -120,7 +120,8 @@ class _BreakPauseButtonState extends State<BreakPauseButton>
       }
     });
   }
-  ///Show Alert Dialog when user finished training
+  ///Show Alert Dialog when user finished training,
+  //should be in a separate file
   void _showFinishScreen(BuildContext context) {
     showDialog(
         barrierDismissible: false,

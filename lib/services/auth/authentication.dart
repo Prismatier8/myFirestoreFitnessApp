@@ -32,5 +32,5 @@ class Authentication extends ChangeNotifier implements Auth {
 
   Future<void> userSignOut() async {
     return _firebaseAuth.signOut();
-  }
+}
 }

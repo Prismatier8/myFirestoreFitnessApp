@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
+import 'package:myfitnessmotivation/globalWidgets/loadingOverlay.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/breakPause.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/widgets/reorderableList.dart';
 import 'package:myfitnessmotivation/services/muscleGroupService.dart';
@@ -34,18 +35,24 @@ class PreparationPage extends StatelessWidget {
                 onPressed: () async {
                   try{
                     await InternetAddress.lookup("example.com");
+                    Navigator.of(context).push(LoadingOverlay());
                     if(await _isDatabaseConnected(context) == false){
+                      Navigator.of(context).pop();
                       scaffoldState.currentState.showSnackBar(SnackBar(content: Text(Names.BASIC_ERRORMESSAGE)));
                       return;
                     }
                     final planService = Provider.of<PlanService>(context, listen: false);
+
                     await planService.getPlan(planModel.title) ///refresh plan so that navigated page has updated plan
                         .then((value){
+                      Navigator.of(context).pop();
                       PlanModel refreshedModel = PlanModel.fromMap(value.data);
                       Navigator.pushNamedAndRemoveUntil(context, NamedRoutes.ROUTE_EXECUTIONPAGE,(_) => false,
                           arguments: refreshedModel);
                     }).catchError((onError){
+                      Navigator.of(context).pop();
                       scaffoldState.currentState.showSnackBar(SnackBar(content: Text(Names.BASIC_ERRORMESSAGE)));
+
                     });
                   } on SocketException catch(_){
                     scaffoldState.currentState.showSnackBar(SnackBar(content: Text("Keine Internetverbindung")));

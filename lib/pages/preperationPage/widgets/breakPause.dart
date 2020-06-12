@@ -62,7 +62,7 @@ class _BreakPauseState extends State<BreakPause> {
   }
   void _showBreakPauseDialog(context, planModel) {
     showDialog(
-        barrierDismissible: false,
+        barrierDismissible: true,
         context: context,
         builder: (BuildContext context) {
           return BreakPauseDialog(planModel);

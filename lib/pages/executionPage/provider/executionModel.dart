@@ -53,7 +53,6 @@ class ExecutionModel extends ChangeNotifier {
     _plan = plan;
     _exerciseRef = plan.exerciseRef;
     await _getNextExerciseSets();
-
   }
 
   ///fetches all sets from a specific exercise and saves the current state to the attributes of the class. The cycle process will make sure, that

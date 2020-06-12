@@ -38,7 +38,7 @@ class _SetPaneState extends State<SetPane> {
   Widget build(BuildContext context) {
     return Consumer<ExecutionModel>(
       builder: (context, execution, _) {
-        return Container(
+        return isInitiated ? Container(
           height: _getHeight(context),
           child: Stack(
             children: <Widget>[
@@ -64,8 +64,8 @@ class _SetPaneState extends State<SetPane> {
                       ],
                     ),
                   ),
-                  isInitiated ? WeightDisplay(execution.getCurrentSet(), execution.getCurrentSet().id) : Container(),
-                  isInitiated ? RepetitionDisplay(execution.getCurrentSet(), execution.getCurrentSet().id) : Container(),
+                  WeightDisplay(execution.getCurrentSet(), execution.getCurrentSet().id),
+                  RepetitionDisplay(execution.getCurrentSet(), execution.getCurrentSet().id),
                 ],
               ),
               Align(
@@ -76,10 +76,13 @@ class _SetPaneState extends State<SetPane> {
               ),
             ],
           ),
+        ) : Center(
+          child: CircularProgressIndicator(),
         );
       },
     );
   }
+  ///calculates the maximum possible height for the set pane based on phone height and height of detail pane
   double _getHeight(BuildContext context){
     final fullPhoneHeight = MediaQuery.of(context).size.height;
     final detailPaneHeight = widget.upperTopHeight;

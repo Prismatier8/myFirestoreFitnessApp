@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/pages/executionPage/provider/executionModel.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
@@ -9,6 +10,7 @@ class CancelExecutionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final breakPause = Provider.of<BreakPauseModel>(context, listen: false);
     final timer = Provider.of<ExecutionTimerModel>(context, listen: false);
+
     return Align(
       alignment: Alignment.topLeft,
       child: Padding(

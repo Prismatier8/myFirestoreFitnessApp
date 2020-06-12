@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
@@ -26,7 +27,9 @@ import 'package:myfitnessmotivation/services/setService.dart';
 import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+
+
+void main() async{
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (context) => TagSelectionModel(),),

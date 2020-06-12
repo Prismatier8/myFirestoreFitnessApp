@@ -32,7 +32,7 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
     _controller = TextEditingController();
     _checkForConnection();
   }
-
+  ///Checks if internet connection is available
   Future _checkForConnection() async {
     try {
       await InternetAddress.lookup("example.com");
@@ -128,6 +128,7 @@ class _BreakPauseDialogState extends State<BreakPauseDialog> {
                 ),
               ));
   }
+  ///Updates plan with new values the user selected for breakpause and audisignal
   _updatePlan(PlanService planService) {
     Map<String, dynamic> update = {
       "breakPause": int.parse(_controller.text),

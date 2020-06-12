@@ -1,12 +1,12 @@
 import 'dart:async';
 import 'dart:isolate';
-
 import 'package:audioplayers/audio_cache.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
-import 'package:vibration/vibration.dart';
+import 'package:workmanager/workmanager.dart';
+
 
 ///Isolated timer
 void runTimer(SendPort sendPort) {
@@ -54,8 +54,10 @@ class BreakPauseModel extends ChangeNotifier {
   start() async {
     if(_isTimerActive == false){
       _isTimerActive = true;
+
       ReceivePort receivePort = ReceivePort();
       isolate = await Isolate.spawn(runTimer, receivePort.sendPort);
+
       receivePort.listen((message) {
         _currentMilliseconds++;
         _decreaseTimer();
