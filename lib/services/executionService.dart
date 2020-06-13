@@ -8,7 +8,7 @@ import 'package:myfitnessmotivation/stringResources/collectionStrings.dart';
 
 class ExecutionService extends ChangeNotifier{
   MyDBApi _api = MyDBApi(collectionPath: Collection.EXECUTIONS);
-
+  ///inserts execution
   addExecution(ExecutionData execution){
     _api.addDocumentWithAutoID(execution.toJson());
   }
@@ -44,12 +44,14 @@ class ExecutionService extends ChangeNotifier{
     }
     return list;
   }
+  ///Deletes all executions that has a specific exercise as reference
   Future deleteExecutionByExercise(String exerciseID) async{
       QuerySnapshot snapshot = await _api.ref.where("exerciseRef", isEqualTo: exerciseID).getDocuments();
       for(int i = 0; i<snapshot.documents.length; i++){
         _api.ref.document(snapshot.documents[i].documentID).delete();
       }
   }
+  ///deletes all executions that has a specific plan as reference
   Future deleteExecutionByPlan(String planID) async{
     QuerySnapshot snapshot = await _api.ref.where("planRef", isEqualTo: planID).getDocuments();
     for(int i = 0; i<snapshot.documents.length; i++){

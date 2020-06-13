@@ -36,6 +36,6 @@ class _LoginPasswordFormFieldState extends State<LoginPasswordFormField> {
           labelText: "Passwort",
         ),
       ),
-    );;
+    );
   }
 }

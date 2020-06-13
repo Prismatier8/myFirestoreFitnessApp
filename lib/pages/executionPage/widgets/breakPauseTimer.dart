@@ -1,14 +1,7 @@
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'file:///C:/Users/R4pture/AndroidStudioProjects/myFirestoreFitnessApp/lib/pages/executionPage/provider/breakPauseModel.dart';
 import 'package:provider/provider.dart';
-import 'package:vibration/vibration.dart';
-
-
-
-
 
 class BreakPauseTimer extends StatefulWidget {
   final PlanModel planModel;
@@ -45,7 +38,7 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
       ),
     );
   }
-
+  /*
   _vibrate(BreakPauseModel breakPause) async {
     if(widget.planModel.vibrationSignal == true){
       final int vibrationLength = 2000;
@@ -68,6 +61,7 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
     }
     return null;
   }
+
   bool _isBreakPauseEndReached(BreakPauseModel breakPause){
     if(breakPause.currentBreakPause == 1){
       return true;
@@ -76,5 +70,6 @@ class _BreakPauseTimerState extends State<BreakPauseTimer> {
       return false;
     }
   }
+   */
 
 }

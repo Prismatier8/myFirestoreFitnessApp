@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/pages/exercisePage/widgets/addExerciseDialog.dart';
 import 'package:myfitnessmotivation/pages/exercisePage/widgets/exercise.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';

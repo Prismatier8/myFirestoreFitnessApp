@@ -14,7 +14,6 @@ class RepetitionDisplay extends StatefulWidget {
 }
 
 class _RepetitionDisplayState extends State<RepetitionDisplay> {
-  bool _isInitiated = false;
   TextEditingController _controller;
   FocusNode _node;
   @override

@@ -8,34 +8,35 @@ import 'myDBAPI.dart';
 
 class ExerciseService extends ChangeNotifier {
   MyDBApi _api = MyDBApi(collectionPath: Collection.EXERCISES);
-
+  ///insert exercise
   Future addExercise(ExerciseModel exercise, String id) async {
     await _api.addDocument(exercise.toJson(), id);
   }
 
-  ///Not tested
+  ///deletes specific exercise
   Future deleteExercise(String exerciseName) async {
     await _api.removeDocument(exerciseName);
   }
-  Future<bool> validateExerciseName(String possibleExerciseName) async{
+  ///check if exercise name already exist in database
+  Future<bool> exerciseNameExist(String exerciseName) async{
     QuerySnapshot snapshot = await _api.ref
-        .where("title", isEqualTo: possibleExerciseName)
+        .where("title", isEqualTo: exerciseName)
         .getDocuments();
     if(snapshot.documents.length == 0){
       return false;
     } else{
       return true;
     }
-
   }
+  ///reeturns all exercise documents as QuerySnapshot by stream
   Stream<QuerySnapshot> getExercisesByStream() {
     return _api.streamDataCollection();
   }
-
+  ///updates exercise with new values from the map of the caller
   Future updateExercise(String exerciseName, Map<String, dynamic> data) async {
     await _api.updateDocument(data, exerciseName);
   }
-
+  ///add a planreference to an exercise
   addPlanToExercise(String exerciseName, String planName) async {
     List<String> plan = [];
     plan.add(planName);
@@ -43,7 +44,7 @@ class ExerciseService extends ChangeNotifier {
 
     await updateExercise(exerciseName, map);
   }
-
+  ///deletes a planreference from the exercise
   Future deletePlanFromExercise(String exerciseName, String planName) async {
     List<String> plan = [];
     plan.add(planName);
@@ -51,7 +52,7 @@ class ExerciseService extends ChangeNotifier {
 
     await updateExercise(exerciseName, map);
   }
-
+  ///get all exercise that has a referencee to a MuscleGroup
   Future<List<ExerciseModel>> getExercisesWithMuscleGroup(
       String muscleGroup) async {
     QuerySnapshot snapshot;
@@ -70,13 +71,13 @@ class ExerciseService extends ChangeNotifier {
     }
     return exerciseDataList;
   }
-
+  ///get a specific exercise
   Future<ExerciseModel> getExerciseData(String exerciseID) async {
     DocumentSnapshot snapshot = await _api.getDocumentById(exerciseID);
     ExerciseModel exercise = ExerciseModel.fromJson(snapshot.data);
     return exercise;
   }
-
+  ///returns a list of all exercises that are referenced in a plan
   //TODO: REFACTOR
   Future<List<ExerciseModel>> getExercisesFromPlan(PlanModel plan) async {
     List<ExerciseModel> exerciseList = [];
@@ -98,7 +99,9 @@ class ExerciseService extends ChangeNotifier {
     final sortedList = _sortList(exerciseList, exerciseRef);
     return sortedList;
   }
-
+  ///The list of exercises that are fetched from the database are not in the correct order
+  ///compared to the order of the planReference array in a plan document.
+  ///The fetched unsorted list of exercises has to be sorted before returning to the UI
   //TODO: REFACTOR
   List<ExerciseModel> _sortList(
       List<ExerciseModel> exerciseList, List<dynamic> exerciseRef) {

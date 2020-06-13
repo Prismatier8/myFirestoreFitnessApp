@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
-import 'package:myfitnessmotivation/globalWidgets/loadingOverlay.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/services/muscleGroupService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';

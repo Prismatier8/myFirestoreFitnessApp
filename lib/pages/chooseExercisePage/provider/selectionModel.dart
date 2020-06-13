@@ -5,6 +5,7 @@ class SelectionModel extends ChangeNotifier{
 
   get currentDropDownSelection => _currentDropDownSelection;
 
+  ///Change State to new selection -> The UI will be notified if called
   select(String selection){
     _currentDropDownSelection = selection;
     notifyListeners();

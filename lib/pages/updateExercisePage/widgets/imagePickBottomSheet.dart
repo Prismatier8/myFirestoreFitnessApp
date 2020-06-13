@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
-import 'package:myfitnessmotivation/services/imageService.dart';
-import 'package:provider/provider.dart';
 
 class ImagePickBottomSheet extends StatelessWidget {
   final ExerciseModel exercise;

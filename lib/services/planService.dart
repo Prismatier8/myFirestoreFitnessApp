@@ -8,12 +8,14 @@ import 'myDBAPI.dart';
 class PlanService extends ChangeNotifier {
   MyDBApi _api = MyDBApi(collectionPath: Collection.PLANS);
 
+  ///insert plan
   Future addPlan(PlanModel plan, String id) async {
     await _api.addDocument(plan.toJson(), id);
   }
-  Future<bool> validatePlanName(String possiblePlanName) async {
+  ///checks if plan name already exist in firestore database
+  Future<bool> planNameExist(String planName) async {
     QuerySnapshot snapshot = await _api.ref
-        .where("title", isEqualTo: possiblePlanName)
+        .where("title", isEqualTo: planName)
         .getDocuments();
     if(snapshot.documents.length == 0){
       return false;
@@ -22,27 +24,27 @@ class PlanService extends ChangeNotifier {
     }
 
   }
-  ///Not tested
+  ///delete plan
   Future deletePlan(String planName) async {
     await _api.removeDocument(planName);
   }
-
+  ///get all plan documents by stream
   Stream<QuerySnapshot> getDocumentsByStream() {
     return _api.streamDataCollection();
   }
-
+  ///returns DocumentSnapshot of plan
   Future<DocumentSnapshot> getPlan(String planName) async {
     return await _api.getDocumentById(planName);
   }
-
+  ///Adds exerciseReferences to plan
   addExerciseToPlan(String planName, Map<String, dynamic> map) async {
     await _api.ref.document(planName).updateData(map);
   }
-
+  ///updates plan
   Future updatePlan(String planName, Map<String, dynamic> data) async {
     await _api.updateDocument(data, planName);
   }
-
+  ///Deletes exercise references from plan
   Future deleteExerciseFromPlans(String exerciseID) async {
     List<String> exerciseIDList = [];
     exerciseIDList.add(exerciseID);

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:myfitnessmotivation/pages/chooseExercisePage/chooseExercisePage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
@@ -28,7 +27,13 @@ import 'package:myfitnessmotivation/stringResources/routesStrings.dart';
 import 'package:provider/provider.dart';
 
 
-
+///An mich selbst und lese es bitte durch: Schön, dass du dich entschieden hast hier weiter zu arbeiten. Bitte überlege dir vorher wie du
+///es schaffen kannst, globale Provider von lokalen Providern zu trennen. Es kann doch nicht sein, dass ich jedes mal einen globalen
+///Provider platzieren muss, nur weil ich den Provider auf mehreren Pages verwende. Versuch bitte davor dir zu überlegen,
+///wie du globale Provider so gut es geht verhindern kannst. Als Erinnerung für dich: Wird Navigator...push() aufgerufen, wird das gepushte Widget direkt
+///unterhalb der MaterialApp() platziert. Ich habe gelesen, dass eventuell jede einzelne Page seinen eigenen Navigator erhält, ob das Sinn macht?? Schau ob
+///du vielleicht ein komplexeres Projekt findest, dass mit Provider arbeitet.
+///UND BITTE! BEVOR DU IRGENDWAS ASYNCHRONES MACHST: DIREKT FEHLERPOTENTIAL AUSPROGRAMMIEREN UND NICHT FAUL SEIN
 void main() async{
   runApp(MultiProvider(
     providers: [

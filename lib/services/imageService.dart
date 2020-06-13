@@ -11,6 +11,7 @@ class ImageService extends ChangeNotifier {
   final FirebaseStorage _instance = FirebaseStorage.instance;
   final ExerciseService _exerciseService = ExerciseService();
 
+  ///uploads an image to the firebase storage.
   uploadImage(File image, ExerciseModel exercise) async {
     if (image == null) {
       return;
@@ -26,12 +27,13 @@ class ImageService extends ChangeNotifier {
       print("Error in ImageService, uploadImage()");
     }
   }
-
+  ///updates exercise to save image reference in exercise document
   _saveImageRefToExercise(
       String exerciseID, StorageReference storageRef) async {
     Map<String, dynamic> fieldToUpdate = {"imageRef": storageRef.path};
     await _exerciseService.updateExercise(exerciseID, fieldToUpdate);
   }
+  ///returns downloadURL when calling this function with image reference
   Future<String> getDownloadURL(String url) async{
     if (url == "") {
       return "";
@@ -39,6 +41,8 @@ class ImageService extends ChangeNotifier {
     String downloadURL = await _instance.ref().child(url).getDownloadURL();
     return downloadURL;
   }
+  ///Returns Icon or the downloaded image depends on the image reference. If reference
+  ///is empty, than it returns a placeholder icon otherwise the downloaded image
   Future<Widget> getImage(String url) async {
 
     if (url == "") {
@@ -47,7 +51,7 @@ class ImageService extends ChangeNotifier {
     String downloadURL = await _instance.ref().child(url).getDownloadURL();
     return Image.network(downloadURL);
   }
-
+  ///deletes image
   deleteImage(String url) {
     _instance.ref().child(url).delete();
   }

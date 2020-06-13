@@ -16,7 +16,7 @@ class MuscleGroupService extends ChangeNotifier {
   ///(Matthias): There is a weird bug on my phone that sometimes slows the internet connection way to much
   ///but it does not disconnect me from the internet. If this function is called and that specific document is not fetched
   ///fast enough, it will time out. Use this function to show error message or do something else when
-  ///database connection is too slow.
+  ///database connection is too slow. ///Next time: it is better to call getCurrentUser() inside [Authentication] class
   Future<bool> isConnected() async {
     bool isConnected = false;
     await _api.getDocumentById("Bauch").then((value) {

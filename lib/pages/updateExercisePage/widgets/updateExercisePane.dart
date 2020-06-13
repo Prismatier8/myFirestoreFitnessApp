@@ -4,7 +4,6 @@ import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/muscleGroup
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/muscleGroupDisplay.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/updateExerciseImage.dart';
 import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/sets.dart';
-import 'package:myfitnessmotivation/pages/updateExercisePage/widgets/updateSetQuantityDialog.dart';
 import 'package:myfitnessmotivation/stringResources/generalStrings.dart';
 
 class UpdateExercisePane extends StatefulWidget {

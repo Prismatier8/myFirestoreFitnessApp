@@ -1,26 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/setModel.dart';
 import 'package:myfitnessmotivation/services/myDBAPI.dart';
 import 'package:myfitnessmotivation/stringResources/collectionStrings.dart';
 
 class SetService extends ChangeNotifier{
   MyDBApi _api = MyDBApi(collectionPath: Collection.SETS);
-
+  ///insert set
   Future addSet(SetModel set) async {
     await _api.addDocumentWithAutoID(set.toJson());
   }
+  ///returns all sets as QuerySnapshot that contains title of exercise
   Future<QuerySnapshot> getReferencedDocuments(String exerciseID) async {
     return await Firestore.instance.collection(Collection.SETS)
         .where("exerciseRef", isEqualTo: exerciseID).getDocuments();
   }
-
+  ///returns one specific plan by setID
   Future<SetModel> getSetByID(String setID) async{
     DocumentSnapshot snapshot = await _api.getDocumentById(setID);
     SetModel set = SetModel.fromMap(snapshot.data);
     return set;
   }
+  ///deletes only one specific set. The sequence number is needed to differentiate between the sets
+  ///referenced to a specific exercise
   Future deleteSetsBySequenceAndExercise(String exerciseName, int sequence) async{
     QuerySnapshot snapshot =  await _api.ref
         .where("exerciseRef", isEqualTo: exerciseName)
@@ -47,6 +49,7 @@ class SetService extends ChangeNotifier{
   Future updateSet(String id, Map<String, dynamic> data) async{
     await _api.updateDocument(data, id);
   }
+  ///updates Weight values of a specific set
   updateWeight(String setID, String weight) async{
     Map<String, dynamic> map = {};
     try{
@@ -60,6 +63,7 @@ class SetService extends ChangeNotifier{
     }
     await _api.updateDocument(map, setID);
   }
+  ///updates repetition value of a specific set
   updateRepetition(String setID, String repetition) async{
     Map<String, dynamic> map = {};
     try{

@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
-import 'package:workmanager/workmanager.dart';
 
 
 ///Isolated timer
@@ -32,7 +31,7 @@ class BreakPauseModel extends ChangeNotifier {
   ///Initiates the plan. Without the initiation, the timer would not be able to work because breakPause and currentBreakPause is null
   ///The initiation requests a plan from firestore depending on the ID of the document which is the title of each plan.
   ///the breakPause and the currentBreakPause will be initiated based on the breakPause time in the document. Call every other method inside
-  ///this class, when you are sure, that init() was called.
+  ///this class, when you are sure, that init() is called before.
   init(PlanModel planModel) async {
     final DocumentSnapshot snapshot =
         await planService.getPlan(planModel.title);
@@ -41,13 +40,18 @@ class BreakPauseModel extends ChangeNotifier {
     _breakPause = planData.breakPause;
     _currentBreakPause = _breakPause;
   }
-  ///refreshes or resets the currentBreakPause to its default Value based on the preferred breakPause time the user has set
+  ///refreshes or resets the currentBreakPause to its default value based on the preferred breakPause time the user has set
   ///specifically for a plan.
   _refresh() {
     _currentBreakPause = _breakPause;
     notifyListeners();
   }
 
+
+  //TODO: The Timer is not working when smartphone is sleeping. You need to access system background service (AlarmManager, WorkManager??)
+  //TODO: But then the Timer has to be an isolated Top-Level function in Dart which I was not able to call a method inside a class that
+  //TODO: has a state. If you have enough time, then try to understand Androids WorkManager and especially the package workmanager.
+  //TODO: Also learn more about the get_it package, this might help for the solution. There has to be an easy way. Same problem in the executionTimerModel
   ///Starts the Timer which is responsible to decrease the currentBreakPause in seconds. The Timer is isolated in a new thread to ensure
   ///functionality in the background. Otherwise the timer would pause when user navigates to a new Application or disables phone display
   ///the listen() is called every time the isolate sends a message

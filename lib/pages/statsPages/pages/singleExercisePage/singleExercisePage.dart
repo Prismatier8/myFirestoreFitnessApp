@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/widgets/exerciseWithStats.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/widgets/statBuilder.dart';
 

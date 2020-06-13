@@ -4,7 +4,6 @@ import 'package:myfitnessmotivation/dataModel/exerciseModel.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/globalWidgets/exerciseImage.dart';
 import 'package:myfitnessmotivation/globalWidgets/titleDisplay.dart';
-import 'package:myfitnessmotivation/pages/chooseExercisePage/provider/selectionModel.dart';
 import 'package:myfitnessmotivation/services/exerciseService.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 import 'package:provider/provider.dart';

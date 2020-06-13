@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+
+///Basic CRUD-Transactions for Firestore calls
 class MyDBApi{
   final Firestore _db = Firestore.instance;
   final String collectionPath;

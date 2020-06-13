@@ -114,7 +114,7 @@ class _AddPlanDialogState extends State<AddPlanDialog> {
           onPressed: () async {
             final val = Provider.of<FormFieldValidationModel>(context, listen: false);
             final planService = Provider.of<PlanService>(context, listen: false);
-            val.planExist = await planService.validatePlanName(val.currentPlanName);
+            val.planExist = await planService.planNameExist(val.currentPlanName);
 
             if(_formKey.currentState.validate() && isSelectedTagsBelowLimit(tagSelectionModel)){
 

@@ -6,7 +6,8 @@ class AccessHandler extends ChangeNotifier{
 
   VoidCallback _logout;
   VoidCallback _login;
-  String _uid; ///currently logged in user ID
+  String _uid; ///currently logged in user ID, which is null if the developer uses hot restart feature
+  ///Better use getCurrentUser() in [Authentication] to be safe or find other solutions
 
   String _currentLoginEmail = "";
   String _currentLoginPassword = "";
@@ -55,7 +56,7 @@ class AccessHandler extends ChangeNotifier{
   login(){
     _login.call();
   }
-  ///Cleanse login info state. Usually called when user successfully
+  ///Wipe login info state. Usually called when user successfully
   ///accessed App
   clear(){
     _currentLoginEmail = "";

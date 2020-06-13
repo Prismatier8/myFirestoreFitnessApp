@@ -62,7 +62,7 @@ class _AddExerciseDialogState extends State<AddExerciseDialog> {
             final val = Provider
                 .of<FormFieldValidationModel>(context, listen: false);
             val.exerciseExist = await exerciseService
-                .validateExerciseName(val.currentExerciseName);
+                .exerciseNameExist(val.currentExerciseName);
             if(_formKey.currentState.validate()){
 
               _addExerciseToDB(setQuantityModel);

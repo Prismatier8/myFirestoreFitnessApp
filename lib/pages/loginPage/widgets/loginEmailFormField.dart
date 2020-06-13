@@ -35,6 +35,6 @@ class _LoginEmailFormFieldState extends State<LoginEmailFormField> {
           labelText: "E-Mail",
         ),
       ),
-    );;
+    );
   }
 }
