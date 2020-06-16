@@ -3,6 +3,8 @@ import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart'
 import 'package:provider/provider.dart';
 
 class LoginEmailFormField extends StatefulWidget {
+  final FocusNode focusNode;
+  LoginEmailFormField({this.focusNode});
   @override
   _LoginEmailFormFieldState createState() => _LoginEmailFormFieldState();
 }
@@ -17,6 +19,13 @@ class _LoginEmailFormFieldState extends State<LoginEmailFormField> {
         keyboardType: TextInputType.emailAddress,
         onChanged: (email){
           accessHandler.setEmail(email);
+        },
+        onFieldSubmitted: (value){
+          if(value.isNotEmpty){
+            if(widget.focusNode != null){
+              FocusScope.of(context).requestFocus(widget.focusNode);
+            }
+          }
         },
         validator: (email){
           if(email.isEmpty){

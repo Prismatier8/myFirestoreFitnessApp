@@ -1,7 +1,9 @@
 
 import 'dart:io';
 
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:myfitnessmotivation/globalWidgets/loadingOverlay.dart';
 import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/services/auth/authentication.dart';
 import 'package:provider/provider.dart';
@@ -36,25 +38,33 @@ class LoginButton extends StatelessWidget {
   ///tries to login user, if error, show error message,
   ///if successful show homePage
   _tryLogin(BuildContext context) async {
-    if (_formKey.currentState.validate()) {
-      final accessHandler = Provider.of<AccessHandler>(context, listen: false);
-      final auth = Provider.of<Authentication>(context, listen: false);
 
-      auth.userSignIn(accessHandler.loginEmail, accessHandler.loginPassword)
-          .then((value) {
-        _showHomePage(accessHandler);
-      }).catchError((error) async {
-        try{
-          await InternetAddress.lookup("example.com");
-
-        } on SocketException catch(_){
-          final snackBar = SnackBar(content: Text("Keine Internetverbindung"));
-          Scaffold.of(context).showSnackBar(snackBar);
-          return;
-        }
-        _showErrorWarning(accessHandler);
-      });
+    try{
+      await InternetAddress.lookup("example.com");
+      if(_formKey.currentState.validate()){
+        final accessHandler = Provider.of<AccessHandler>(context, listen: false);
+        final auth = Provider.of<Authentication>(context, listen: false);
+        Navigator.of(context).push(LoadingOverlay());
+        auth.userSignIn(accessHandler.loginEmail, accessHandler.loginPassword)
+            .then((value) {
+          Navigator.of(context).pop();
+          _showHomePage(accessHandler);
+        }).catchError((error) async {
+          Navigator.of(context).pop();
+          _showErrorWarning(accessHandler);
+        });
+      }
+    } on SocketException catch(_){
+      _showSnackBar(context);
     }
+  }
+  _showSnackBar(BuildContext context){
+    Flushbar(
+      icon: Icon(Icons.warning, color: Colors.yellow,),
+      message: "Du brauchst eine aktive Internetverbindung",
+      flushbarPosition: FlushbarPosition.TOP,
+      duration: Duration(seconds: 3),
+    )..show(context);
   }
   ///Show defined homePage when userSignIn was successful
   _showHomePage(AccessHandler accessHandler) {

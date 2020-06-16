@@ -4,17 +4,21 @@ import 'package:provider/provider.dart';
 
 
 class LoginPasswordFormField extends StatefulWidget {
+  final FocusNode focusNode;
+  LoginPasswordFormField({this.focusNode});
   @override
   _LoginPasswordFormFieldState createState() => _LoginPasswordFormFieldState();
 }
 
 class _LoginPasswordFormFieldState extends State<LoginPasswordFormField> {
+
   @override
   Widget build(BuildContext context) {
     final accessHandler = Provider.of<AccessHandler>(context, listen: false);
     return Container(
       width: MediaQuery.of(context).size.width * 0.9,
       child: TextFormField(
+        focusNode: widget.focusNode,
         onChanged: (password){
           accessHandler.setPassword(password);
         },

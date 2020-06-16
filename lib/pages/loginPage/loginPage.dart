@@ -12,7 +12,16 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-
+  FocusNode _focusNode;
+  void initState() {
+    _focusNode = FocusNode();
+    super.initState();
+  }
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +46,8 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(left: 10, right: 25, top: 100),
                   child: Column(
                     children: <Widget>[
-                      LoginEmailFormField(),
-                      LoginPasswordFormField(),
+                      LoginEmailFormField(focusNode: _focusNode,),
+                      LoginPasswordFormField(focusNode: _focusNode,),
                     ],
                   ),
                 ),
@@ -48,7 +57,6 @@ class _LoginPageState extends State<LoginPage> {
                     MediaQuery.of(context).padding.top) *
                     0.05,
               ),
-
             ],
           ),
           Align(
@@ -56,9 +64,7 @@ class _LoginPageState extends State<LoginPage> {
             child: LoginButton(_formKey
             ),
           ),
-
         ],
-
       ),
     );
   }
