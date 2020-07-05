@@ -5,6 +5,7 @@ import 'package:myfitnessmotivation/pages/executionPage/executionPage.dart';
 import 'package:myfitnessmotivation/pages/executionPage/provider/executionTimerModel.dart';
 import 'package:myfitnessmotivation/pages/loginPage/provider/accessHandler.dart';
 import 'package:myfitnessmotivation/pages/preperationPage/preparationPage.dart';
+import 'package:myfitnessmotivation/pages/registrationPage/registrationPage.dart';
 import 'package:myfitnessmotivation/pages/rootPage/rootPage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/multiExercisePage/multiExercisePage.dart';
 import 'package:myfitnessmotivation/pages/statsPages/pages/singleExercisePage/singleExercisePage.dart';
@@ -85,6 +86,9 @@ class MyApp extends StatelessWidget {
           case NamedRoutes.ROUTE_NAVIGATIONSTACK:
             return MaterialPageRoute(
                 builder: (_) => RootPage(), settings: settings);
+          case NamedRoutes.ROUTE_REGISTRATIONPAGE:
+            return CupertinoPageRoute(
+              builder: (_) => RegistrationPage(), settings: settings);
           default:
             return null;
         }

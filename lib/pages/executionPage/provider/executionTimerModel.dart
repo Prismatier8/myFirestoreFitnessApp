@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:myfitnessmotivation/dataModel/planModel.dart';
 import 'package:myfitnessmotivation/services/planService.dart';
 
-///top level timer that is isolated when called
+///top level timer that is isolated when called to ensure background functionality
 void runTimer(SendPort sendPort) {
   Timer.periodic(Duration(seconds: 1), (timer) {
     sendPort.send("");

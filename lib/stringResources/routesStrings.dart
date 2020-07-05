@@ -6,4 +6,5 @@ class NamedRoutes{
  static const String ROUTE_NAVIGATIONSTACK = '/navigationStack';
  static const String ROUTE_STAT_MULTIEXERCISESPAGE = '/statMultiExercisesPage';
  static const String ROUTE_STAT_SINGLEEXERCISEPAGE = '/statSingleExercisePage';
+ static const String ROUTE_REGISTRATIONPAGE = '/registrationPage';
 }

@@ -54,7 +54,7 @@ class _SetsState extends State<Sets> {
               child: Text(Names.BASIC_ERRORMESSAGE),
             );
           } else{
-            return Container();
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),

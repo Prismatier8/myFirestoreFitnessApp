@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginButton.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginEmailFormField.dart';
 import 'package:myfitnessmotivation/pages/loginPage/widgets/loginPasswordFormField.dart';
+import 'package:myfitnessmotivation/pages/loginPage/widgets/navigateRegistrationText.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -24,17 +25,9 @@ class _LoginPageState extends State<LoginPage> {
   }
   @override
   Widget build(BuildContext context) {
+    double safeArea = MediaQuery.of(context).padding.top;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).accentColor,
-        centerTitle: true,
-        title: Text("Anmelden",
-          style: TextStyle(
-            fontSize: 30,
-            color: Colors.white,
-          ),),
-      ),
       body: Stack(
 
         children: <Widget>[
@@ -46,24 +39,20 @@ class _LoginPageState extends State<LoginPage> {
                   padding: EdgeInsets.only(left: 10, right: 25, top: 100),
                   child: Column(
                     children: <Widget>[
+                      RegistrationText(),
                       LoginEmailFormField(focusNode: _focusNode,),
                       LoginPasswordFormField(focusNode: _focusNode,),
+                      Container(
+                        height: (MediaQuery.of(context).size.height - safeArea) * 0.08,),
+                      LoginButton(_formKey),
+
                     ],
                   ),
                 ),
               ),
-              SizedBox(
-                height: (MediaQuery.of(context).size.height -
-                    MediaQuery.of(context).padding.top) *
-                    0.05,
-              ),
             ],
           ),
-          Align(
-            alignment: Alignment.center,
-            child: LoginButton(_formKey
-            ),
-          ),
+
         ],
       ),
     );

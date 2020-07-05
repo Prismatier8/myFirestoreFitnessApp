@@ -12,6 +12,8 @@ abstract class Auth {
   Future<FirebaseUser> getCurrentUser();
   ///force user to sign out
   Future<void> userSignOut();
+  ///SignUp service
+  Future<String> userSignUp(String email, String password);
 
 }
 class Authentication extends ChangeNotifier implements Auth {
@@ -20,6 +22,12 @@ class Authentication extends ChangeNotifier implements Auth {
 
   Future<String> userSignIn(String email, String password) async {
     AuthResult result = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    FirebaseUser user = result.user;
+    return user.uid;
+  }
+  Future<String> userSignUp(String email, String password) async {
+    AuthResult result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     FirebaseUser user = result.user;
     return user.uid;
